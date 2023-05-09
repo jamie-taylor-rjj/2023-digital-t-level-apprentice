@@ -6,7 +6,7 @@ Please see the [Glossary](./GLOSSARY.MD) for descriptions of some keywords we'll
 
 You may need to get permission to install the [git command line application for Windows](https://git-scm.com/download/win) before you can perform a lot of these actions. If you would prefer, you can install the [GitHub Desktop application](https://desktop.github.com/) - this will wrap all of the git CLI commands in a UI.
 
-This repo has some GitHub specific files (in the [.github directory](./.github/)) which are designed to make things a little easier to manage from an infrastructure point of view. These files form the basis of some basic [DevOps](https://en.wikipedia.org/wiki/DevOps) practises.
+This repo has some GitHub specific files (in the [.github directory](./.github/)) which are designed to make things a little easier to manage from an infrastructure point of view. These files form the basis of some basic [DevOps](https://en.wikipedia.org/wiki/DevOps) practises. Please note that by default this directory might be hidden from view, as it is known as a "dot directory" and by default these folders are hidden from view.
 
 ## Tasks
 
