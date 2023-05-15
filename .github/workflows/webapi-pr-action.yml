@@ -28,7 +28,7 @@ jobs:
       - name: Check Code Format
         run: dotnet-format --check Invoice_Gen.WebApi.sln
 
-  build:
+  tests:
 
     needs: [check-code-formatting]
 
