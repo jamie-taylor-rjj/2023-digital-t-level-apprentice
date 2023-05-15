@@ -1,4 +1,4 @@
-﻿namespace Invoice_Gen.WebApi.Models;
+﻿namespace Invoice_Gen.Models;
 
 public class HelloResponse
 {

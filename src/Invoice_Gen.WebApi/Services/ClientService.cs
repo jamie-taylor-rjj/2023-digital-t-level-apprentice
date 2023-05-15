@@ -1,34 +1,23 @@
-﻿using Invoice_Gen.WebApi.Models;
-using Bogus;
-
-namespace Invoice_Gen.WebApi.Services;
+﻿namespace Invoice_Gen.WebApi.Services;
 
 public class ClientService : IClientService
 {
-    private readonly List<Client> _clients;
-    public ClientService()
+    private readonly IMapper<ClientNameViewModel, Client> _clientViewModelMapper;
+    private readonly IClientRepository _clientRepository;
+    public ClientService(IMapper<ClientNameViewModel, Client> clientViewModelMapper,
+        IClientRepository clientRepository)
     {
-        var clientIds = 1;
-        var clientsFaker = new Faker<Client>()
-            .CustomInstantiator(f => new Client(clientIds++, f.Company.CompanyName()))
-            .FinishWith((f, u) => { });
-        _clients = new List<Client>()
-        {
-            clientsFaker.Generate(),
-            clientsFaker.Generate(),
-            clientsFaker.Generate(),
-            clientsFaker.Generate(),
-            clientsFaker.Generate(),
-        };
+        _clientViewModelMapper = clientViewModelMapper;
+        _clientRepository = clientRepository;
     }
-    public List<Client> GetClients()
+    public List<ClientNameViewModel> GetClients()
     {
-        return _clients;
+        return _clientRepository.GetAll().Select(c => _clientViewModelMapper.Convert(c)).ToList();
     }
 
-    public Client? GetById(int id)
+    public ClientNameViewModel? GetById(int id)
     {
-        var client = _clients.FirstOrDefault(f => f.ClientId == id);
-        return client;
+        var client = _clientRepository.GetAll().FirstOrDefault(f => f.ClientId == id);
+        return client == null ? null : _clientViewModelMapper.Convert(client);
     }
 }

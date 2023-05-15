@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Invoice_Gen.WebApi.Models;
 
 namespace Invoice_Gen.WebApi.Controllers;
 
@@ -11,10 +10,10 @@ namespace Invoice_Gen.WebApi.Controllers;
 public class VersionController : ControllerBase
 {
     /// <summary>
-    /// Gets basic information about this app, wrapped in an instance of <see cref="Invoice_Gen.WebApi.Models.VersionResponse" />
+    /// Gets basic information about this app, wrapped in an instance of <see cref="VersionResponse" />
     /// </summary>
     /// <returns>
-    /// An instance of <see cref="Invoice_Gen.WebApi.Models.VersionResponse" /> which represents the name and version number
+    /// An instance of <see cref="VersionResponse" /> which represents the name and version number
     /// for the running application
     /// </returns>
     [HttpGet]
