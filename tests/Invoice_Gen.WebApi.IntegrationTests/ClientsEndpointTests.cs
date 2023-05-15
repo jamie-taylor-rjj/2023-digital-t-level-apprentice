@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text.Json;
 
 namespace Invoice_Gen.WebApi.IntegrationTests;
@@ -29,5 +30,37 @@ public class ClientsEndpointTests : IClassFixture<WebApplicationFactory<Program>
 
         Assert.NotNull(listOfClients);
         Assert.IsAssignableFrom<List<Client>>(listOfClients);
+    }
+    
+    [Fact]
+    public async Task ClientById_With_ValidId_Returns_Client()
+    {
+        // arrange
+        var client = _factory.CreateClient();
+        
+        // act
+        var response = await client.GetAsync("Clients/1");
+
+        // assert
+        response.EnsureSuccessStatusCode();
+        
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var clientDetails = JsonSerializer.Deserialize<Client>(responseContent);
+
+        Assert.NotNull(clientDetails);
+        Assert.IsAssignableFrom<Client>(clientDetails);
+    }
+    
+    [Fact]
+    public async Task ClientById_With_InvalidId_Returns_NotFound()
+    {
+        // arrange
+        var client = _factory.CreateClient();
+        
+        // act
+        var response = await client.GetAsync("Clients/-1");
+
+        // assert
+        Assert.NotEqual(HttpStatusCode.OK, response.StatusCode);
     }
 }

@@ -29,6 +29,24 @@ public class ClientsController : ControllerBase
     public IActionResult Get()
     {
         var clients = _clientService.GetClients();
-        return Ok(clients);
+        return new OkObjectResult(clients);
+    }
+    
+    /// <summary>
+    /// Gets the instance of <see cref="Invoice_Gen.WebApi.Models.Client"/> for the provided <paramref name="clientId"/>
+    /// </summary>
+    /// <returns>
+    /// A list of <see cref="Invoice_Gen.WebApi.Models.Client"/> instances with some default data
+    /// </returns>
+    [HttpGet("{clientId}", Name="GetClientById")]
+    [ProducesResponseType(typeof(Client), StatusCodes.Status200OK)]
+    public IActionResult GetClientById(int clientId)
+    {
+        var client = _clientService.GetById(clientId);
+        if (client == null)
+        {
+            return new NotFoundResult();
+        }
+        return new OkObjectResult(client);
     }
 }
