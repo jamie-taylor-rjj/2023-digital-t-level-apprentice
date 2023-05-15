@@ -1,9 +1,9 @@
-﻿using Invoice_Gen.WebApi.Models;
+﻿using Invoice_Gen.ViewModels;
 
 namespace Invoice_Gen.WebApi.Services;
 
 public interface IClientService
 {
-    List<Client> GetClients();
-    Client? GetById(int id);
+    List<ClientNameViewModel> GetClients();
+    ClientNameViewModel? GetById(int id);
 }

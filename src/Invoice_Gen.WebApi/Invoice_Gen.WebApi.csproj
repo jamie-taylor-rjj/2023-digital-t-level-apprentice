@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <VersionPrefix>0.0.0.2-beta</VersionPrefix>
+    <VersionPrefix>0.0.0.3-beta</VersionPrefix>
     <AssemblyName>Invoice_Gen.WebApi</AssemblyName>
     <PackageId>Invoice_Gen.WebApi</PackageId>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -16,11 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="OwaspHeaders.Core" Version="6.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="ClacksMiddlware" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Invoice_Gen.ViewModels\Invoice_Gen.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

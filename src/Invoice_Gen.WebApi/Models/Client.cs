@@ -1,12 +1,13 @@
-﻿namespace Invoice_Gen.WebApi.Models;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Invoice_Gen.WebApi.Models;
+
+[ExcludeFromCodeCoverage]
 public class Client
 {
-    public Client(int clientId, string clientName)
-    {
-        ClientId = clientId;
-        ClientName = clientName;
-    }
-    public int ClientId { get; set; }
-    public string ClientName { get; set; }
+    public int ClientId { get; init; }
+    public string ClientName { get; init; } = null!;
+    public string ClientAddress { get; set; } = null!;
+    public string ContactName { get; set; } = null!;
+    public string ContactEmail { get; set; } = null!;
 }

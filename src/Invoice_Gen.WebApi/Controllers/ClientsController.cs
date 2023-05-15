@@ -1,5 +1,4 @@
-﻿using Invoice_Gen.WebApi.Models;
-using Invoice_Gen.WebApi.Services;
+﻿using Invoice_Gen.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_Gen.WebApi.Controllers;
@@ -19,13 +18,13 @@ public class ClientsController : ControllerBase
     }
 
     /// <summary>
-    /// Returns a new instance of <see cref="Invoice_Gen.WebApi.Models.Client"/>
+    /// Returns a new instance of <see cref="ClientNameViewModel"/>
     /// </summary>
     /// <returns>
-    /// A list of <see cref="Invoice_Gen.WebApi.Models.Client"/> instances with some default data
+    /// A list of <see cref="ClientNameViewModel"/> instances with some default data
     /// </returns>
     [HttpGet(Name = "GetClients")]
-    [ProducesResponseType(typeof(List<Client>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<ClientNameViewModel>), StatusCodes.Status200OK)]
     public IActionResult Get()
     {
         var clients = _clientService.GetClients();
@@ -33,13 +32,13 @@ public class ClientsController : ControllerBase
     }
     
     /// <summary>
-    /// Gets the instance of <see cref="Invoice_Gen.WebApi.Models.Client"/> for the provided <paramref name="clientId"/>
+    /// Gets the instance of <see cref="ClientNameViewModel"/> for the provided <paramref name="clientId"/>
     /// </summary>
     /// <returns>
-    /// A list of <see cref="Invoice_Gen.WebApi.Models.Client"/> instances with some default data
+    /// A list of <see cref="ClientNameViewModel"/> instances with some default data
     /// </returns>
     [HttpGet("{clientId}", Name="GetClientById")]
-    [ProducesResponseType(typeof(Client), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ClientNameViewModel), StatusCodes.Status200OK)]
     public IActionResult GetClientById(int clientId)
     {
         var client = _clientService.GetById(clientId);

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Invoice_Gen.WebApi.Models;
+﻿using Invoice_Gen.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_Gen.WebApi.Controllers;
 
@@ -16,10 +16,10 @@ public class HelloController : ControllerBase
     }
 
     /// <summary>
-    /// Returns a new instance of <see cref="Invoice_Gen.WebApi.Models.HelloResponse"/>
+    /// Returns a new instance of <see cref="HelloResponse"/>
     /// </summary>
     /// <returns>
-    /// A  new instance of <see cref="Invoice_Gen.WebApi.Models.HelloResponse"/> with some default data
+    /// A  new instance of <see cref="HelloResponse"/> with some default data
     /// </returns>
     [HttpGet(Name = "GetHello")]
     [ProducesResponseType(typeof(HelloResponse), StatusCodes.Status200OK)]

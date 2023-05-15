@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using Invoice_Gen.ViewModels;
 
 namespace Invoice_Gen.WebApi.IntegrationTests;
 
@@ -26,10 +27,10 @@ public class ClientsEndpointTests : IClassFixture<WebApplicationFactory<Program>
         response.EnsureSuccessStatusCode();
         
         var responseContent = await response.Content.ReadAsStringAsync();
-        var listOfClients = JsonSerializer.Deserialize<List<Client>>(responseContent);
+        var listOfClients = JsonSerializer.Deserialize<List<ClientNameViewModel>>(responseContent);
 
         Assert.NotNull(listOfClients);
-        Assert.IsAssignableFrom<List<Client>>(listOfClients);
+        Assert.IsAssignableFrom<List<ClientNameViewModel>>(listOfClients);
     }
     
     [Fact]
@@ -45,10 +46,10 @@ public class ClientsEndpointTests : IClassFixture<WebApplicationFactory<Program>
         response.EnsureSuccessStatusCode();
         
         var responseContent = await response.Content.ReadAsStringAsync();
-        var clientDetails = JsonSerializer.Deserialize<Client>(responseContent);
+        var clientDetails = JsonSerializer.Deserialize<ClientNameViewModel>(responseContent);
 
         Assert.NotNull(clientDetails);
-        Assert.IsAssignableFrom<Client>(clientDetails);
+        Assert.IsAssignableFrom<ClientNameViewModel>(clientDetails);
     }
     
     [Fact]
