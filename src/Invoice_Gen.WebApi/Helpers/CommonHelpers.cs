@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Invoice_Gen.WebApi.Helpers;
 public static class CommonHelpers

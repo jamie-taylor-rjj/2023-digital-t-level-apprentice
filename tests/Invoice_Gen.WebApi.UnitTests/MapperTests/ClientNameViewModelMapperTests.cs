@@ -1,4 +1,4 @@
-using Invoice_Gen.ViewModels;
+﻿using Invoice_Gen.ViewModels;
 
 namespace Invoice_Gen.WebApi.UnitTests.MapperTests;
 
@@ -13,7 +13,7 @@ public class ClientNameViewModelMapperTests
         _rng = new Random();
         _mapper = new ClientNameViewModelMapper();
     }
-    
+
     [Fact]
     public void Given_Client_Can_MapTo_ClientNameViewModel()
     {
@@ -26,16 +26,16 @@ public class ClientNameViewModelMapperTests
             ContactName = Guid.NewGuid().ToString(),
             ClientId = _rng.Next(1, 200)
         };
-        
+
         // Act
         var clientViewModel = _mapper.Convert(client);
-        
+
         // Assert
-        Assert.NotNull(clientViewModel);Assert.IsAssignableFrom<ClientNameViewModel>(clientViewModel);
+        Assert.NotNull(clientViewModel); Assert.IsAssignableFrom<ClientNameViewModel>(clientViewModel);
         Assert.Equal(client.ClientName, clientViewModel.ClientName);
         Assert.Equal(client.ClientId, clientViewModel.ClientId);
     }
-    
+
     [Fact]
     public void Given_ClientViewModel_Cannot_MapTo_Client()
     {
@@ -45,10 +45,10 @@ public class ClientNameViewModelMapperTests
             ClientName = Guid.NewGuid().ToString(),
             ClientId = _rng.Next(1, 200)
         };
-        
+
         // Act
         var exception = Record.Exception(() => _mapper.Convert(clientViewModel));
-        
+
         // Assert
         Assert.NotNull(exception);
         Assert.IsAssignableFrom<NotImplementedException>(exception);

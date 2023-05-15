@@ -1,4 +1,4 @@
-namespace Invoice_Gen.ViewModels;
+﻿namespace Invoice_Gen.ViewModels;
 
 public class VersionResponse
 {

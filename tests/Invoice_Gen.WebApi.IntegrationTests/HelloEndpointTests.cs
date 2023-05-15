@@ -12,11 +12,12 @@ public class HelloEndpointTests : IClassFixture<WebApplicationFactory<Program>>
         _factory = factory;
     }
 
-    [Fact] public async Task Hello_Returns_OK()
+    [Fact]
+    public async Task Hello_Returns_OK()
     {
         // arrange
         var client = _factory.CreateClient();
-        
+
         // act
         var response = await client.GetAsync("Hello");
 

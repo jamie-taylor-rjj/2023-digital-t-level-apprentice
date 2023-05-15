@@ -15,7 +15,7 @@ public class VersionEndpointTests : IClassFixture<WebApplicationFactory<Program>
     {
         // arrange
         var client = _factory.CreateClient();
-        
+
         // act
         var response = await client.GetAsync("");
 
