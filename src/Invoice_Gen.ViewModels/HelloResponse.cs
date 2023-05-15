@@ -1,4 +1,4 @@
-﻿namespace Invoice_Gen.Models;
+﻿namespace Invoice_Gen.ViewModels;
 
 public class HelloResponse
 {

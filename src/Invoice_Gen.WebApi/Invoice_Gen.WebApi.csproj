@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Invoice_Gen.Models\Invoice_Gen.Models.csproj" />
+    <ProjectReference Include="..\Invoice_Gen.ViewModels\Invoice_Gen.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

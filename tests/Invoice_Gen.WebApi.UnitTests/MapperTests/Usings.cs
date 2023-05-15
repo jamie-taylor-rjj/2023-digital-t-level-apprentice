@@ -1,4 +1,3 @@
 ﻿global using System.Diagnostics.CodeAnalysis;
-global using Invoice_Gen.Models;
 global using Invoice_Gen.WebApi.Mappers;
 global using Invoice_Gen.WebApi.Models;

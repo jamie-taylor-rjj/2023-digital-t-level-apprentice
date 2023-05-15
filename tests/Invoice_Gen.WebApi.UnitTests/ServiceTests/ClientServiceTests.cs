@@ -1,4 +1,5 @@
-﻿using Invoice_Gen.WebApi.Repositories;
+﻿using Invoice_Gen.ViewModels;
+using Invoice_Gen.WebApi.Repositories;
 using Invoice_Gen.WebApi.Services;
 
 namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;

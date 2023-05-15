@@ -1,3 +1,5 @@
+using Invoice_Gen.ViewModels;
+
 namespace Invoice_Gen.WebApi.UnitTests.MapperTests;
 
 [ExcludeFromCodeCoverage]

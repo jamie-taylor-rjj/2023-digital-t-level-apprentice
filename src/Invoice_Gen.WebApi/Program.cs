@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using ClacksMiddleware.Extensions;
+using Invoice_Gen.ViewModels;
 using OwaspHeaders.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,6 +1,6 @@
 using System.Net;
 using System.Text.Json;
-using Invoice_Gen.Models;
+using Invoice_Gen.ViewModels;
 
 namespace Invoice_Gen.WebApi.IntegrationTests;
 

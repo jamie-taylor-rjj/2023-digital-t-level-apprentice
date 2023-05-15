@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.WebApi.Integrat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_GenUI", "src\Invoice_GenUI\Invoice_GenUI\Invoice_GenUI.csproj", "{7F291313-167E-426E-AB17-C07DC4E5B0A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.Models", "src\Invoice_Gen.Models\Invoice_Gen.Models.csproj", "{76E98319-0968-4CDA-885F-C180175C6AA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.ViewModels", "src\Invoice_Gen.ViewModels\Invoice_Gen.ViewModels.csproj", "{76E98319-0968-4CDA-885F-C180175C6AA3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.WebApi.UnitTests", "tests\Invoice_Gen.WebApi.UnitTests\Invoice_Gen.WebApi.UnitTests.csproj", "{E6FC56C0-95BE-4EA2-9002-89D9954E6B09}"
 EndProject
