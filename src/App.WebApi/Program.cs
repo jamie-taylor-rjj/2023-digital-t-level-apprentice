@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using App.WebApi.Services;
 using ClacksMiddleware.Extensions;
 using OwaspHeaders.Core.Extensions;
 
@@ -13,6 +14,8 @@ builder.Services.AddSwaggerGen(o => {
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     o.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
+
+builder.Services.AddTransient<IClientService, ClientService>();
 
 var app = builder.Build();
 
