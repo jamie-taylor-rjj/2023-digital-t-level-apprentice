@@ -5,6 +5,7 @@ namespace App.WebApi.Controllers;
 
 // This controller currently responds to /
 // This is a quick way to find out if the app is running correctly.
+[ApiController]
 [Route("/")]
 [Produces("application/json")]
 public class VersionController : ControllerBase
