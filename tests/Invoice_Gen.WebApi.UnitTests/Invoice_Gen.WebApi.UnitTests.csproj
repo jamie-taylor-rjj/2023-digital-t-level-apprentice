@@ -2,8 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
+        <VersionPrefix>0.0.0.3-beta</VersionPrefix>
+        <AssemblyName>Invoice_Gen.WebApi.UnitTests</AssemblyName>
+        <PackageId>Invoice_Gen.WebApi.UnitTests</PackageId>
+        <NoWarn>$(NoWarn);1591</NoWarn>
         <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
