@@ -1,6 +1,7 @@
 ﻿using Invoice_GenUI.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace Invoice_GenUI
                 Description = Guid.NewGuid().ToString(),
                 Quantity = 2,
                 Cost = 9.99
-            }); ;
+            }); 
 
             InitializeComponent();
 
@@ -40,6 +41,8 @@ namespace Invoice_GenUI
             }
 
             txt_totalValue.Text += " " + runningTotal.ToString();
+
+            dg_lineItems.ItemsSource = _tempLineIems;
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {

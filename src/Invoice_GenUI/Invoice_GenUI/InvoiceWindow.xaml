@@ -100,17 +100,7 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
-                            <TextBlock Text="Description" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Background="#FF4C525A" Width="265"/>
-                            <TextBlock Text="Quantity" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Background="#FF4C525A" Width="70" TextAlignment="Center"/>
-                            <TextBlock Text="Cost" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Background="#FF4C525A" Width="90" TextAlignment="Center"/>
-                            <TextBlock Text="Total" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Background="#FF4C525A" Width="90" TextAlignment="Center"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
-                            <TextBox FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite" Background="{x:Null}" Width="260" Margin="0 0 5 0"/>
-                            <TextBox FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite" Background="{x:Null}" Width="70" TextAlignment="Center" Margin="0 0 5 0" Text="0.0"/>
-                            <TextBox FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite" Background="{x:Null}" Width="85" TextAlignment="Center" Margin="0 0 5 0" Text="0.0"/>
-                            <TextBox FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite" Background="{x:Null}" Width="85" TextAlignment="Center" Margin="0 0 5 0" Text="0.0"/>
+                            <DataGrid x:Name="dg_lineItems" Width="520" Height="100"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
