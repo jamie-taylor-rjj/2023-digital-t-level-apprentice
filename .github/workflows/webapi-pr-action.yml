@@ -47,7 +47,7 @@ jobs:
           include-prerelease: true
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore src/Invoice_Gen.WebApi/Invoice_Gen.WebApi.csproj
 
       - name: Build
         run: dotnet build --configuration Release --no-restore src/Invoice_Gen.WebApi/Invoice_Gen.WebApi.csproj
