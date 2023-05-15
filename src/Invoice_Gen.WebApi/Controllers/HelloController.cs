@@ -24,9 +24,9 @@ public class HelloController : ControllerBase
     [HttpGet(Name = "GetHello")]
     [ProducesResponseType(typeof(HelloResponse), StatusCodes.Status200OK)]
     public IActionResult Get() => Ok(new HelloResponse
-        {
-            Date = DateOnly.FromDateTime(DateTime.Now),
-            Message = "Howdy!"
-        }
+    {
+        Date = DateOnly.FromDateTime(DateTime.Now),
+        Message = "Howdy!"
+    }
     );
 }

@@ -22,6 +22,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.ViewModels", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.WebApi.UnitTests", "tests\Invoice_Gen.WebApi.UnitTests\Invoice_Gen.WebApi.UnitTests.csproj", "{E6FC56C0-95BE-4EA2-9002-89D9954E6B09}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{C02A8D52-FC59-43A2-AC67-49117705277B}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\main_2023-invoice-gen.yml = .github\workflows\main_2023-invoice-gen.yml
+		.github\workflows\webapi-pr-action.yml = .github\workflows\webapi-pr-action.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

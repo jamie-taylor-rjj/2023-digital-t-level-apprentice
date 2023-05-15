@@ -30,14 +30,14 @@ public class ClientsController : ControllerBase
         var clients = _clientService.GetClients();
         return new OkObjectResult(clients);
     }
-    
+
     /// <summary>
     /// Gets the instance of <see cref="ClientNameViewModel"/> for the provided <paramref name="clientId"/>
     /// </summary>
     /// <returns>
     /// A list of <see cref="ClientNameViewModel"/> instances with some default data
     /// </returns>
-    [HttpGet("{clientId}", Name="GetClientById")]
+    [HttpGet("{clientId}", Name = "GetClientById")]
     [ProducesResponseType(typeof(ClientNameViewModel), StatusCodes.Status200OK)]
     public IActionResult GetClientById(int clientId)
     {
