@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using ClacksMiddleware.Extensions;
+using OwaspHeaders.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSecureHeadersMiddleware(
+    SecureHeadersMiddlewareExtensions
+        .BuildDefaultConfiguration()
+);
 
 app.UseHttpsRedirection();
 
