@@ -47,10 +47,10 @@ jobs:
           include-prerelease: true
 
       - name: Install dependencies
-        run: dotnet restore src/Invoice_Gen.WebApi/Invoice_Gen.WebApi.csproj
+        run: dotnet restore Invoice_Gen.WebApi.sln
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore src/Invoice_Gen.WebApi/Invoice_Gen.WebApi.csproj
+        run: dotnet build --configuration Release --no-restore Invoice_Gen.WebApi.sln
+
       - name: Test
-        
         run: dotnet test --no-restore --verbosity normal Invoice_Gen.WebApi.sln
