@@ -1,8 +1,8 @@
-﻿using App.WebApi.Models;
-using App.WebApi.Services;
+﻿using Invoice_Gen.WebApi.Models;
+using Invoice_Gen.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App.WebApi.Controllers;
+namespace Invoice_Gen.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -19,10 +19,10 @@ public class ClientsController : ControllerBase
     }
 
     /// <summary>
-    /// Returns a new instance of <see cref="App.WebApi.Models.Client"/>
+    /// Returns a new instance of <see cref="Invoice_Gen.WebApi.Models.Client"/>
     /// </summary>
     /// <returns>
-    /// A list of <see cref="App.WebApi.Models.Client"/> instances with some default data
+    /// A list of <see cref="Invoice_Gen.WebApi.Models.Client"/> instances with some default data
     /// </returns>
     [HttpGet(Name = "GetClients")]
     [ProducesResponseType(typeof(List<Client>), StatusCodes.Status200OK)]

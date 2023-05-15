@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace App.WebApi.Helpers;
+namespace Invoice_Gen.WebApi.Helpers;
 public static class CommonHelpers
 {
     public static string GetVersionNumber()

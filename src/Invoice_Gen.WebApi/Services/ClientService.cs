@@ -1,13 +1,13 @@
-﻿using App.WebApi.Models;
+﻿using Invoice_Gen.WebApi.Models;
 using Bogus;
 
-namespace App.WebApi.Services;
+namespace Invoice_Gen.WebApi.Services;
 
 public class ClientService : IClientService
 {
     public List<Client> GetClients()
     {
-        var clientIds = 0;
+        var clientIds = 1;
         var clientsFaker = new Faker<Client>()
             .CustomInstantiator(f => new Client(clientIds++, f.Company.CompanyName()))
             .FinishWith((f, u) => { });

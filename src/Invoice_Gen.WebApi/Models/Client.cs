@@ -1,4 +1,4 @@
-﻿namespace App.WebApi.Models;
+﻿namespace Invoice_Gen.WebApi.Models;
 
 public class Client
 {
