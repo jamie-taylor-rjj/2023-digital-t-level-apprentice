@@ -17,6 +17,9 @@ namespace Invoice_GenUI.ViewModels
 
         public ObservableCollection<ClientNameViewModel> ClientNames { get; } = new ObservableCollection<ClientNameViewModel>();
 
+        [ObservableProperty]
+        public ClientNameViewModel _selectedClientName = new ClientNameViewModel();
+
         public InvoiceViewModel()
         {
             using (var client = new HttpClient())

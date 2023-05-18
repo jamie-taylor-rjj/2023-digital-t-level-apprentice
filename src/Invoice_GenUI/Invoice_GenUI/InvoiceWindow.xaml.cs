@@ -67,8 +67,8 @@ namespace Invoice_GenUI
         {
             var clientBox = (ComboBox)sender;
 
-            var clientName = (ComboBoxItem)clientBox.SelectedItem;
-            txt_reference.Text = "RJJ-" + clientName.Content.ToString();
+            var selectedClient = (ClientNameViewModel)clientBox.SelectedItem;
+            txt_reference.Text = "RJJ-" + selectedClient.ClientName;
         }
 
         private void dt_issueDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
