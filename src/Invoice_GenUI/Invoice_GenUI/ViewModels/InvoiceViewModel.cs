@@ -41,6 +41,12 @@ namespace Invoice_GenUI.ViewModels
                 }
 
             }
+            LineItems.Add(new LineItemViewModel
+            {
+                Description = Guid.NewGuid().ToString(),
+                Quantity = 2,
+                Cost = 9.99
+            });
         }
 
         [RelayCommand]
@@ -53,6 +59,16 @@ namespace Invoice_GenUI.ViewModels
                 Cost = lineItem.Cost,
             };
             LineItems.Add(newLineItem);
+        }
+        public double LineItemsTotal()
+        {
+            var runningTotal = 0.0;
+
+            foreach (var item in LineItems)
+            {
+                runningTotal += item.Total();
+            }
+            return runningTotal;
         }
     }
 }

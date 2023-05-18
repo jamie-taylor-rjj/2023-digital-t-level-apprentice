@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Invoice_GenUI.ViewModels
+﻿namespace Invoice_GenUI.ViewModels
 {
     public class LineItemViewModel
     { 

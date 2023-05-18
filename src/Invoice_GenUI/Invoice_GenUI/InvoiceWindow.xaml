@@ -97,7 +97,14 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
-                            <DataGrid x:Name="dg_lineItems" Width="520" Height="100"/>
+                            <DataGrid x:Name="dg_lineItems" Width="520" Height="100" AutoGenerateColumns="False" ItemsSource="{Binding Source=LineItems}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                                    <DataGridTextColumn Header="Quatity" Binding="{Binding Quantity}"/>
+                                    <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
+          
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
