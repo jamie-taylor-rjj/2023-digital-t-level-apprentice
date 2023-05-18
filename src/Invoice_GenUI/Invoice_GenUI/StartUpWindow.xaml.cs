@@ -8,9 +8,13 @@ namespace Invoice_GenUI
     /// </summary>
     public partial class StartUpWindow : Window
     {
-        public StartUpWindow()
+        private readonly CreateClientWindow _clientWindow;
+        private readonly InvoiceWindow _invoiceWindow;
+        public StartUpWindow(InvoiceWindow invoiceWindow, CreateClientWindow clientWindow)
         {
             InitializeComponent();
+            _invoiceWindow = invoiceWindow;
+            _clientWindow = clientWindow;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -25,15 +29,13 @@ namespace Invoice_GenUI
 
         private void btn_createClient_Click(object sender, RoutedEventArgs e)
         {
-            var clientWindow = new CreateClientWindow();
-            clientWindow.Show();
+            _clientWindow.Show();
             this.Hide();
         }
 
         private void btn_invoice_Click(object sender, RoutedEventArgs e)
         {
-            var invoiceWindow = new InvoiceWindow();
-            invoiceWindow.Show();
+            _invoiceWindow.Show();
             this.Hide();
         }
     }

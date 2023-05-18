@@ -1,4 +1,4 @@
-﻿using Invoice_GenUI.Model;
+﻿using Invoice_GenUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -12,9 +12,11 @@ namespace Invoice_GenUI
     /// </summary>
     public partial class InvoiceWindow : Window
     {
-        private List<LineItem> _tempLineIems = new List<LineItem>();
-        public InvoiceWindow()
+        private readonly CreateClientWindow _clientWindow;
+        private List<LineItemViewModel> _tempLineIems = new List<LineItemViewModel>();
+        public InvoiceWindow(CreateClientWindow clientWindow)
         {
+            _clientWindow = clientWindow;
             _tempLineIems.Add(new()
             {
                 Description = Guid.NewGuid().ToString(),
@@ -45,17 +47,9 @@ namespace Invoice_GenUI
 
         // -------------------------- NAVIGATION BUTTONS ----------------------------
 
-        private void btn_home_Click(object sender, RoutedEventArgs e)
-        {
-            var HomeWindow = new StartUpWindow();
-            HomeWindow.Show();
-            this.Hide();
-        }
-
         private void btn_createClient_Click(object sender, RoutedEventArgs e)
         {
-            var clientWindow = new CreateClientWindow();
-            clientWindow.Show();
+            _clientWindow.Show();
             this.Hide();
         }
 

@@ -39,11 +39,7 @@
                 <Separator Height="0.8" Margin="20 20" Background="White"/>
 
                 <!--Menu Buttons-->
-                <Button x:Name="btn_home" Style="{StaticResource homeButton}" Click="btn_home_Click">
-                    <StackPanel Background="Transparent">
-                        <TextBlock Text="Home" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
+ 
 
                 <Button x:Name="btn_leftCreateClient" Style="{StaticResource homeButtonActive}" IsEnabled="False">
                     <StackPanel Background="Transparent">
