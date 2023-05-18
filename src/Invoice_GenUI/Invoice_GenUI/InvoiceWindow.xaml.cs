@@ -1,8 +1,12 @@
 ﻿using Invoice_GenUI.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Invoice_GenUI
@@ -14,6 +18,7 @@ namespace Invoice_GenUI
     {
         private readonly CreateClientWindow _clientWindow;
         private List<LineItemViewModel> _tempLineIems = new List<LineItemViewModel>();
+        public ObservableCollection<ClientNameViewModel> ClientNames = new ObservableCollection<ClientNameViewModel>();
         public InvoiceWindow(CreateClientWindow clientWindow)
         {
             _clientWindow = clientWindow;
@@ -22,7 +27,9 @@ namespace Invoice_GenUI
                 Description = Guid.NewGuid().ToString(),
                 Quantity = 2,
                 Cost = 9.99
-            }); 
+            });
+
+            
 
             InitializeComponent();
 
@@ -36,6 +43,9 @@ namespace Invoice_GenUI
             txt_totalValue.Text += " " + runningTotal.ToString();
 
             dg_lineItems.ItemsSource = _tempLineIems;
+
+            DataContext = new InvoiceViewModel();
+
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {

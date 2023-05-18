@@ -92,7 +92,7 @@
                     <StackPanel>
                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
                             <TextBlock Text="Client Name" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite"/>
-                            <ComboBox x:Name="cb_clientName" Width="200" Height="25" SelectionChanged="cb_clientName_SelectionChanged"/>
+                            <ComboBox x:Name="cb_clientName" Width="200" Height="25" SelectionChanged="cb_clientName_SelectionChanged" ItemsSource="{Binding Path=ClientNames}" DisplayMemberPath="ClientName"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
