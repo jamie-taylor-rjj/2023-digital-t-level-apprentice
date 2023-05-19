@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -9,6 +10,9 @@ namespace Invoice_GenUI.ViewModels
     public partial class InvoiceViewModel : ObservableObject // Observable object is closed for modification but opened it up for extension
     {
         private readonly IClientService _clientService;
+
+        [ObservableProperty]
+        private bool clientNameLoading;
 
         [ObservableProperty] // Populating property
         public LineItemViewModel lineItem = new();
@@ -23,11 +27,7 @@ namespace Invoice_GenUI.ViewModels
         public InvoiceViewModel(IClientService clientService)
         {
             _clientService = clientService;
-            var tempClients = _clientService.GetClientNames();
-            foreach (var clientName in tempClients) 
-            {
-                ClientNames.Add(clientName);
-            }
+            
             
             LineItems.Add(new LineItemViewModel
             {
@@ -35,6 +35,26 @@ namespace Invoice_GenUI.ViewModels
                 Quantity = 2,
                 Cost = 9.99
             });
+        }
+
+        [RelayCommand]
+        public async Task GetClientNames()
+        {
+            ClientNameLoading = true;
+
+            var tempClients = await _clientService.GetClientNames();
+
+            if (tempClients.Count != 0) 
+            {
+                ClientNames.Clear();
+
+                foreach (var clientName in tempClients)
+                {
+                    ClientNames.Add(clientName);
+                }
+            }
+            
+           ClientNameLoading = false;
         }
 
         [RelayCommand]
