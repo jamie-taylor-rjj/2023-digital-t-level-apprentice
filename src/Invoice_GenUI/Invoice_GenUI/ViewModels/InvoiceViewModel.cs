@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Net.Http;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Net.Http.Json;
+using Invoice_GenUI.Models;
 
 namespace Invoice_GenUI.ViewModels
 {
-    public partial class InvoiceViewModel : ObservableObject
+    public partial class InvoiceViewModel : ObservableObject // Observable object is closed for modification but opened it up for extension
     {
+        private readonly IClientService _clientService;
+
         [ObservableProperty] // Populating property
         public LineItemViewModel lineItem = new();
 
@@ -20,27 +20,15 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         public ClientNameViewModel _selectedClientName = new ClientNameViewModel();
 
-        public InvoiceViewModel()
+        public InvoiceViewModel(IClientService clientService)
         {
-            using (var client = new HttpClient())
+            _clientService = clientService;
+            var tempClients = _clientService.GetClientNames();
+            foreach (var clientName in tempClients) 
             {
-                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
-
-                var response = client.GetAsync("clients").Result; // http request for base address + clients
-
-                response.EnsureSuccessStatusCode(); // Makes sure response is valid
-
-                var temp = response.Content.ReadFromJsonAsync<List<ClientNameViewModel>>().Result;
-
-                if (temp != null)
-                {
-                    foreach (var item in temp)
-                    {
-                        ClientNames.Add(item);
-                    }
-                }
-
+                ClientNames.Add(clientName);
             }
+            
             LineItems.Add(new LineItemViewModel
             {
                 Description = Guid.NewGuid().ToString(),
