@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Invoice_GenUI"
          mc:Ignorable="d" Height="450" Width="800" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent">
-    <Grid>
+    <Grid IsEnabled="{Binding Path=!ClientNameLoading}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="1*"/>
@@ -39,11 +39,7 @@
                 <Separator Height="0.8" Margin="20 20" Background="White"/>
 
                 <!--Menu Buttons-->
-                <Button x:Name="btn_home" Style="{StaticResource homeButton}" Click="btn_home_Click">
-                    <StackPanel Background="Transparent">
-                        <TextBlock Text="Home" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
+                
 
                 <Button x:Name="btn_leftCreateClient" Style="{StaticResource homeButton}" Click="btn_createClient_Click">
                     <StackPanel Background="Transparent">
@@ -95,12 +91,21 @@
                 <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" Visibility="Visible">
                     <StackPanel>
                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
-                            <TextBlock Text="Client Name" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite"/>
-                            <ComboBox x:Name="cb_clientName" Width="200" Height="25" SelectionChanged="cb_clientName_SelectionChanged"/>
+                            <TextBlock Text="Client Name" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="5"/>
+                            <ComboBox x:Name="cb_clientName" Width="200" Height="25" SelectionChanged="cb_clientName_SelectionChanged" ItemsSource="{Binding Path=ClientNames}" DisplayMemberPath="ClientName" 
+                                      SelectedValuePath="ClientName" SelectedItem="{Binding Path=selectedClientName, Mode=TwoWay}"/>
+                            <Button x:Name="btn_getClientNames" Height="20" Width="100" Margin="5" Content="Get Clients" HorizontalAlignment="Left" Background="#FF7CACFC" Command="{Binding GetClientNamesCommand}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
-                            <DataGrid x:Name="dg_lineItems" Width="520" Height="100"/>
+                            <DataGrid x:Name="dg_lineItems" Width="520" Height="100" AutoGenerateColumns="False" ItemsSource="{Binding Source=LineItems}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                                    <DataGridTextColumn Header="Quatity" Binding="{Binding Quantity}"/>
+                                    <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
+          
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">

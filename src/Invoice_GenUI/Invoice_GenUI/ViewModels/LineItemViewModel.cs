@@ -1,6 +1,6 @@
-﻿namespace Invoice_GenUI.Model
+﻿namespace Invoice_GenUI.ViewModels
 {
-    public class LineItem
+    public class LineItemViewModel
     { 
         public string Description { get; set; }
         public int Quantity { get; set; }

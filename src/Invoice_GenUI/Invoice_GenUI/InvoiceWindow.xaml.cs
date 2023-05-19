@@ -1,6 +1,5 @@
-﻿using Invoice_GenUI.Model;
+﻿using Invoice_GenUI.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,28 +11,20 @@ namespace Invoice_GenUI
     /// </summary>
     public partial class InvoiceWindow : Window
     {
-        private List<LineItem> _tempLineIems = new List<LineItem>();
-        public InvoiceWindow()
+        private readonly InvoiceViewModel _viewModel;
+        private readonly CreateClientWindow _clientWindow;
+        public InvoiceWindow(CreateClientWindow clientWindow, InvoiceViewModel viewModel)
         {
-            _tempLineIems.Add(new()
-            {
-                Description = Guid.NewGuid().ToString(),
-                Quantity = 2,
-                Cost = 9.99
-            }); 
-
+            _viewModel = viewModel;
+            _clientWindow = clientWindow;
+            
             InitializeComponent();
 
-            var runningTotal = 0.0;
+            txt_totalValue.Text += " " + _viewModel.LineItemsTotal().ToString();
 
-            foreach (var item in _tempLineIems)
-            {
-                runningTotal += item.Total();
-            }
+            DataContext = _viewModel;
 
-            txt_totalValue.Text += " " + runningTotal.ToString();
-
-            dg_lineItems.ItemsSource = _tempLineIems;
+            dg_lineItems.ItemsSource = _viewModel.LineItems;
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -45,17 +36,9 @@ namespace Invoice_GenUI
 
         // -------------------------- NAVIGATION BUTTONS ----------------------------
 
-        private void btn_home_Click(object sender, RoutedEventArgs e)
-        {
-            var HomeWindow = new StartUpWindow();
-            HomeWindow.Show();
-            this.Hide();
-        }
-
         private void btn_createClient_Click(object sender, RoutedEventArgs e)
         {
-            var clientWindow = new CreateClientWindow();
-            clientWindow.Show();
+            _clientWindow.Show();
             this.Hide();
         }
 
@@ -63,8 +46,8 @@ namespace Invoice_GenUI
         {
             var clientBox = (ComboBox)sender;
 
-            var clientName = (ComboBoxItem)clientBox.SelectedItem;
-            txt_reference.Text = "RJJ-" + clientName.Content.ToString();
+            var selectedClient = (ClientNameViewModel)clientBox.SelectedItem;
+            txt_reference.Text = "RJJ-" + selectedClient.ClientName;
         }
 
         private void dt_issueDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
