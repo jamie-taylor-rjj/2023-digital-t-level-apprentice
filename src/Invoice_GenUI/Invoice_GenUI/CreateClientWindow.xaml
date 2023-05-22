@@ -14,7 +14,7 @@
 
 
         <!--Main Section-->
-        <Border Grid.Column="1" CornerRadius="0 20 20 0" MouseDown="Border_MouseDown">
+        <Border Grid.Column="1" CornerRadius="20 20 20 20" MouseDown="Border_MouseDown">
             <Border.Background>
                 <SolidColorBrush Color="#FF353B43"/>
             </Border.Background>
