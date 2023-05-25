@@ -1,5 +1,4 @@
-﻿using Invoice_GenUI.Models;
-using Invoice_GenUI.ViewModels;
+﻿using Invoice_GenUI.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Windows;
