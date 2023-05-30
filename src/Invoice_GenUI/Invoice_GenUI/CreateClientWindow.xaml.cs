@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Invoice_GenUI
@@ -20,11 +21,10 @@ namespace Invoice_GenUI
             }
         }
 
-        // -------------------------- NAVIGATION BUTTONS ----------------------------
-
-        private void btn_invoice_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            MessageBox.Show("Not supported");
+            e.Cancel = true;
+            this.Hide();
         }
 
         private void btn_createClient_Click(object sender, RoutedEventArgs e)
