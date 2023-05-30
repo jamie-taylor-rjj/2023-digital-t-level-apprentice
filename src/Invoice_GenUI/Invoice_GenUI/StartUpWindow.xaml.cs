@@ -30,13 +30,11 @@ namespace Invoice_GenUI
         private void btn_createClient_Click(object sender, RoutedEventArgs e)
         {
             _clientWindow.Show();
-            this.Hide();
         }
 
         private void btn_invoice_Click(object sender, RoutedEventArgs e)
         {
             _invoiceWindow.Show();
-            this.Hide();
         }
     }
 }

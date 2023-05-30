@@ -5,60 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Invoice_GenUI"
         mc:Ignorable="d" Height="450" Width="800" WindowStartupLocation="CenterScreen"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+          Background="Transparent">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="1*"/>
+
         </Grid.ColumnDefinitions>
-
-        <!--Left Menu-->
-        <Border CornerRadius="20 0 0 20">
-            <Border.Background>
-                <SolidColorBrush Color="#FF24282D"/>
-            </Border.Background>
-
-            <StackPanel>
-                <!--RJJ Software Logo-->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 0">
-                    <Border CornerRadius="10" Width="50" Height="40">
-                        <Border.Background>
-                            <SolidColorBrush Color="#FF7CACFC"/>
-                        </Border.Background>
-
-                        <TextBlock Text="RJJ" Foreground="White" FontSize="22" FontWeight="SemiBold"
-                                   TextAlignment="Center" VerticalAlignment="Center" Margin="3 0 0 2"/>
-                    </Border>
-
-                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                        <TextBlock Text="RJJ Software" FontSize="15" Margin="0 0 0 5" Foreground="White"/>
-                        <TextBlock Text="Apprentice Project" FontSize="11" Margin="0 0 0 5" Foreground="#FF727477"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <Separator Height="0.8" Margin="20 20" Background="White"/>
-
-                <!--Menu Buttons-->
- 
-
-                <Button x:Name="btn_leftCreateClient" Style="{StaticResource homeButtonActive}" IsEnabled="False">
-                    <StackPanel Background="Transparent">
-                        <TextBlock Text="Create Client" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button x:Name="btn_leftInvoice" Style="{StaticResource homeButton}" Click="btn_invoice_Click">
-                    <StackPanel Background="Transparent">
-                        <TextBlock Text="Generate Invoice" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </Border>
 
 
 
         <!--Main Section-->
-        <Border Grid.Column="1" CornerRadius="0 20 20 0" MouseDown="Border_MouseDown">
+        <Border Grid.Column="1" CornerRadius="20 20 20 20" MouseDown="Border_MouseDown">
             <Border.Background>
                 <SolidColorBrush Color="#FF353B43"/>
             </Border.Background>
@@ -89,9 +45,9 @@
                     <TextBox x:Name="txt_clientName" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}"/>
                     <TextBox x:Name="txt_clientEmail" Height="40" Width="200" Background="{x:Null}"/>
                 </StackPanel>
-                <TextBlock HorizontalAlignment="Left" Height="21" Margin="65,49,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Client Name" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
+                <TextBlock HorizontalAlignment="Left" Height="21" Margin="165,49,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Client Name" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
                            FontSize="14"/>
-                <TextBlock HorizontalAlignment="Left" Height="21" Margin="335,49,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Client Email" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
+                <TextBlock HorizontalAlignment="Left" Height="21" Margin="438,49,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Client Email" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
                     FontSize="14"/>
 
                 <!--Textbox row two-->
@@ -100,9 +56,9 @@
                     <TextBox x:Name="txt_clientContact" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}"/>
                     <TextBox x:Name="txt_clientAddress" Height="40" Width="200" Background="{x:Null}"/>
                 </StackPanel>
-                <TextBlock HorizontalAlignment="Left" Height="21" Margin="65,49,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Client Contact" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
+                <TextBlock HorizontalAlignment="Left" Height="21" Margin="165,49,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Client Contact" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
                            FontSize="14"/>
-                <TextBlock HorizontalAlignment="Left" Height="21" Margin="335,49,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Client Address" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
+                <TextBlock HorizontalAlignment="Left" Height="21" Margin="438,49,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Client Address" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
                     FontSize="14"/>
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
