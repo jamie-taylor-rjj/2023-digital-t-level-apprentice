@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -40,7 +41,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         public async Task GetClientNames()
         {
-            ClientNameLoading = true;
+            ClientNameLoading = true; // when button clicked 
 
             var tempClients = await _clientService.GetClientNames();
 
@@ -53,8 +54,7 @@ namespace Invoice_GenUI.ViewModels
                     ClientNames.Add(clientName);
                 }
             }
-            
-           ClientNameLoading = false;
+           ClientNameLoading = false; // when all names loaded in
         }
 
         [RelayCommand]

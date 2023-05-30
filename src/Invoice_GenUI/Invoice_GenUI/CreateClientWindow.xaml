@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Invoice_GenUI"
         mc:Ignorable="d" Height="450" Width="800" WindowStartupLocation="CenterScreen"
           Background="Transparent">
-    <Grid>
+    <Grid IsEnabled="{Binding Path=!Validating}">
         <Grid.ColumnDefinitions>
 
         </Grid.ColumnDefinitions>
@@ -62,7 +62,7 @@
                     FontSize="14"/>
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button x:Name="btn_createClient" Width="150" Height="40" Content="Create Client" FontWeight="SemiBold" Background="#FF7CACFC" Click="btn_createClient_Click"/>
+                    <Button x:Name="btn_createClient" Width="150" Height="40" Content="Create Client" FontWeight="SemiBold" Background="#FF7CACFC" Command="{Binding ClientValidationCommand}"/>
                 </StackPanel>
             </Grid>
         </Border>

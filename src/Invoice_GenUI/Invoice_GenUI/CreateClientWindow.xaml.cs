@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using Invoice_GenUI.ViewModels;
 
 namespace Invoice_GenUI
 {
@@ -8,10 +9,15 @@ namespace Invoice_GenUI
     /// Interaction logic for CreateClientWindow.xaml
     /// </summary>
     public partial class CreateClientWindow : Window
-    { 
-        public CreateClientWindow()
+    {
+        private readonly CreateClientViewModel _viewModel;
+        public CreateClientWindow(CreateClientViewModel viewModel)
         {
+            _viewModel = viewModel;
+
             InitializeComponent();
+
+            DataContext = _viewModel;
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
