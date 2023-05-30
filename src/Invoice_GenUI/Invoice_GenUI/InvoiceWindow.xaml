@@ -88,7 +88,7 @@
                     </ScrollViewer>
                 </StackPanel>
 
-                <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" Visibility="Visible">
+                <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Hidden" Visibility="Visible">
                     <StackPanel>
                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40 10 0 0">
                             <TextBlock Text="Client Name" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="5"/>
@@ -103,7 +103,6 @@
                                     <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
                                     <DataGridTextColumn Header="Quatity" Binding="{Binding Quantity}"/>
                                     <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
-          
                                 </DataGrid.Columns>
                             </DataGrid>
                         </StackPanel>
