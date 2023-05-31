@@ -42,8 +42,8 @@
                 <!--Textbox row one-->
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 70 0 0">
-                    <TextBox x:Name="txt_clientName" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}"/>
-                    <TextBox x:Name="txt_clientEmail" Height="40" Width="200" Background="{x:Null}"/>
+                    <TextBox x:Name="txt_clientName" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}" Text="{Binding ClientName}"/>
+                    <TextBox x:Name="txt_clientEmail" Height="40" Width="200" Background="{x:Null}" Text="{Binding ContactEmail}"/>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Left" Height="21" Margin="165,49,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Client Name" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
                            FontSize="14"/>
@@ -53,8 +53,8 @@
                 <!--Textbox row two-->
 
                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 70 0 0">
-                    <TextBox x:Name="txt_clientContact" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}"/>
-                    <TextBox x:Name="txt_clientAddress" Height="40" Width="200" Background="{x:Null}"/>
+                    <TextBox x:Name="txt_clientContact" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}" Text="{Binding ContactName}"/>
+                    <TextBox x:Name="txt_clientAddress" Height="40" Width="200" Background="{x:Null}" Text="{Binding ClientAddress}"/>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Left" Height="21" Margin="165,49,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Client Contact" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
                            FontSize="14"/>

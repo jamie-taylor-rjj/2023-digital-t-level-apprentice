@@ -1,5 +1,4 @@
 ﻿
-
 namespace Invoice_GenUI.Models;
 
 public class CreateClientModel

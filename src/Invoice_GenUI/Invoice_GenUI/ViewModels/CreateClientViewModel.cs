@@ -1,22 +1,55 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Specialized;
+using System.Printing;
+using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Invoice_GenUI.Models;
 
 namespace Invoice_GenUI.ViewModels;
-
-public partial class CreateClientViewModel : ObservableObject
+public class CreateClientViewModel : ViewModelBase
 {
-    [ObservableProperty]
-    private bool validating;
+    private CreateClientModel newClient;
+    private string client;
 
-    public async Task ClientValidation()
+    public CreateClientViewModel()
     {
-        Validating = true;
-
-        
-
-
-
-        Validating = false;
+        newClient = new CreateClientModel();
+    }
+    public string ClientName
+    {
+        get => newClient.ClientName;
+        set
+        {
+            newClient.ClientName = value;
+            OnPropertyChanged(nameof(ClientName));
+        }
+    }
+    public string ClientAddress
+    {
+        get => newClient.ClientAddress;
+        set
+        {
+            newClient.ClientAddress = value;
+            OnPropertyChanged(nameof(ClientAddress));
+        }
+    }
+    public string ContactName
+    {
+        get => newClient.ContactName;
+        set
+        {
+            newClient.ContactName = value;
+            OnPropertyChanged(nameof(ContactName));
+        }
+    }
+    public string ContactEmail
+    {
+        get => newClient.ContactEmail;
+        set
+        {
+            newClient.ContactEmail = value;
+            OnPropertyChanged(nameof(ContactEmail));
+        }
     }
 }
