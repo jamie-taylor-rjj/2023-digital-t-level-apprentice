@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using Invoice_GenUI.Models;
 using Invoice_GenUI.ViewModels;
 
 namespace Invoice_GenUI

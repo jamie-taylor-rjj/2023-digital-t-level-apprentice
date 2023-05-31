@@ -1,10 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Printing;
-using System.Threading.Tasks;
-using System.Windows;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Invoice_GenUI.Models;
+﻿using Invoice_GenUI.Models;
 
 namespace Invoice_GenUI.ViewModels;
 public class CreateClientViewModel : ViewModelBase
@@ -25,6 +19,7 @@ public class CreateClientViewModel : ViewModelBase
             OnPropertyChanged(nameof(ClientName));
         }
     }
+
     public string ClientAddress
     {
         get => newClient.ClientAddress;
