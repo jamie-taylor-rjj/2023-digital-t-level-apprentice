@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
 namespace Invoice_GenUI.Models.Validation;
 
-public class EmailValidation : ValidationRule
+public class EmailValidation : ValidationRule // Get rid of class
 {
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {

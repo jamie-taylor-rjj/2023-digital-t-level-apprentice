@@ -7,12 +7,30 @@
         xmlns:validation="clr-namespace:Invoice_GenUI.Models.Validation"
         mc:Ignorable="d" Height="450" Width="800" WindowStartupLocation="CenterScreen"
           Background="Transparent">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder/>
+                            <ItemsControl Margin="0 5 0 0" FontSize="12" ItemsSource="{Binding}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Foreground="Red" Text="{Binding ErrorContent}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
     <Grid IsEnabled="{Binding Path=!Validating}">
-        <Grid.ColumnDefinitions>
-
-        </Grid.ColumnDefinitions>
-
-
+        
+    
 
         <!--Main Section-->
         <Border Grid.Column="1" CornerRadius="20 20 20 20" MouseDown="Border_MouseDown">
@@ -99,7 +117,17 @@
                     FontSize="14"/>
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button x:Name="btn_createClient" Width="150" Height="40" Content="Create Client" FontWeight="SemiBold" Background="#FF7CACFC" Click="btn_createClient_Click" />
+                    <Button x:Name="btn_createClient" Width="150" Height="40" Content="Create Client" FontWeight="SemiBold" Background="#FF7CACFC" Click="btn_createClient_Click" >
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=txt_clientAddress,Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Border>
