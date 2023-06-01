@@ -10,7 +10,7 @@ public class EmailValidation : ValidationRule
 {
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {
-        Regex regex = new Regex("^[\\w-\\+\\.\\_]+(\\.[\\w-\\+\\.\\_]+)*@[\\w-\\+\\.\\_]+(\\.[\\w\\+\\.\\_]+)*(\\.[A-Za-z]{2,})$");
+        Regex regex = new Regex("^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$"); // Regex error
         string? input = value.ToString();
         if (!regex.IsMatch(input))
         {
