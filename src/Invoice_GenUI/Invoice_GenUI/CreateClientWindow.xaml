@@ -26,6 +26,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
     
     <Grid IsEnabled="{Binding Path=!Validating}">
@@ -117,11 +118,24 @@
                     FontSize="14"/>
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button x:Name="btn_createClient" Width="150" Height="40" Content="Create Client" FontWeight="SemiBold" Background="#FF7CACFC" Click="btn_createClient_Click" >
+                    <Button x:Name="btn_createClient" Width="150" Height="40" Content="Create Client" FontWeight="SemiBold" Background="#FF7CACFC" Click="btn_createClient_Click">
+                        
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasText}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
                                     <DataTrigger Binding="{Binding ElementName=txt_clientAddress,Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=txt_clientContact,Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=txt_clientName,Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=txt_clientEmail,Path=(Validation.HasError)}" Value="True">
                                         <Setter Property="IsEnabled" Value="False"/>
                                     </DataTrigger>
                                 </Style.Triggers>
