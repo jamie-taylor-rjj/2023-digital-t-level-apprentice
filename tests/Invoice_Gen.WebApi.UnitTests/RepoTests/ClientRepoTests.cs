@@ -28,10 +28,10 @@ public class ClientRepoTests
         var mockedLogger = new Mock<ILogger<ClientRepository>>();
 
         var sut = new ClientRepository(mockedRepo.Object, mockedLogger.Object);
-        
+
         // act
         var response = sut.GetAll();
-        
+
         // asset
         Assert.NotNull(response);
         Assert.IsAssignableFrom<List<Client>>(response);
@@ -68,20 +68,20 @@ public class ClientRepoTests
             ClientAddress = Guid.NewGuid().ToString(),
             ContactEmail = Guid.NewGuid().ToString(),
         };
-        
+
         // act
         var response = await sut.Add(clientToAdd);
-        
+
         // asset
         Assert.NotNull(response);
         Assert.IsAssignableFrom<Client>(response);
-        
+
         Assert.Equal(clientToAdd.ClientName, response.ClientName);
         Assert.Equal(clientToAdd.ContactEmail, response.ContactEmail);
         Assert.Equal(clientToAdd.ClientAddress, response.ClientAddress);
         Assert.Equal(clientToAdd.ContactName, response.ContactName);
     }
-    
+
     [Fact]
     public async Task Delete_RemovesInstance_ToRepo()
     {
@@ -116,7 +116,7 @@ public class ClientRepoTests
         // act
         await sut.Delete(2);
         var listAfterDelete = sut.GetAll();
-        
+
         // asset
         Assert.NotNull(listAfterDelete);
         Assert.IsAssignableFrom<List<Client>>(listAfterDelete);
