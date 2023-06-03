@@ -3,45 +3,65 @@ using ClacksMiddleware.Extensions;
 using Invoice_Gen.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using OwaspHeaders.Core.Extensions;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
-var connectionString = builder.Configuration.GetConnectionString("invoiceConnectionString");
-
-builder.Services
-    .AddTransient<IMapper<ClientNameViewModel, Client>, ClientNameViewModelMapper>()
-    .AddTransient(typeof(IClientRepository), typeof(ClientRepository))
-    .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
-builder.Services.AddTransient<IClientService, ClientService>();
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(o =>
+try
 {
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    o.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
-});
+    Log.Information("Starting app - registering services");
 
-var app = builder.Build();
+    var builder = WebApplication.CreateBuilder(args);
 
-app.GnuTerryPratchett();
+    var connectionString = builder.Configuration.GetConnectionString("invoiceConnectionString");
 
-app.UseSwagger();
-app.UseSwaggerUI();
+    builder.Services
+        .AddTransient<IMapper<ClientNameViewModel, Client>, ClientNameViewModelMapper>()
+        .AddTransient(typeof(IClientRepository), typeof(ClientRepository))
+        .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
+    builder.Services.AddTransient<IClientService, ClientService>();
 
-app.UseSecureHeadersMiddleware(
-    SecureHeadersMiddlewareExtensions
-        .BuildDefaultConfiguration()
-);
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(o =>
+    {
+        var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        o.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+    });
 
-app.UseHttpsRedirection();
+    Log.Information("Starting app - building IApplicationBuilder");
 
-app.UseAuthorization();
+    var app = builder.Build();
 
-app.MapControllers();
+    app.GnuTerryPratchett();
 
-app.Run();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+    app.UseSecureHeadersMiddleware(
+        SecureHeadersMiddlewareExtensions
+            .BuildDefaultConfiguration()
+    );
+
+    app.UseHttpsRedirection();
+
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    Log.Information("Stating app - ready to serve requests");
+
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
 
 // Required for integration tests
 public partial class Program { }
