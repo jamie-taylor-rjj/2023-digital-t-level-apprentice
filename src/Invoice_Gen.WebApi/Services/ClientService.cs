@@ -17,7 +17,7 @@ public class ClientService : IClientService
     public List<ClientNameViewModel> GetClients()
     {
         _logger.BeginScope("{ClientService} getting all clients", nameof(ClientService));
-        var all =  _clientRepository.GetAll();
+        var all = _clientRepository.GetAll();
 
         _logger.LogInformation("Retrieved {Count} {ClientModel}", all.Count(), nameof(Client));
 
