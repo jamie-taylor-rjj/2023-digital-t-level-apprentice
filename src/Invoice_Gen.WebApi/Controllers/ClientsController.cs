@@ -26,7 +26,10 @@ public class ClientsController : ControllerBase
     [ProducesResponseType(typeof(List<ClientNameViewModel>), StatusCodes.Status200OK)]
     public IActionResult Get()
     {
+        _logger.BeginScope("Getting all clients");
         var clients = _clientService.GetClients();
+
+        _logger.LogInformation("Returning list of {ClientNameViewModel}", typeof(ClientNameViewModel));
         return new OkObjectResult(clients);
     }
 
@@ -40,11 +43,15 @@ public class ClientsController : ControllerBase
     [ProducesResponseType(typeof(ClientNameViewModel), StatusCodes.Status200OK)]
     public IActionResult GetClientById(int clientId)
     {
+        _logger.BeginScope("Getting client data for {ID}", clientId);
+
         var client = _clientService.GetById(clientId);
         if (client == null)
         {
+            _logger.LogInformation("Unable to find client record");
             return new NotFoundResult();
         }
+        _logger.LogInformation("Returning {ClientNameViewModel} for {ID}", nameof(ClientNameViewModel), clientId);
         return new OkObjectResult(client);
     }
 
