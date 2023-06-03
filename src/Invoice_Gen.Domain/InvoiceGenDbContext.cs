@@ -9,19 +9,19 @@ public class InvoiceGenDbContext : DbContext
 {
     public InvoiceGenDbContext(DbContextOptions<InvoiceGenDbContext> options) : base(options) { }
 
-    public InvoiceGenDbContext(){ }
-    
+    public InvoiceGenDbContext() { }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Client>().HasData(
             new
-                {
-                    ClientId = 1,
-                    ClientName = "Muller Inc",
-                    ContactName = "Bradley S Crooks",
-                    ClientAddress = "4509 Clement Street, Atlanta, GA 30331",
-                    ContactEmail = "AaronDBaker@dayrep.com"
-                },
+            {
+                ClientId = 1,
+                ClientName = "Muller Inc",
+                ContactName = "Bradley S Crooks",
+                ClientAddress = "4509 Clement Street, Atlanta, GA 30331",
+                ContactEmail = "AaronDBaker@dayrep.com"
+            },
                 new Client
                 {
                     ClientId = 2,
