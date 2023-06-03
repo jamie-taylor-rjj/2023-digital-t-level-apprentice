@@ -1,13 +1,17 @@
 ﻿using System.Reflection;
 using ClacksMiddleware.Extensions;
-using Invoice_Gen.ViewModels;
+using Invoice_Gen.Domain.Models;
 using OwaspHeaders.Core.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("invoiceConnectionString");
+
 builder.Services
     .AddTransient<IMapper<ClientNameViewModel, Client>, ClientNameViewModelMapper>()
-    .AddTransient(typeof(IClientRepository), typeof(ClientRepository));
+    .AddTransient(typeof(IClientRepository), typeof(ClientRepository))
+    .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
 builder.Services.AddTransient<IClientService, ClientService>();
 
 builder.Services.AddControllers();

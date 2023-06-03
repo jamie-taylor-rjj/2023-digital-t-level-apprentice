@@ -15,3 +15,23 @@ A number of directories have been created in this repo. These directories repres
 ## Tasks
 
 Prior to this version of the repo, there was a "Tasks" section of the readme. This section has been deleted (though recoverable in source control if we need it), as the tasks have been completed.
+
+## Database
+
+You will require the EF Core tools: `dotnet tool install --global dotnet-ef`
+
+## Creating the Database
+
+Populating the database is a little janky at the moment (as of June 3rd, 2023):
+
+1. open a terminal at `src/Invoice_Gen.Domain`
+1. ` dotnet ef database update` to apply any migrations
+1. an `invoiceDatabase.db` file will be created
+1. copy this to `src/Invoice_Gen.WebApi`
+1. run the application
+
+## Migrating the Database
+
+1. open a terminal at `src/Invoice_Gen.Domain`
+1. run `dotnet ef migrations add {name}` where "{name}" is the name of your migration
+1. a Migrations folder will be present and will contain the DB migration

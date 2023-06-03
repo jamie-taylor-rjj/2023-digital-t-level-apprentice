@@ -1,4 +1,4 @@
-﻿using Invoice_Gen.ViewModels;
+﻿using Invoice_Gen.Domain.Models;
 
 namespace Invoice_Gen.WebApi.Services;
 
@@ -21,5 +21,22 @@ public class ClientService : IClientService
     {
         var client = _clientRepository.GetAll().FirstOrDefault(f => f.ClientId == id);
         return client == null ? null : _clientViewModelMapper.Convert(client);
+    }
+
+    public async Task<int> CreateNewClient(ClientCreationModel inputClient)
+    {
+        var response = await _clientRepository.Add(new()
+        {
+            ClientAddress = inputClient.ClientAddress,
+            ClientName = inputClient.ClientName,
+            ContactEmail = inputClient.ContactEmail,
+            ContactName = inputClient.ContactEmail
+        });
+        return response.ClientId;
+    }
+
+    public async Task DeleteClient(int clientId)
+    {
+        await _clientRepository.Delete(clientId);
     }
 }

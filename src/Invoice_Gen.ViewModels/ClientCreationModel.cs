@@ -1,11 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿namespace Invoice_Gen.ViewModels;
 
-namespace Invoice_Gen.WebApi.Models;
-
-[ExcludeFromCodeCoverage]
-public class Client
+public class ClientCreationModel
 {
-    public int ClientId { get; init; }
     public string ClientName { get; init; } = null!;
     public string ClientAddress { get; set; } = null!;
     public string ContactName { get; set; } = null!;
