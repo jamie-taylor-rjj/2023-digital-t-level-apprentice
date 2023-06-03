@@ -35,4 +35,10 @@
     <ProjectReference Include="..\Invoice_Gen.ViewModels\Invoice_Gen.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="invoiceDatabase.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
