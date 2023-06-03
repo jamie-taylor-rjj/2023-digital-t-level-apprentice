@@ -7,7 +7,7 @@ namespace Invoice_Gen.WebApi.Controllers;
 [Produces("application/json")]
 public class ClientsController : ControllerBase
 {
-    private ILogger<ClientsController> _logger;
+    private readonly ILogger<ClientsController> _logger;
     private readonly IClientService _clientService;
 
     public ClientsController(ILogger<ClientsController> logger, IClientService clientService)
