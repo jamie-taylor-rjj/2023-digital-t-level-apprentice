@@ -14,4 +14,21 @@ public class ClientRepository : IClientRepository
     {
         return _dbContext.Clients.ToList();
     }
+
+    public async Task<Client> Add(Client client)
+    {
+        _dbContext.Clients.Add(client);
+        await _dbContext.SaveChangesAsync();
+        return client;
+    }
+
+    public async Task Delete(int clientId)
+    {
+        var entity = _dbContext.Clients.FirstOrDefault(c => c.ClientId == clientId);
+        if (entity != null)
+        {
+            _dbContext.Clients.Remove(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
 }
