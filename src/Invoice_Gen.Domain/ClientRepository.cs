@@ -5,10 +5,10 @@ namespace Invoice_Gen.Domain;
 
 public class ClientRepository : IClientRepository
 {
-    private readonly InvoiceGenDbContext _dbContext;
+    private readonly IDbContext _dbContext;
     private readonly ILogger<ClientRepository> _logger;
 
-    public ClientRepository(InvoiceGenDbContext dbContext, ILogger<ClientRepository> logger)
+    public ClientRepository(IDbContext dbContext, ILogger<ClientRepository> logger)
     {
         _dbContext = dbContext;
         _logger = logger;
