@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Invoice_Gen.WebApi.Models;
+namespace Invoice_Gen.Domain.Models;
 
 [ExcludeFromCodeCoverage]
 public class Client

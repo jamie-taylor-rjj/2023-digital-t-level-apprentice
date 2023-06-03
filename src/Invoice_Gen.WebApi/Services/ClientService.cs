@@ -1,4 +1,4 @@
-﻿using Invoice_Gen.ViewModels;
+﻿using Invoice_Gen.Domain.Models;
 
 namespace Invoice_Gen.WebApi.Services;
 
