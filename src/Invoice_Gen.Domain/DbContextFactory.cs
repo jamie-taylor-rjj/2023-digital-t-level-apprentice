@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Invoice_Gen.Domain;
 
+[ExcludeFromCodeCoverage]
 public class DbContextFactory : IDesignTimeDbContextFactory<InvoiceGenDbContext>
 {
     public InvoiceGenDbContext CreateDbContext(string[] args)

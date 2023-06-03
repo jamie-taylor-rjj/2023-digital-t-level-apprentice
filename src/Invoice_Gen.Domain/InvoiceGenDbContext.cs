@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Invoice_Gen.Domain;
 
 [ExcludeFromCodeCoverage]
-public class InvoiceGenDbContext : DbContext
+public class InvoiceGenDbContext : DbContext, IDbContext
 {
     public InvoiceGenDbContext(DbContextOptions<InvoiceGenDbContext> options) : base(options) { }
 

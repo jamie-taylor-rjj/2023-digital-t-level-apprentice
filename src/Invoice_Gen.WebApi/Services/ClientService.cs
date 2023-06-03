@@ -6,7 +6,7 @@ public class ClientService : IClientService
 {
     private readonly IMapper<ClientNameViewModel, Client> _clientViewModelMapper;
     private readonly IClientRepository _clientRepository;
-    private ILogger<ClientService> _logger;
+    private readonly ILogger<ClientService> _logger;
     public ClientService(IMapper<ClientNameViewModel, Client> clientViewModelMapper,
         IClientRepository clientRepository, ILogger<ClientService> logger)
     {
@@ -40,12 +40,12 @@ public class ClientService : IClientService
 
     public async Task<int> CreateNewClient(ClientCreationModel inputClient)
     {
-        var response = await _clientRepository.Add(new()
+        var response = await _clientRepository.Add(new Client
         {
             ClientAddress = inputClient.ClientAddress,
             ClientName = inputClient.ClientName,
             ContactEmail = inputClient.ContactEmail,
-            ContactName = inputClient.ContactEmail
+            ContactName = inputClient.ContactName
         });
         return response.ClientId;
     }
