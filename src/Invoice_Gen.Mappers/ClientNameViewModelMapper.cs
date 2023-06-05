@@ -1,6 +1,7 @@
-﻿using Invoice_Gen.ViewModels;
+﻿using Invoice_Gen.Domain.Models;
+using Invoice_Gen.ViewModels;
 
-namespace Invoice_Gen.WebApi.Mappers;
+namespace Invoice_Gen.Mappers;
 
 public class ClientNameViewModelMapper : IMapper<ClientNameViewModel, Client>
 {

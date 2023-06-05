@@ -1,6 +1,5 @@
-﻿using Invoice_Gen.ViewModels;
-using Invoice_Gen.WebApi.Repositories;
-using Invoice_Gen.WebApi.Services;
+﻿using Invoice_Gen.WebApi.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;
 
@@ -44,6 +43,7 @@ public class ClientServiceTests
 
         var mockedRepository = new Mock<IClientRepository>();
         mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
+        var mockedLogger = new Mock<ILogger<ClientService>>();
 
         var expectedOutput = new ClientNameViewModel
         {
@@ -54,7 +54,7 @@ public class ClientServiceTests
         _mockedClientNameViewModelMapper.Setup(x => x.Convert(client)).Returns(expectedOutput);
 
         var sut = new ClientService(_mockedClientNameViewModelMapper.Object,
-            mockedRepository.Object);
+            mockedRepository.Object, mockedLogger.Object);
 
         // Act
         var result = sut.GetClients();
@@ -82,6 +82,7 @@ public class ClientServiceTests
         var clientsForMock = new List<Client> { client };
         var mockedRepository = new Mock<IClientRepository>();
         mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
+        var mockedLogger = new Mock<ILogger<ClientService>>();
 
         var expectedOutput = new ClientNameViewModel()
         {
@@ -92,7 +93,7 @@ public class ClientServiceTests
         _mockedClientNameViewModelMapper.Setup(x => x.Convert(client)).Returns(expectedOutput);
 
         var sut = new ClientService(_mockedClientNameViewModelMapper.Object,
-            mockedRepository.Object);
+            mockedRepository.Object, mockedLogger.Object);
 
         // Act
         var result = sut.GetById(_clientId);
@@ -120,8 +121,9 @@ public class ClientServiceTests
         var clientsForMock = new List<Client> { client };
         var mockedRepository = new Mock<IClientRepository>();
         mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
+        var mockedLogger = new Mock<ILogger<ClientService>>();
 
-        var sut = new ClientService(_mockedClientNameViewModelMapper.Object, mockedRepository.Object);
+        var sut = new ClientService(_mockedClientNameViewModelMapper.Object, mockedRepository.Object, mockedLogger.Object);
 
         // Act
         var result = sut.GetById(_rng.Next(200, 300));

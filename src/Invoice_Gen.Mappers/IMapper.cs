@@ -1,4 +1,4 @@
-﻿namespace Invoice_Gen.WebApi.Mappers;
+﻿namespace Invoice_Gen.Mappers;
 
 public interface IMapper<TSource, TDestination>
 {

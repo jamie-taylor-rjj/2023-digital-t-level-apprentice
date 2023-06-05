@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -12,18 +12,33 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
     <InternalsVisibleTo Include="Invoice_Gen.WebApi.IntegrationTests" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="OwaspHeaders.Core" Version="6.0.5" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="ClacksMiddlware" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Invoice_Gen.Domain\Invoice_Gen.Domain.csproj" />
+    <ProjectReference Include="..\Invoice_Gen.Mappers\Invoice_Gen.Mappers.csproj" />
     <ProjectReference Include="..\Invoice_Gen.ViewModels\Invoice_Gen.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="invoiceDatabase.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

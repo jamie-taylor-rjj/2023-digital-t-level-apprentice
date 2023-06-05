@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.WebApi", "src\I
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7799EA93-AD32-46A4-90EE-124E41833BC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.WebApi.IntegrationTests", "tests\Invoice_Gen.WebApi.IntegrationTests\Invoice_Gen.WebApi.IntegrationTests.csproj", "{A1DCD4AB-820D-4FC4-9E2B-2589315DFF2F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.WebApi.UnitTests", "tests\Invoice_Gen.WebApi.UnitTests\Invoice_Gen.WebApi.UnitTests.csproj", "{EFCB7F89-A3B7-4C63-B3D2-B05CD802E4DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.ViewModels", "src\Invoice_Gen.ViewModels\Invoice_Gen.ViewModels.csproj", "{79DFE23C-54FB-48FD-A927-44F45F7FD6BC}"
@@ -20,6 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{D9E4F7
 		.github\workflows\main_2023-invoice-gen.yml = .github\workflows\main_2023-invoice-gen.yml
 		.github\workflows\webapi-pr-action.yml = .github\workflows\webapi-pr-action.yml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.Domain", "src\Invoice_Gen.Domain\Invoice_Gen.Domain.csproj", "{01D33B43-FC2C-4EC2-82DB-74E56E3B939E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.Mappers", "src\Invoice_Gen.Mappers\Invoice_Gen.Mappers.csproj", "{6DAB9F30-71E2-466D-9385-E17DD09B776E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +36,6 @@ Global
 		{F9489BCA-CA8F-4A00-9E5A-094204898D50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9489BCA-CA8F-4A00-9E5A-094204898D50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9489BCA-CA8F-4A00-9E5A-094204898D50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1DCD4AB-820D-4FC4-9E2B-2589315DFF2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1DCD4AB-820D-4FC4-9E2B-2589315DFF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1DCD4AB-820D-4FC4-9E2B-2589315DFF2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1DCD4AB-820D-4FC4-9E2B-2589315DFF2F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EFCB7F89-A3B7-4C63-B3D2-B05CD802E4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFCB7F89-A3B7-4C63-B3D2-B05CD802E4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFCB7F89-A3B7-4C63-B3D2-B05CD802E4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,11 +44,20 @@ Global
 		{79DFE23C-54FB-48FD-A927-44F45F7FD6BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79DFE23C-54FB-48FD-A927-44F45F7FD6BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79DFE23C-54FB-48FD-A927-44F45F7FD6BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01D33B43-FC2C-4EC2-82DB-74E56E3B939E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01D33B43-FC2C-4EC2-82DB-74E56E3B939E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01D33B43-FC2C-4EC2-82DB-74E56E3B939E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01D33B43-FC2C-4EC2-82DB-74E56E3B939E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DAB9F30-71E2-466D-9385-E17DD09B776E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DAB9F30-71E2-466D-9385-E17DD09B776E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DAB9F30-71E2-466D-9385-E17DD09B776E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DAB9F30-71E2-466D-9385-E17DD09B776E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F9489BCA-CA8F-4A00-9E5A-094204898D50} = {E0C658C8-F6D9-4991-A98C-B6EF2400A08A}
-		{A1DCD4AB-820D-4FC4-9E2B-2589315DFF2F} = {7799EA93-AD32-46A4-90EE-124E41833BC5}
 		{EFCB7F89-A3B7-4C63-B3D2-B05CD802E4DC} = {7799EA93-AD32-46A4-90EE-124E41833BC5}
 		{79DFE23C-54FB-48FD-A927-44F45F7FD6BC} = {E0C658C8-F6D9-4991-A98C-B6EF2400A08A}
+		{01D33B43-FC2C-4EC2-82DB-74E56E3B939E} = {E0C658C8-F6D9-4991-A98C-B6EF2400A08A}
+		{6DAB9F30-71E2-466D-9385-E17DD09B776E} = {E0C658C8-F6D9-4991-A98C-B6EF2400A08A}
 	EndGlobalSection
 EndGlobal
