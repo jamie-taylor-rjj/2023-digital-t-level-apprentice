@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using Invoice_GenUI.Models;
 using Invoice_GenUI.ViewModels;
 
 namespace Invoice_GenUI;
@@ -9,9 +10,11 @@ namespace Invoice_GenUI;
 public partial class CreateClientWindow : Window
 {
     private readonly CreateClientViewModel _viewModel;
-    public CreateClientWindow(CreateClientViewModel viewModel)
+    private readonly ClientService _clientService;
+    public CreateClientWindow(CreateClientViewModel viewModel, ClientService clientService)
     {
         _viewModel = viewModel;
+        _clientService = clientService;
 
         InitializeComponent();
 
@@ -46,8 +49,7 @@ public partial class CreateClientWindow : Window
         }
         else
         {
-
-            
+            _clientService.EnterClient(txt_clientName.Text, txt_clientAddress.Text, txt_clientEmail.Text, txt_clientContact.Text);
         }
 
         btn_createClient.IsEnabled = true;
