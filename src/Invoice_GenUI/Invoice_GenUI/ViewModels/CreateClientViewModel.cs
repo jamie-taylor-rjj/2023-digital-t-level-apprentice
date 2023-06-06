@@ -6,6 +6,7 @@ public class CreateClientViewModel : ViewModelBase
     private CreateClientModel newClient;
     private string client;
 
+
     public CreateClientViewModel()
     {
         newClient = new CreateClientModel();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 using Invoice_GenUI.ViewModels;
 
 namespace Invoice_GenUI.Models
@@ -24,6 +25,14 @@ namespace Invoice_GenUI.Models
                 response.EnsureSuccessStatusCode(); // Makes sure response is valid
 
                 return await response.Content.ReadFromJsonAsync<List<ClientNameViewModel>>() ?? new();
+            }
+        }
+
+        public async Task PutRequest()
+        {
+            using (var client = new HttpClient())
+            {
+
             }
         }
     }
