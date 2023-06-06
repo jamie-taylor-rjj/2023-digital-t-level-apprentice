@@ -123,9 +123,6 @@
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding HasText}" Value="False">
-                                        <Setter Property="IsEnabled" Value="False"/>
-                                    </DataTrigger>
                                     <DataTrigger Binding="{Binding ElementName=txt_clientAddress,Path=(Validation.HasError)}" Value="True">
                                         <Setter Property="IsEnabled" Value="False"/>
                                     </DataTrigger>
