@@ -40,31 +40,8 @@ public partial class CreateClientWindow : Window
 
     }
 
-    private void btn_createClient_Click(object sender, RoutedEventArgs e)
-    {
-        btn_createClient.IsEnabled = false;
+    
 
-        if (string.IsNullOrWhiteSpace(txt_clientName.Text) ||
-            string.IsNullOrWhiteSpace(txt_clientAddress.Text) ||
-            string.IsNullOrWhiteSpace(txt_clientContact.Text) ||
-            string.IsNullOrWhiteSpace(txt_clientEmail.Text))
-        {
-            MessageBox.Show("Invalid data");
-            btn_createClient.IsEnabled = true;
-        }
-        else
-        {
-
-            var connected = _clientService.PutClient(txt_clientName.Text, txt_clientAddress.Text, txt_clientEmail.Text, txt_clientContact.Text); // make it return bool value
-            bool result = connected.Result; // The bool value result
-            MessageBox.Show($"{result}");
-            
-        }
-
-        btn_createClient.IsEnabled = true;
-
-        
-    }
 
     
 }

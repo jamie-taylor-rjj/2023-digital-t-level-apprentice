@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Animation;
 using Invoice_GenUI.ViewModels;
 using System.Text;
 using System.Text.Json;
 
 namespace Invoice_GenUI.Models
 {
-    public interface IClientService
+    public interface IClientService // needs method in interface
     {
         Task<List<ClientNameViewModel>> GetClientNames();
+        Task<bool> PutClient(string name, string address, string contact, string email);
     }
     public class ClientService : IClientService
     {
@@ -31,18 +30,18 @@ namespace Invoice_GenUI.Models
                 return await response.Content.ReadFromJsonAsync<List<ClientNameViewModel>>() ?? new();
             }
         }
-       
+
 
         public async Task<bool> PutClient(string name, string address, string contact, string email) // valid values passed from xaml.cs
         {
             bool result = false;
 
-            var clientDetails = new CreateClientViewModel() // Creating client with the valid values entered by the user in the UI
+            var clientDetails = new ClientPostModel() // Creating client with the valid values entered by the user in the UI
             {
-                clientName = name, 
-                clientAddress = address,
-                contactName = contact,
-                contactEmail = email
+                ClientName = name,
+                ClientAddress = address,
+                ContactName = contact,
+                ContactEmail = email
             };
             using (var client = new HttpClient())
             {
@@ -51,21 +50,14 @@ namespace Invoice_GenUI.Models
 
                 var json = JsonSerializer.Serialize(clientDetails); // Turn C# object into json
                 var content = new StringContent(json, Encoding.UTF8, "application/json"); // Saying that information im sending comes in json formatting 
-                try
+
+
+                var responseMessage = await client.PutAsync("Clients/Client", content); // Creating the client, choosing the correct endpoint, want to post my content
+                if (responseMessage.IsSuccessStatusCode) // Makes sure response is valid
                 {
-                    var responseMessage = await client.PutAsync("Client/Clients", content); // Creating the client, choosing the correct endpoint, want to post my content
-                    if (responseMessage.IsSuccessStatusCode) // Makes sure response is valid
-                    {
-                        var responseContent = responseMessage.Content.ReadAsStringAsync().Result; // Wait until get result
-                        MessageBox.Show(responseContent); // Show result
-                        result = true;
-                    }
+                    var responseContent = await responseMessage.Content.ReadAsStringAsync(); // Wait until get result
+                    result = true;
                 }
-                catch(Exception ex)
-                {
-                    
-                }
-                
 
                 return result;
             }
