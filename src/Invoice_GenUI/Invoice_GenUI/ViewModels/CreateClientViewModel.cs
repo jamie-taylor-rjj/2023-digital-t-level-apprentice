@@ -75,7 +75,6 @@ public partial class CreateClientViewModel : ViewModelBase
         }
         else
         {
-
             var connected = await _clientService.PutClient(clientName, clientAddress, contactName, contactEmail); // make it return bool value
             bool result = connected; // The bool value result
             MessageBox.Show($"{result}");
@@ -86,8 +85,6 @@ public partial class CreateClientViewModel : ViewModelBase
                 clientAddress = string.Empty; 
                 contactEmail = string.Empty;
             }
-
-
         }
     }
 }
