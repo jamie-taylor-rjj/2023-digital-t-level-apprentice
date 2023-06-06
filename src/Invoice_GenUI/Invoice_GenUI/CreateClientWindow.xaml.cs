@@ -17,20 +17,7 @@ public partial class CreateClientWindow : Window
 
         DataContext = _viewModel;
     }
-    private bool HasText()
-    {
-        if (string.IsNullOrWhiteSpace(txt_clientName.Text) ||
-            string.IsNullOrWhiteSpace(txt_clientAddress.Text) ||
-            string.IsNullOrWhiteSpace(txt_clientContact.Text) ||
-            string.IsNullOrWhiteSpace(txt_clientEmail.Text))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
+    
     private void Border_MouseDown(object sender, MouseButtonEventArgs e)
     {
         if (e.ChangedButton == MouseButton.Left)
