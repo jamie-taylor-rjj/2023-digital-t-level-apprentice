@@ -33,7 +33,7 @@ namespace Invoice_GenUI.Models
         }
        
 
-        public async Task<bool> PostClient(string name, string address, string contact, string email) // valid values passed from xaml.cs
+        public async Task<bool> PutClient(string name, string address, string contact, string email) // valid values passed from xaml.cs
         {
             bool result = false;
 
@@ -51,13 +51,21 @@ namespace Invoice_GenUI.Models
 
                 var json = JsonSerializer.Serialize(clientDetails); // Turn C# object into json
                 var content = new StringContent(json, Encoding.UTF8, "application/json"); // Saying that information im sending comes in json formatting 
-                var responseMessage = await client.PostAsync("Client/Clients", content); // Creating the client, choosing the correct endpoint, want to post my content
-                if (responseMessage.IsSuccessStatusCode) // Makes sure response is valid
+                try
                 {
-                    var responseContent = responseMessage.Content.ReadAsStringAsync().Result; // Wait until get result
-                    MessageBox.Show(responseContent); // Show result
-                    result = true;
-                } 
+                    var responseMessage = await client.PutAsync("Client/Clients", content); // Creating the client, choosing the correct endpoint, want to post my content
+                    if (responseMessage.IsSuccessStatusCode) // Makes sure response is valid
+                    {
+                        var responseContent = responseMessage.Content.ReadAsStringAsync().Result; // Wait until get result
+                        MessageBox.Show(responseContent); // Show result
+                        result = true;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    
+                }
+                
 
                 return result;
             }

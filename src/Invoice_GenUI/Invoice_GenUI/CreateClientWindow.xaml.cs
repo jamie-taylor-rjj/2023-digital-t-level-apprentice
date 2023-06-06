@@ -55,7 +55,7 @@ public partial class CreateClientWindow : Window
         else
         {
 
-            var connected = _clientService.PostClient(txt_clientName.Text, txt_clientAddress.Text, txt_clientEmail.Text, txt_clientContact.Text); // make it return bool value
+            var connected = _clientService.PutClient(txt_clientName.Text, txt_clientAddress.Text, txt_clientEmail.Text, txt_clientContact.Text); // make it return bool value
             bool result = connected.Result; // The bool value result
             MessageBox.Show($"{result}");
             
