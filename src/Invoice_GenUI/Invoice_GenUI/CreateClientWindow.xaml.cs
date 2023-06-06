@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Invoice_GenUI.Models;
@@ -34,6 +35,10 @@ public partial class CreateClientWindow : Window
         e.Cancel = true;
         this.Hide();
     }
+    public async Task PutClient()
+    {
+
+    }
 
     private void btn_createClient_Click(object sender, RoutedEventArgs e)
     {
@@ -49,8 +54,11 @@ public partial class CreateClientWindow : Window
         }
         else
         {
-            var connected = _clientService.EnterClient(txt_clientName.Text, txt_clientAddress.Text, txt_clientEmail.Text, txt_clientContact.Text);
 
+            var connected = _clientService.PostClient(txt_clientName.Text, txt_clientAddress.Text, txt_clientEmail.Text, txt_clientContact.Text); // make it return bool value
+            bool result = connected.Result; // The bool value result
+            MessageBox.Show($"{result}");
+            
         }
 
         btn_createClient.IsEnabled = true;
