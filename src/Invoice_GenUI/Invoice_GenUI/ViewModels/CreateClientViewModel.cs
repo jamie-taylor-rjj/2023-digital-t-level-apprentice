@@ -11,41 +11,41 @@ public class CreateClientViewModel : ViewModelBase
     {
         newClient = new CreateClientModel();
     }
-    public string ClientName
+    public string clientName
     {
         get => newClient.ClientName;
         set
         {
             newClient.ClientName = value;
-            OnPropertyChanged(nameof(ClientName));
+            OnPropertyChanged(nameof(clientName));
         }
     }
 
-    public string ClientAddress
+    public string clientAddress
     {
         get => newClient.ClientAddress;
         set
         {
             newClient.ClientAddress = value;
-            OnPropertyChanged(nameof(ClientAddress));
+            OnPropertyChanged(nameof(clientAddress));
         }
     }
-    public string ContactName
+    public string contactName
     {
         get => newClient.ContactName;
         set
         {
             newClient.ContactName = value;
-            OnPropertyChanged(nameof(ContactName));
+            OnPropertyChanged(nameof(contactName));
         }
     }
-    public string ContactEmail
+    public string contactEmail
     {
         get => newClient.ContactEmail;
         set
         {
             newClient.ContactEmail = value;
-            OnPropertyChanged(nameof(ContactEmail));
+            OnPropertyChanged(nameof(contactEmail));
         }
     }
 }

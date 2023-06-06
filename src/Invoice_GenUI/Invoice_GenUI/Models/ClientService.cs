@@ -39,10 +39,10 @@ namespace Invoice_GenUI.Models
 
             var clientDetails = new CreateClientViewModel() // Creating client with the valid values entered by the user in the UI
             {
-                ClientName = name, 
-                ClientAddress = address,
-                ContactName = contact,
-                ContactEmail = email
+                clientName = name, 
+                clientAddress = address,
+                contactName = contact,
+                contactEmail = email
             };
             using (var client = new HttpClient())
             {
