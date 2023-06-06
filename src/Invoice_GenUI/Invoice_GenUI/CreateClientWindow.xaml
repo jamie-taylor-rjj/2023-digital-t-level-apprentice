@@ -64,7 +64,7 @@
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 70 0 0">
                     <TextBox x:Name="txt_clientName" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}" >
                         <TextBox.Text>
-                            <Binding Path="ClientName"
+                            <Binding Path="clientName"
                                      UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validation:UsernameValidation/>
@@ -74,7 +74,7 @@
                     </TextBox>
                     <TextBox x:Name="txt_clientEmail" Height="40" Width="200" Background="{x:Null}">
                         <TextBox.Text>
-                            <Binding Path="ContactEmail"
+                            <Binding Path="contactEmail"
                                      UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validation:EmailValidation/>
@@ -93,7 +93,7 @@
                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 70 0 0">
                     <TextBox x:Name="txt_clientContact" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}">
                         <TextBox.Text>
-                            <Binding Path="ContactName"
+                            <Binding Path="contactName"
                                      UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validation:ContactValidation/>
@@ -103,7 +103,7 @@
                     </TextBox>
                     <TextBox x:Name="txt_clientAddress" Height="40" Width="200" Background="{x:Null}">
                         <TextBox.Text>
-                            <Binding Path="ClientAddress"
+                            <Binding Path="clientAddress"
                                      UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validation:AddressValidation/>
