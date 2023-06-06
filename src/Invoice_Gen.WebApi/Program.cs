@@ -18,6 +18,7 @@ try
     builder.Services
         .AddTransient<IMapper<ClientNameViewModel, Client>, ClientNameViewModelMapper>()
         .AddTransient(typeof(IClientRepository), typeof(ClientRepository))
+        .AddTransient<IDbContext, InvoiceGenDbContext>()
         .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
     builder.Services.AddTransient<IClientService, ClientService>();
 
