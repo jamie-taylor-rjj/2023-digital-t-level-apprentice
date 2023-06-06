@@ -7,10 +7,7 @@
         mc:Ignorable="d" Height="450" Width="800" WindowStartupLocation="CenterScreen"
           Background="Transparent">
     <Grid>
-        <Grid.ColumnDefinitions>
-
-        </Grid.ColumnDefinitions>
-
+       
 
 
         <!--Main Section-->
