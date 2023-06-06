@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using ClacksMiddleware.Extensions;
 using Invoice_Gen.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -65,4 +66,5 @@ finally
 }
 
 // Required for integration tests
+[ExcludeFromCodeCoverage]
 public partial class Program { }
