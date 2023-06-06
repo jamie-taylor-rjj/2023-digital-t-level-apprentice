@@ -19,7 +19,7 @@ public class ClientService : IClientService
         _logger.BeginScope("{ClientService} getting all clients", nameof(ClientService));
         var all = _clientRepository.GetAll();
 
-        _logger.LogInformation("Retrieved {Count} {ClientModel}", all.Count(), nameof(Client));
+        _logger.LogInformation("Retrieved {Count} {ClientModel}", all.Count, nameof(Client));
 
         _logger.LogInformation("Converting to List of {ClientNameViewModel} using {Mapper}", nameof(ClientNameViewModel), typeof(ClientNameViewModelMapper));
         var returnData = all.Select(c => _clientViewModelMapper.Convert(c)).ToList();
