@@ -34,7 +34,7 @@ namespace Invoice_GenUI.Models
         {
             bool result = false;
 
-            var clientURL = "https://2023-invoice-gen.azurewebsites.net/Client"; // API URL
+            var clientURL = " https://2023-invoice-gen.azurewebsites.net/Clients/Client"; // API URL
 
             var clientDetails = new CreateClientViewModel() // Creating client with the valid values entered by the user in the UI
             {

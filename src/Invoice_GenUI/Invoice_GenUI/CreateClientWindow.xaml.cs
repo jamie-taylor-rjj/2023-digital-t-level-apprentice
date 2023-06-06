@@ -49,7 +49,8 @@ public partial class CreateClientWindow : Window
         }
         else
         {
-            _clientService.EnterClient(txt_clientName.Text, txt_clientAddress.Text, txt_clientEmail.Text, txt_clientContact.Text);
+            var connected = _clientService.EnterClient(txt_clientName.Text, txt_clientAddress.Text, txt_clientEmail.Text, txt_clientContact.Text);
+
         }
 
         btn_createClient.IsEnabled = true;
