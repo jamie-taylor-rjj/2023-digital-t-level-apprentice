@@ -10,7 +10,7 @@ public class AddressValidation : ValidationRule
 {
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {
-        Regex regex = new Regex("(^\\s?[^qvx][^ijz]?[0-9]{1,2}[A,B,C,D,E,F,G,H,J,K,S,T,U,W]?\\s?[0-9][^CIKMOV]{2}\\s?)");
+        Regex regex = new Regex("^[A-Za-z0-9]{1,100}");
         string? input = value.ToString();
         if (!regex.IsMatch(input))
         {
