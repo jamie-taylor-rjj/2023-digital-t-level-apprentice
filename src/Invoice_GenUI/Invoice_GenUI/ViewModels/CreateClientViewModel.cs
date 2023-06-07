@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
+using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
 
 namespace Invoice_GenUI.ViewModels;
@@ -22,7 +22,7 @@ public partial class CreateClientViewModel : ViewModelBase
     public CreateClientViewModel(IClientService clientService)
     {
         newClient = new CreateClientModel();
-        _clientService = clientService; 
+        _clientService = clientService;
     }
     public string clientName
     {
@@ -71,18 +71,18 @@ public partial class CreateClientViewModel : ViewModelBase
             string.IsNullOrWhiteSpace(contactEmail))
         {
             MessageBox.Show("Invalid data");
-            
+
         }
         else
         {
             var connected = await _clientService.PutClient(clientName, clientAddress, contactName, contactEmail); // make it return bool value
             bool result = connected; // The bool value result
             MessageBox.Show($"{result}");
-            if(result)
+            if (result)
             {
-                clientName = string.Empty; 
-                contactName = string.Empty; 
-                clientAddress = string.Empty; 
+                clientName = string.Empty;
+                contactName = string.Empty;
+                clientAddress = string.Empty;
                 contactEmail = string.Empty;
             }
         }

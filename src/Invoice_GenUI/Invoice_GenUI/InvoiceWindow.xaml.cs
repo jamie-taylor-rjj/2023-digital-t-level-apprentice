@@ -1,9 +1,9 @@
-﻿using Invoice_GenUI.ViewModels;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Invoice_GenUI.ViewModels;
 
 namespace Invoice_GenUI
 {
@@ -13,10 +13,10 @@ namespace Invoice_GenUI
     public partial class InvoiceWindow : Window
     {
         private readonly InvoiceViewModel _viewModel;
-        public InvoiceWindow(InvoiceViewModel viewModel) 
+        public InvoiceWindow(InvoiceViewModel viewModel)
         {
             _viewModel = viewModel;
-            
+
             InitializeComponent();
 
             txt_totalValue.Text += " " + _viewModel.LineItemsTotal().ToString();

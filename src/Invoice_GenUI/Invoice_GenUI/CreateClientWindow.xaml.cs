@@ -21,7 +21,7 @@ public partial class CreateClientWindow : Window
 
         DataContext = _viewModel;
     }
-    
+
     private void Border_MouseDown(object sender, MouseButtonEventArgs e)
     {
         if (e.ChangedButton == MouseButton.Left)
@@ -40,8 +40,8 @@ public partial class CreateClientWindow : Window
 
     }
 
-    
 
 
-    
+
+
 }
