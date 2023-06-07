@@ -5,7 +5,6 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Windows;
 using Invoice_GenUI.ViewModels;
 
 namespace Invoice_GenUI.Models
