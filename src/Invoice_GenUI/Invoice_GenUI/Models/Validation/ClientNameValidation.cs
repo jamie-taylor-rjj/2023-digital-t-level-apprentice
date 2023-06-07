@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
 namespace Invoice_GenUI.Models.Validation;
 
-public class UsernameValidation : ValidationRule
+public class ClientNameValidation : ValidationRule
 {
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {

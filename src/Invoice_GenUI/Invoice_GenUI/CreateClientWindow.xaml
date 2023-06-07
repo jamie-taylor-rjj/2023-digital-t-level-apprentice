@@ -67,7 +67,7 @@
                             <Binding Path="ClientName"
                                      UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
-                                    <validation:UsernameValidation/>
+                                    <validation:ClientNameValidation/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
