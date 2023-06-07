@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace Invoice_Gen.WebApi.IntegrationTests;
+﻿namespace Invoice_Gen.WebApi.IntegrationTests;
 
 [ExcludeFromCodeCoverage]
 public class HelloEndpointTests : IClassFixture<WebApplicationFactory<Program>>

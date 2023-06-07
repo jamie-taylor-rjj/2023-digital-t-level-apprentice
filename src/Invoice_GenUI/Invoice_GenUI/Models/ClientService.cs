@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using System.Windows.Media.Animation;
 using Invoice_GenUI.ViewModels;
 
 namespace Invoice_GenUI.Models
