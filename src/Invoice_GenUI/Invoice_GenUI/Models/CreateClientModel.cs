@@ -1,7 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-
-namespace Invoice_GenUI.Models;
+﻿namespace Invoice_GenUI.Models;
 
 public class CreateClientModel
 {

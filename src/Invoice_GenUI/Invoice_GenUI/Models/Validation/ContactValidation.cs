@@ -1,7 +1,6 @@
 ﻿
 
 using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
 namespace Invoice_GenUI.Models.Validation;
