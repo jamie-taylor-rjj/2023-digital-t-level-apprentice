@@ -31,7 +31,7 @@ namespace Invoice_GenUI
             services.AddTransient<IClientService, ClientService>();
         }
         private void OnStartUp(object sender, EventArgs e)
-        { 
+        {
             var startUpWindow = serviceProvider.GetService<StartUpWindow>();
             startUpWindow.Show();
         }

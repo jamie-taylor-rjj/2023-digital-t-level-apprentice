@@ -14,7 +14,7 @@ public class ClientNameValidation : ValidationRule
         string? input = value.ToString();
         if (!regex.IsMatch(input))
         {
-            if(string.IsNullOrWhiteSpace(input))
+            if (string.IsNullOrWhiteSpace(input))
             {
                 return new ValidationResult(false, "Name field is empty");
             }
