@@ -26,11 +26,13 @@ public class ClientsController : ControllerBase
     [ProducesResponseType(typeof(List<ClientViewModel>), StatusCodes.Status200OK)]
     public IActionResult Get()
     {
-        _logger.BeginScope("Getting all clients");
-        var clients = _clientService.GetClients();
+        using (_logger.BeginScope("Getting all clients"))
+        {
+            var clients = _clientService.GetClients();
 
-        _logger.LogInformation("Returning list of {ClientNameViewModel}", typeof(ClientViewModel));
-        return new OkObjectResult(clients);
+            _logger.LogInformation("Returning list of {ClientNameViewModel}", typeof(ClientViewModel));
+            return new OkObjectResult(clients);
+        }
     }
 
     /// <summary>
@@ -43,16 +45,18 @@ public class ClientsController : ControllerBase
     [ProducesResponseType(typeof(ClientViewModel), StatusCodes.Status200OK)]
     public IActionResult GetClientById(int clientId)
     {
-        _logger.BeginScope("Getting client data for {ID}", clientId);
-
-        var client = _clientService.GetById(clientId);
-        if (client == null)
+        using (_logger.BeginScope("Getting client data for {ID}", clientId))
         {
-            _logger.LogInformation("Unable to find client record");
-            return new NotFoundResult();
+            var client = _clientService.GetById(clientId);
+            if (client == null)
+            {
+                _logger.LogInformation("Unable to find client record");
+                return new NotFoundResult();
+            }
+
+            _logger.LogInformation("Returning {ClientNameViewModel} for {ID}", nameof(ClientViewModel), clientId);
+            return new OkObjectResult(client);
         }
-        _logger.LogInformation("Returning {ClientNameViewModel} for {ID}", nameof(ClientViewModel), clientId);
-        return new OkObjectResult(client);
     }
 
     /// <summary>
@@ -68,13 +72,16 @@ public class ClientsController : ControllerBase
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateClient(ClientCreationModel inputClient)
     {
-        var response = await _clientService.CreateNewClient(inputClient);
-        if (response == default)
+        using (_logger.BeginScope("Request to create new client {ClientName} received", inputClient.ClientName))
         {
-            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-        }
+            var response = await _clientService.CreateNewClient(inputClient);
+            if (response == default)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
 
-        return new CreatedResult(nameof(GetClientById), new { clientId = response });
+            return new CreatedResult(nameof(GetClientById), new { clientId = response });
+        }
     }
 
     /// <summary>
@@ -90,13 +97,17 @@ public class ClientsController : ControllerBase
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     public async Task<IActionResult> DeleteClient(int clientId)
     {
-        if (clientId == default)
+        using (_logger.BeginScope("Request to delete client {ClientId} received", clientId))
         {
-            return new BadRequestResult();
+            if (clientId == default)
+            {
+                _logger.LogInformation("Supplied ClientId was 0");
+                return new BadRequestResult();
+            }
+
+            await _clientService.DeleteClient(clientId);
+
+            return new OkResult();
         }
-
-        await _clientService.DeleteClient(clientId);
-
-        return new OkResult();
     }
 }
