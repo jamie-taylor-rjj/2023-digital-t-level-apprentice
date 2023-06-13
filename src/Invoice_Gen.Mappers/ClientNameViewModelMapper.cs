@@ -3,13 +3,20 @@ using Invoice_Gen.ViewModels;
 
 namespace Invoice_Gen.Mappers;
 
-public class ClientNameViewModelMapper : IMapper<ClientNameViewModel, Client>
+public class ClientNameViewModelMapper : IMapper<ClientViewModel, Client>
 {
-    public Client Convert(ClientNameViewModel source)
+    public Client Convert(ClientViewModel source)
     {
         throw new NotImplementedException();
     }
 
-    public ClientNameViewModel Convert(Client destination) =>
-        new() { ClientName = destination.ClientName, ClientId = destination.ClientId };
+    public ClientViewModel Convert(Client destination) =>
+        new()
+        {
+            ClientId = destination.ClientId,
+            ClientName = destination.ClientName,
+            ClientAddress = destination.ClientAddress,
+            ContactName = destination.ContactName,
+            ContactEmail = destination.ContactEmail,
+        };
 }

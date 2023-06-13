@@ -17,30 +17,30 @@ public class ClientsController : ControllerBase
     }
 
     /// <summary>
-    /// Returns a new instance of <see cref="ClientNameViewModel"/>
+    /// Returns a new instance of <see cref="ClientViewModel"/>
     /// </summary>
     /// <returns>
-    /// A list of <see cref="ClientNameViewModel"/> instances with some default data
+    /// A list of <see cref="ClientViewModel"/> instances with some default data
     /// </returns>
     [HttpGet(Name = "GetClients")]
-    [ProducesResponseType(typeof(List<ClientNameViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<ClientViewModel>), StatusCodes.Status200OK)]
     public IActionResult Get()
     {
         _logger.BeginScope("Getting all clients");
         var clients = _clientService.GetClients();
 
-        _logger.LogInformation("Returning list of {ClientNameViewModel}", typeof(ClientNameViewModel));
+        _logger.LogInformation("Returning list of {ClientNameViewModel}", typeof(ClientViewModel));
         return new OkObjectResult(clients);
     }
 
     /// <summary>
-    /// Gets the instance of <see cref="ClientNameViewModel"/> for the provided <paramref name="clientId"/>
+    /// Gets the instance of <see cref="ClientViewModel"/> for the provided <paramref name="clientId"/>
     /// </summary>
     /// <returns>
-    /// A list of <see cref="ClientNameViewModel"/> instances with some default data
+    /// A list of <see cref="ClientViewModel"/> instances with some default data
     /// </returns>
     [HttpGet("{clientId}", Name = "GetClientById")]
-    [ProducesResponseType(typeof(ClientNameViewModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ClientViewModel), StatusCodes.Status200OK)]
     public IActionResult GetClientById(int clientId)
     {
         _logger.BeginScope("Getting client data for {ID}", clientId);
@@ -51,7 +51,7 @@ public class ClientsController : ControllerBase
             _logger.LogInformation("Unable to find client record");
             return new NotFoundResult();
         }
-        _logger.LogInformation("Returning {ClientNameViewModel} for {ID}", nameof(ClientNameViewModel), clientId);
+        _logger.LogInformation("Returning {ClientNameViewModel} for {ID}", nameof(ClientViewModel), clientId);
         return new OkObjectResult(client);
     }
 

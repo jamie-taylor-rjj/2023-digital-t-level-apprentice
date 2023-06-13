@@ -2,8 +2,8 @@
 
 public interface IClientService
 {
-    List<ClientNameViewModel> GetClients();
-    ClientNameViewModel? GetById(int id);
+    List<ClientViewModel> GetClients();
+    ClientViewModel? GetById(int id);
     Task<int> CreateNewClient(ClientCreationModel inputClient);
     Task DeleteClient(int clientId);
 }

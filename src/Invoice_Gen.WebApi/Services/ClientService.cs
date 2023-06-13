@@ -4,37 +4,37 @@ namespace Invoice_Gen.WebApi.Services;
 
 public class ClientService : IClientService
 {
-    private readonly IMapper<ClientNameViewModel, Client> _clientViewModelMapper;
+    private readonly IMapper<ClientViewModel, Client> _clientViewModelMapper;
     private readonly IClientRepository _clientRepository;
     private readonly ILogger<ClientService> _logger;
-    public ClientService(IMapper<ClientNameViewModel, Client> clientViewModelMapper,
+    public ClientService(IMapper<ClientViewModel, Client> clientViewModelMapper,
         IClientRepository clientRepository, ILogger<ClientService> logger)
     {
         _clientViewModelMapper = clientViewModelMapper;
         _clientRepository = clientRepository;
         _logger = logger;
     }
-    public List<ClientNameViewModel> GetClients()
+    public List<ClientViewModel> GetClients()
     {
         _logger.BeginScope("{ClientService} getting all clients", nameof(ClientService));
         var all = _clientRepository.GetAll();
 
         _logger.LogInformation("Retrieved {Count} {ClientModel}", all.Count, nameof(Client));
 
-        _logger.LogInformation("Converting to List of {ClientNameViewModel} using {Mapper}", nameof(ClientNameViewModel), typeof(ClientNameViewModelMapper));
+        _logger.LogInformation("Converting to List of {ClientNameViewModel} using {Mapper}", nameof(ClientViewModel), typeof(ClientNameViewModelMapper));
         var returnData = all.Select(c => _clientViewModelMapper.Convert(c)).ToList();
 
-        _logger.LogInformation("Returning {count} of {ClientNameViewModel} instances", returnData.Count(), nameof(ClientNameViewModel));
+        _logger.LogInformation("Returning {count} of {ClientNameViewModel} instances", returnData.Count(), nameof(ClientViewModel));
         return returnData;
     }
 
-    public ClientNameViewModel? GetById(int id)
+    public ClientViewModel? GetById(int id)
     {
         _logger.BeginScope("{ClientService} getting client record for {ID}", nameof(ClientService), id);
 
         var client = _clientRepository.GetAll().FirstOrDefault(f => f.ClientId == id);
 
-        _logger.LogInformation("Returning {ClientNameViewModel} for {ID}", nameof(ClientNameViewModel), id);
+        _logger.LogInformation("Returning {ClientNameViewModel} for {ID}", nameof(ClientViewModel), id);
         return client == null ? null : _clientViewModelMapper.Convert(client);
     }
 

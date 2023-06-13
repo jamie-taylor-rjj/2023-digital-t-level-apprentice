@@ -17,7 +17,7 @@ try
     var connectionString = builder.Configuration.GetConnectionString("invoiceConnectionString");
 
     builder.Services
-        .AddTransient<IMapper<ClientNameViewModel, Client>, ClientNameViewModelMapper>()
+        .AddTransient<IMapper<ClientViewModel, Client>, ClientNameViewModelMapper>()
         .AddTransient(typeof(IClientRepository), typeof(ClientRepository))
         .AddTransient<IDbContext, InvoiceGenDbContext>()
         .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
