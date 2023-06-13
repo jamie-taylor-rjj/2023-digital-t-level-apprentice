@@ -83,7 +83,7 @@ public class ClientRepoTests
     }
 
     [Fact]
-    public async Task Delete_RemovesInstance_ToRepo()
+    public async Task Delete_RemovesInstance_FromRepo()
     {
         // arrange
         var clientList = new List<Client>
@@ -121,5 +121,51 @@ public class ClientRepoTests
         Assert.NotNull(listAfterDelete);
         Assert.IsAssignableFrom<List<Client>>(listAfterDelete);
         Assert.Single(listAfterDelete);
+    }
+    
+    [Theory]
+    [InlineData(3)]
+    [InlineData(0)]
+    [InlineData(Int32.MaxValue)]
+    [InlineData(-1)]
+    [InlineData(Int32.MinValue)]
+    public async Task Delete_DoesntRemoveInstanceWhenInvalidId_ToRepo(int targetClientId)
+    {
+        // arrange
+        var clientList = new List<Client>
+        {
+            new()
+            {
+                ClientId = 1,
+                ClientName = "Testy McTestFace",
+                ContactName = "Tester McContactFace",
+                ClientAddress = "Boaty McBoatFace",
+                ContactEmail = "mctestface.testy@testl.library"
+            },
+            new()
+            {
+                ClientId = 2,
+                ClientName = "Testy McTestFace",
+                ContactName = "Tester McContactFace",
+                ClientAddress = "Boaty McBoatFace",
+                ContactEmail = "mctestface.testy@testl.library"
+            },
+        };
+        var clientListSet = DbSetHelpers.GetQueryableDbSet(clientList);
+
+        var mockedRepo = new Mock<IDbContext>();
+        mockedRepo.Setup(s => s.Clients).Returns(clientListSet.Object);
+        var mockedLogger = new Mock<ILogger<ClientRepository>>();
+
+        var sut = new ClientRepository(mockedRepo.Object, mockedLogger.Object);
+
+        // act
+        await sut.Delete(targetClientId);
+        var listAfterDelete = sut.GetAll();
+
+        // asset
+        Assert.NotNull(listAfterDelete);
+        Assert.IsAssignableFrom<List<Client>>(listAfterDelete);
+        Assert.False(listAfterDelete.Count == 1);
     }
 }
