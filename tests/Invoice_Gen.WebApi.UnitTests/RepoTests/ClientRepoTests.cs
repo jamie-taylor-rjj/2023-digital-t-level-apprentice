@@ -122,7 +122,7 @@ public class ClientRepoTests
         Assert.IsAssignableFrom<List<Client>>(listAfterDelete);
         Assert.Single(listAfterDelete);
     }
-    
+
     [Theory]
     [InlineData(3)]
     [InlineData(0)]

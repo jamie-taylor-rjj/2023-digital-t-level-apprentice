@@ -179,7 +179,7 @@ public class ClientServiceTests
         // Assert
         Assert.NotEqual(0, response);
     }
-    
+
     [Fact]
     public async Task Given_Valid_ClientId_DeleteClient_DoesntRaiseException()
     {
