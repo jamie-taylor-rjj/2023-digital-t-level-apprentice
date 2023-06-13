@@ -180,4 +180,30 @@ public class ClientServiceTests
         Assert.NotEqual(0, response);
     }
 
+    [Fact]
+    public async Task Given_Valid_ClientId_DeleteClient_DoesntRaiseException()
+    {
+        // Arrange
+        var client = new Client
+        {
+            ClientId = 1,
+            ClientName = _clientName,
+            ClientAddress = _clientAddress,
+            ContactName = _contactName,
+            ContactEmail = _contactEmail
+        };
+        var clientsForMock = new List<Client> { client };
+        var mockedRepository = new Mock<IClientRepository>();
+        mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
+        mockedRepository.Setup(x => x.Delete(It.IsAny<int>()));
+        var mockedLogger = new Mock<ILogger<ClientService>>();
+
+        var sut = new ClientService(_mockedClientNameViewModelMapper.Object, mockedRepository.Object, mockedLogger.Object);
+
+        // act
+        var exception = await Record.ExceptionAsync(() => sut.DeleteClient(1));
+
+        // Assert
+        Assert.Null(exception);
+    }
 }
