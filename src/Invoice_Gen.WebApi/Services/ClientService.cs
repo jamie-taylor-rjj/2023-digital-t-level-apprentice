@@ -19,7 +19,7 @@ public class ClientService : IClientService
         _logger.BeginScope("{ClientService} getting all clients", nameof(ClientService));
         var all = _clientRepository.GetAll();
 
-        _logger.LogInformation("Retrieved {Count} {ClientModel}", all.Count(), nameof(Client));
+        _logger.LogInformation("Retrieved {Count} {ClientModel}", all.Count, nameof(Client));
 
         _logger.LogInformation("Converting to List of {ClientNameViewModel} using {Mapper}", nameof(ClientNameViewModel), typeof(ClientNameViewModelMapper));
         var returnData = all.Select(c => _clientViewModelMapper.Convert(c)).ToList();
@@ -30,7 +30,7 @@ public class ClientService : IClientService
 
     public ClientNameViewModel? GetById(int id)
     {
-        _logger.BeginScope("{ClientService} getting client record for {ID}", id);
+        _logger.BeginScope("{ClientService} getting client record for {ID}", nameof(ClientService), id);
 
         var client = _clientRepository.GetAll().FirstOrDefault(f => f.ClientId == id);
 
@@ -40,6 +40,7 @@ public class ClientService : IClientService
 
     public async Task<int> CreateNewClient(ClientCreationModel inputClient)
     {
+        _logger.BeginScope("{ClientService} creating new client record for {ClientName}", nameof(ClientService), inputClient.ClientName);
         var response = await _clientRepository.Add(new Client
         {
             ClientAddress = inputClient.ClientAddress,
@@ -47,6 +48,7 @@ public class ClientService : IClientService
             ContactEmail = inputClient.ContactEmail,
             ContactName = inputClient.ContactName
         });
+        _logger.LogInformation("Generated ID of new client is {ClientId}", response.ClientId);
         return response.ClientId;
     }
 

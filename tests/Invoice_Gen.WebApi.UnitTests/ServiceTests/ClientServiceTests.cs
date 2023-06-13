@@ -132,4 +132,46 @@ public class ClientServiceTests
         Assert.Null(result);
     }
 
+    [Fact]
+    public async Task Given_Valid_ClientCreationModel_CreateClient_Returns_IdOfNewClient()
+    {
+        // Arrange
+        var client = new Client
+        {
+            ClientId = _clientId,
+            ClientName = _clientName,
+            ClientAddress = _clientAddress,
+            ContactName = _contactName,
+            ContactEmail = _contactEmail
+        };
+
+        var clientToAdd = new Client()
+        {
+            ClientAddress = Guid.NewGuid().ToString(),
+            ContactName = Guid.NewGuid().ToString(),
+            ContactEmail = Guid.NewGuid().ToString(),
+            ClientName = Guid.NewGuid().ToString(),
+            ClientId = 7
+        };
+        var clientsForMock = new List<Client> { client };
+        var mockedRepository = new Mock<IClientRepository>();
+        mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
+        mockedRepository.Setup(x => x.Add(It.IsAny<Client>())).Returns(Task.FromResult(clientToAdd));
+        var mockedLogger = new Mock<ILogger<ClientService>>();
+        
+        var sut = new ClientService(_mockedClientNameViewModelMapper.Object, mockedRepository.Object, mockedLogger.Object);
+
+        // act
+        var response = await sut.CreateNewClient(new ClientCreationModel()
+        {
+            ClientAddress = Guid.NewGuid().ToString(),
+            ContactName = Guid.NewGuid().ToString(),
+            ContactEmail = Guid.NewGuid().ToString(),
+            ClientName = Guid.NewGuid().ToString(),
+        });
+        
+        // Assert
+        Assert.NotEqual(0, response);
+    }
+
 }

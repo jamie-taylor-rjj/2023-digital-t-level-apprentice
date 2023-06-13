@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using ClacksMiddleware.Extensions;
 using Invoice_Gen.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ try
     builder.Services
         .AddTransient<IMapper<ClientNameViewModel, Client>, ClientNameViewModelMapper>()
         .AddTransient(typeof(IClientRepository), typeof(ClientRepository))
+        .AddTransient<IDbContext, InvoiceGenDbContext>()
         .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
     builder.Services.AddTransient<IClientService, ClientService>();
 
@@ -64,4 +66,5 @@ finally
 }
 
 // Required for integration tests
+[ExcludeFromCodeCoverage]
 public partial class Program { }

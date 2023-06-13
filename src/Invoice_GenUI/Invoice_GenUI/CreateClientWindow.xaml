@@ -4,11 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Invoice_GenUI"
+        xmlns:validation="clr-namespace:Invoice_GenUI.Models.Validation"
         mc:Ignorable="d" Height="450" Width="800" WindowStartupLocation="CenterScreen"
           Background="Transparent">
-    <Grid>
-       
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder/>
+                            <ItemsControl Margin="0 5 0 0" FontSize="12" ItemsSource="{Binding}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Foreground="Red" Text="{Binding ErrorContent}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
+    </Window.Resources>
+    
+    <Grid IsEnabled="{Binding Path=!Validating}">
+        
+    
 
         <!--Main Section-->
         <Border Grid.Column="1" CornerRadius="20 20 20 20" MouseDown="Border_MouseDown">
@@ -39,8 +62,26 @@
                 <!--Textbox row one-->
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 70 0 0">
-                    <TextBox x:Name="txt_clientName" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}"/>
-                    <TextBox x:Name="txt_clientEmail" Height="40" Width="200" Background="{x:Null}"/>
+                    <TextBox x:Name="txt_clientName" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}" >
+                        <TextBox.Text>
+                            <Binding Path="ClientName"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:ClientNameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="txt_clientEmail" Height="40" Width="200" Background="{x:Null}">
+                        <TextBox.Text>
+                            <Binding Path="ContactEmail"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:EmailValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Left" Height="21" Margin="165,49,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Client Name" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
                            FontSize="14"/>
@@ -50,8 +91,26 @@
                 <!--Textbox row two-->
 
                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 70 0 0">
-                    <TextBox x:Name="txt_clientContact" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}"/>
-                    <TextBox x:Name="txt_clientAddress" Height="40" Width="200" Background="{x:Null}"/>
+                    <TextBox x:Name="txt_clientContact" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}">
+                        <TextBox.Text>
+                            <Binding Path="ContactName"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:ContactValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="txt_clientAddress" Height="40" Width="200" Background="{x:Null}">
+                        <TextBox.Text>
+                            <Binding Path="ClientAddress"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:AddressValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Left" Height="21" Margin="165,49,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Client Contact" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
                            FontSize="14"/>
@@ -59,7 +118,27 @@
                     FontSize="14"/>
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button x:Name="btn_createClient" Width="150" Height="40" Content="Create Client" FontWeight="SemiBold" Background="#FF7CACFC" Click="btn_createClient_Click"/>
+                    <Button x:Name="btn_createClient" Width="150" Height="40" Content="Create Client" FontWeight="SemiBold" Background="#FF7CACFC" Click="btn_createClient_Click">
+                        
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=txt_clientAddress,Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=txt_clientContact,Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=txt_clientName,Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=txt_clientEmail,Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Border>

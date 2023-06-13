@@ -27,8 +27,8 @@ namespace Invoice_GenUI.ViewModels
         public InvoiceViewModel(IClientService clientService)
         {
             _clientService = clientService;
-            
-            
+
+
             LineItems.Add(new LineItemViewModel
             {
                 Description = Guid.NewGuid().ToString(),
@@ -40,11 +40,11 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         public async Task GetClientNames()
         {
-            ClientNameLoading = true;
+            ClientNameLoading = true; // when button clicked 
 
             var tempClients = await _clientService.GetClientNames();
 
-            if (tempClients.Count != 0) 
+            if (tempClients.Count != 0)
             {
                 ClientNames.Clear();
 
@@ -53,18 +53,17 @@ namespace Invoice_GenUI.ViewModels
                     ClientNames.Add(clientName);
                 }
             }
-            
-           ClientNameLoading = false;
+            ClientNameLoading = false; // when all names loaded in
         }
 
         [RelayCommand]
-        public void AddLineItem() 
+        public void AddLineItem()
         {
             var newLineItem = new LineItemViewModel // Object initialisation
             {
-                Description = lineItem.Description,
-                Quantity = lineItem.Quantity,
-                Cost = lineItem.Cost,
+                Description = LineItem.Description,
+                Quantity = LineItem.Quantity,
+                Cost = LineItem.Cost,
             };
             LineItems.Add(newLineItem);
         }

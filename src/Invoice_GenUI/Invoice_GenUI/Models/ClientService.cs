@@ -26,5 +26,13 @@ namespace Invoice_GenUI.Models
                 return await response.Content.ReadFromJsonAsync<List<ClientNameViewModel>>() ?? new();
             }
         }
+
+        public async Task PutRequest()
+        {
+            using (var client = new HttpClient())
+            {
+
+            }
+        }
     }
 }
