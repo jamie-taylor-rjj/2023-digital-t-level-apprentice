@@ -1,47 +1,70 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using ClacksMiddleware.Extensions;
-using Invoice_Gen.ViewModels;
+using Invoice_Gen.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using OwaspHeaders.Core.Extensions;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
-builder.Services
-    .AddTransient<IMapper<ClientNameViewModel, Client>, ClientNameViewModelMapper>()
-    .AddTransient(typeof(IClientRepository), typeof(ClientRepository));
-builder.Services.AddTransient<IClientService, ClientService>();
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(o =>
+try
 {
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    o.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
-});
+    Log.Information("Starting app - registering services");
 
-var app = builder.Build();
+    var builder = WebApplication.CreateBuilder(args);
 
-app.GnuTerryPratchett();
+    var connectionString = builder.Configuration.GetConnectionString("invoiceConnectionString");
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+    builder.Services
+        .AddTransient<IMapper<ClientNameViewModel, Client>, ClientNameViewModelMapper>()
+        .AddTransient(typeof(IClientRepository), typeof(ClientRepository))
+        .AddTransient<IDbContext, InvoiceGenDbContext>()
+        .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
+    builder.Services.AddTransient<IClientService, ClientService>();
+
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(o =>
+    {
+        var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        o.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+    });
+
+    Log.Information("Starting app - building IApplicationBuilder");
+
+    var app = builder.Build();
+
+    app.GnuTerryPratchett();
+
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.UseSecureHeadersMiddleware(
+        SecureHeadersMiddlewareExtensions
+            .BuildDefaultConfiguration()
+    );
+
+    app.UseHttpsRedirection();
+
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    Log.Information("Stating app - ready to serve requests");
+
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
 }
 
-app.UseSecureHeadersMiddleware(
-    SecureHeadersMiddlewareExtensions
-        .BuildDefaultConfiguration()
-);
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
-
 // Required for integration tests
+[ExcludeFromCodeCoverage]
 public partial class Program { }

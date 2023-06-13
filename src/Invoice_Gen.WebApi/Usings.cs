@@ -1,4 +1,5 @@
-﻿global using Invoice_Gen.WebApi.Mappers;
-global using Invoice_Gen.WebApi.Models;
-global using Invoice_Gen.WebApi.Repositories;
+﻿global using Invoice_Gen.Domain;
+global using Invoice_Gen.Mappers;
+global using Invoice_Gen.ViewModels;
 global using Invoice_Gen.WebApi.Services;
+

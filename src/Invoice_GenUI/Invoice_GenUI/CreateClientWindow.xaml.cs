@@ -38,10 +38,24 @@ public partial class CreateClientWindow : Window
     public async Task PutClient()
     {
 
+        if (string.IsNullOrWhiteSpace(txt_clientName.Text) ||
+            string.IsNullOrWhiteSpace(txt_clientAddress.Text) ||
+            string.IsNullOrWhiteSpace(txt_clientContact.Text) ||
+            string.IsNullOrWhiteSpace(txt_clientEmail.Text))
+        {
+            MessageBox.Show("Invalid data");
+            btn_createClient.IsEnabled = true;
+        }
+        else
+        {
+
+
+        }
+
+        btn_createClient.IsEnabled = true;
+
+
     }
-
-
-
 
 
 }

@@ -1,1 +1,3 @@
-﻿global using Xunit;
+﻿global using Invoice_Gen.Domain.Models;
+global using Invoice_Gen.ViewModels;
+global using Xunit;
