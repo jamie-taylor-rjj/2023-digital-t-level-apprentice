@@ -26,6 +26,7 @@ namespace Invoice_GenUI
             services.AddTransient<StartUpWindow>();
             services.AddTransient<CreateClientWindow>();
             services.AddTransient<CreateClientViewModel>();
+            services.AddTransient<ClientService>();
             services.AddTransient<InvoiceWindow>();
             services.AddTransient<InvoiceViewModel>(); // Gives brand new instance of invoiceviewmodel every time
             services.AddTransient<IClientService, ClientService>();
