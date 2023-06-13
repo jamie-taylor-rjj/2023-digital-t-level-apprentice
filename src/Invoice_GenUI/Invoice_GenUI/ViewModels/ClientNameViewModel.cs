@@ -2,10 +2,6 @@
 {
     public class ClientNameViewModel
     {
-        public string ClientName { get; set; }
-
-        public int ClientID { get; set; }
-        
-
+        public string? ClientName { get; set; }
     }
 }

@@ -1,8 +1,9 @@
-﻿using Invoice_GenUI.ViewModels;
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Invoice_GenUI.ViewModels;
 
 namespace Invoice_GenUI
 {
@@ -12,12 +13,10 @@ namespace Invoice_GenUI
     public partial class InvoiceWindow : Window
     {
         private readonly InvoiceViewModel _viewModel;
-        private readonly CreateClientWindow _clientWindow;
-        public InvoiceWindow(CreateClientWindow clientWindow, InvoiceViewModel viewModel)
+        public InvoiceWindow(InvoiceViewModel viewModel)
         {
             _viewModel = viewModel;
-            _clientWindow = clientWindow;
-            
+
             InitializeComponent();
 
             txt_totalValue.Text += " " + _viewModel.LineItemsTotal().ToString();
@@ -36,9 +35,9 @@ namespace Invoice_GenUI
 
         // -------------------------- NAVIGATION BUTTONS ----------------------------
 
-        private void btn_createClient_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            _clientWindow.Show();
+            e.Cancel = true; // When trying to show start up window = circular dependency
             this.Hide();
         }
 
