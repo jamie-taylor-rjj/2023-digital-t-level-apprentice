@@ -104,7 +104,7 @@ public class ClientsController : ControllerBase
                 _logger.LogInformation("Supplied ClientId was 0");
                 return new BadRequestResult();
             }
-            
+
             await _clientService.DeleteClient(clientId);
 
             return new OkResult();
