@@ -1,6 +1,6 @@
 ﻿namespace Invoice_Gen.ViewModels;
 
-public class ClientNameViewModel
+public class ClientViewModel
 {
     public int ClientId { get; set; }
     public string ClientName { get; set; } = null!;
