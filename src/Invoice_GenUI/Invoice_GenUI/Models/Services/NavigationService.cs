@@ -9,7 +9,7 @@ namespace Invoice_GenUI.Models.Services
     public interface INavigationService
     {
         ViewModel CurrentView { get; }
-        
+        void NavigateTo<T>() where T : ViewModel;
     }
     public class NavigationService : ViewModel, INavigationService
     {
@@ -24,13 +24,14 @@ namespace Invoice_GenUI.Models.Services
                 OnPropertyChanged();
             }
         }
-
         public NavigationService(Func<Type, ViewModel> viewModelFactory)
         {
             _viewModelFactory = viewModelFactory;
         }
-
-        
-
+        public void NavigateTo<TViewModels>() where TViewModels : ViewModel
+        {
+            ViewModel viewmodel = _viewModelFactory.Invoke(typeof(TViewModels));
+            CurrentView = viewmodel;
+        }
     }
 }
