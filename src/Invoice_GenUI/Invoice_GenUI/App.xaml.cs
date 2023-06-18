@@ -20,5 +20,11 @@ namespace Invoice_GenUI
 
             _serviceProvider = services.BuildServiceProvider();
         }
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+            base.OnStartup(e);
+        }
     }
 }
