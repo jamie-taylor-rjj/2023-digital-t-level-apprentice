@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using Invoice_GenUI.Models.Services;
+using Invoice_GenUI.Models;
 using Invoice_GenUI.ViewModels;
 using Invoice_GenUI.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +22,9 @@ namespace Invoice_GenUI
             services.AddTransient<MainViewModel>();
             services.AddTransient<HomeViewModel>();
             services.AddTransient<InvoiceViewModel>();
-            
+            services.AddSingleton<INavigationService, NavigationService>();
+
+           
 
             _serviceProvider = services.BuildServiceProvider();
         }
