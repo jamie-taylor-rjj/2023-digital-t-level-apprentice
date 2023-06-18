@@ -13,7 +13,7 @@ namespace Invoice_GenUI.Models.Services
     }
     public class NavigationService : ViewModel, INavigationService
     {
-       
+        private readonly Func<Type, ViewModel> _viewModelFactory;
         private ViewModel _currentView;
         public ViewModel CurrentView
         {
@@ -25,9 +25,9 @@ namespace Invoice_GenUI.Models.Services
             }
         }
 
-        public NavigationService()
+        public NavigationService(Func<Type, ViewModel> viewModelFactory)
         {
-            
+            _viewModelFactory = viewModelFactory;
         }
 
         
