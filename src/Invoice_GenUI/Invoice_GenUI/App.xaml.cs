@@ -11,7 +11,10 @@ namespace Invoice_GenUI
         public App()
         {
             IServiceCollection services = new ServiceCollection();
-            services.AddSingleton<MainWindow>();
+            services.AddSingleton<MainWindow>(provider => new MainWindow
+            {
+                DataContext = provider.GetRequiredService<MainViewModel>()
+            });
 
             services.AddTransient<MainViewModel>();
             services.AddTransient<HomeViewModel>();
