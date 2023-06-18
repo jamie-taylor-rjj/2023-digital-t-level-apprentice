@@ -1,6 +1,9 @@
-﻿namespace Invoice_GenUI.ViewModels
+﻿using Invoice_GenUI.Models;
+
+namespace Invoice_GenUI.ViewModels
 {
-    internal class CreateClientViewModel
+    public partial class CreateClientViewModel : ViewModel
     {
+
     }
 }
