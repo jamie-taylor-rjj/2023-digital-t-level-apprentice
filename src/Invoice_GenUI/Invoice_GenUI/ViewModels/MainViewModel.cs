@@ -1,6 +1,9 @@
-﻿namespace Invoice_GenUI.ViewModels
+﻿using Invoice_GenUI.Models;
+
+namespace Invoice_GenUI.ViewModels
 {
-    public partial class MainViewModel : 
+    public partial class MainViewModel : ViewModel
     {
+
     }
 }
