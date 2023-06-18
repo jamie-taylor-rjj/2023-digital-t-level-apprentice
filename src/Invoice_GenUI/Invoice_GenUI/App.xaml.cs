@@ -22,6 +22,7 @@ namespace Invoice_GenUI
             services.AddTransient<MainViewModel>();
             services.AddTransient<HomeViewModel>();
             services.AddTransient<InvoiceViewModel>();
+            services.AddTransient<CreateClientViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType

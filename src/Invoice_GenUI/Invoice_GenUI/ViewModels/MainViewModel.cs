@@ -23,14 +23,9 @@ namespace Invoice_GenUI.ViewModels
             Navigation = navService;
         }
         [RelayCommand]
-        public void GoToCreateClient()
+        public void GoToHome()
         {
-            Navigation.NavigateTo<CreateClientViewModel>();
-        }
-        [RelayCommand]
-        public void GoToInvoice()
-        {
-            Navigation.NavigateTo<InvoiceViewModel>();
+            Navigation.NavigateTo<HomeViewModel>();
         }
     }
 }
