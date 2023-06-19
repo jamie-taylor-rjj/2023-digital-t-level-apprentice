@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
 using Invoice_GenUI.Models.Services;
@@ -17,15 +18,9 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
 
-        [ObservableProperty]
-        public string? _clientNameInput;
-        [ObservableProperty]
-        public string? _contactNameInput;
-        [ObservableProperty]
-        public string? _contactEmailInput;
-        [ObservableProperty]
-        public string? _clientAddressInput;
-
+        [Required]
+        public string? ClientNameInput { get; set; }
+        
         public CreateClientViewModel(INavigationService navService)
         {
             Navigation = navService;
