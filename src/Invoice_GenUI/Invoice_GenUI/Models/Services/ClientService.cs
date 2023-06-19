@@ -12,7 +12,7 @@ namespace Invoice_GenUI.Models.Services
     public interface IClientService
     {
         Task<List<ClientNameViewModel>> GetClientNames();
-        Task<bool> PutClient(string name, string address, string contact, string email);
+        Task<bool> PutClient(CreateClientModel newClient);
     }
     public partial class ClientService : IClientService
     {
@@ -31,23 +31,15 @@ namespace Invoice_GenUI.Models.Services
         }
 
 
-        public async Task<bool> PutClient(string name, string address, string contact, string email) // valid values passed from xaml.cs
+        public async Task<bool> PutClient(CreateClientModel newClient) // valid values passed from xaml.cs
         {
             bool result = false;
-
-            var clientDetails = new CreateClientPostModel() // Creating client with the valid values entered by the user in the UI
-            {
-                ClientNameInput = name,
-                ClientAddressInput = address,
-                ContactNameInput = contact,
-                ContactEmailInput = email
-            };
             using (var client = new HttpClient())
             {
                 // Post request
                 client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/"); // API URL
 
-                var json = JsonSerializer.Serialize(clientDetails); // Turn C# object into json
+                var json = JsonSerializer.Serialize(newClient); // Turn C# object into json
                 var content = new StringContent(json, Encoding.UTF8, "application/json"); // Saying that information im sending comes in json formatting 
 
 

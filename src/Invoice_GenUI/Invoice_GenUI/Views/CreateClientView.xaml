@@ -66,9 +66,9 @@
                 <!--Textbox row one-->
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 70 0 0">
-                    <TextBox x:Name="txt_clientName" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}" Text="{Binding ClientNameInput,UpdateSourceTrigger=PropertyChanged
+                    <TextBox x:Name="txt_clientName" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}" Text="{Binding ClientName,UpdateSourceTrigger=PropertyChanged
                         ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
-                    <TextBox x:Name="txt_clientEmail" Height="40" Width="200" Background="{x:Null}" Text="{Binding ContactEmailInput,UpdateSourceTrigger=PropertyChanged
+                    <TextBox x:Name="txt_clientEmail" Height="40" Width="200" Background="{x:Null}" Text="{Binding ContactEmail,UpdateSourceTrigger=PropertyChanged
                         ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
 
                 </StackPanel>
@@ -80,9 +80,9 @@
                 <!--Textbox row two-->
 
                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 70 0 0">
-                    <TextBox x:Name="txt_clientContact" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}" Text="{Binding ContactNameInput,UpdateSourceTrigger=PropertyChanged
+                    <TextBox x:Name="txt_clientContact" Height="40" Width="200" Margin="0 0 70 0" Background="{x:Null}" Text="{Binding ContactName,UpdateSourceTrigger=PropertyChanged
                         ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
-                    <TextBox x:Name="txt_clientAddress" Height="40" Width="200" Background="{x:Null}" Text="{Binding ClientAddressInput,UpdateSourceTrigger=PropertyChanged
+                    <TextBox x:Name="txt_clientAddress" Height="40" Width="200" Background="{x:Null}" Text="{Binding ClientAddress,UpdateSourceTrigger=PropertyChanged
                         ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Left" Height="21" Margin="165,49,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Client Contact" VerticalAlignment="Top" Width="191" Foreground="White" FontWeight="SemiBold"
