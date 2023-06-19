@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
 using Invoice_GenUI.Models.Services;
 
@@ -6,17 +7,8 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class MainViewModel : ViewModel
     {
+        [ObservableProperty]
         private INavigationService _navigation;
-
-        public INavigationService Navigation
-        {
-            get => _navigation;
-            set
-            {
-                _navigation = value;
-                OnPropertyChanged();
-            }
-        }
 
         public MainViewModel(INavigationService navService)
         {
