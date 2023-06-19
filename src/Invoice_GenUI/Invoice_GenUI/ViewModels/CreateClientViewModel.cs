@@ -20,6 +20,13 @@ namespace Invoice_GenUI.ViewModels
 
         [Required]
         public string? ClientNameInput { get; set; }
+        [Required]
+        public string? ContactNameInput { get; set; }
+        [Required]
+        [EmailAddress]
+        public string? ContactEmailInput { get; set; }
+        [Required]
+        public string? ClientAddressInput { get; set; }
         
         public CreateClientViewModel(INavigationService navService)
         {
