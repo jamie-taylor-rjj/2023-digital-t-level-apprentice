@@ -18,14 +18,14 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
 
-        [Required]
+        [Required(ErrorMessage = "Field is required")]
         public string? ClientNameInput { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Field is required")]
         public string? ContactNameInput { get; set; }
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Field is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string? ContactEmailInput { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Field is required")]
         public string? ClientAddressInput { get; set; }
         
         public CreateClientViewModel(INavigationService navService)
