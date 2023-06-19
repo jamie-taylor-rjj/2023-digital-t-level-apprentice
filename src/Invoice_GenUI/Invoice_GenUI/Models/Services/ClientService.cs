@@ -35,12 +35,12 @@ namespace Invoice_GenUI.Models.Services
         {
             bool result = false;
 
-            var clientDetails = new ClientPostModel() // Creating client with the valid values entered by the user in the UI
+            var clientDetails = new CreateClientPostModel() // Creating client with the valid values entered by the user in the UI
             {
-                ClientName = name,
-                ClientAddress = address,
-                ContactName = contact,
-                ContactEmail = email
+                ClientNameInput = name,
+                ClientAddressInput = address,
+                ContactNameInput = contact,
+                ContactEmailInput = email
             };
             using (var client = new HttpClient())
             {
