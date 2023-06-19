@@ -11,12 +11,12 @@ namespace Invoice_GenUI.Models.Services
 {
     public interface IClientService
     {
-        Task<List<ClientNameViewModel>> GetClientNames();
+        Task<List<ClientNameModel>> GetClientNames();
         Task<bool> PutClient(CreateClientModel newClient);
     }
     public partial class ClientService : IClientService
     {
-        public async Task<List<ClientNameViewModel>> GetClientNames()
+        public async Task<List<ClientNameModel>> GetClientNames()
         {
             using (var client = new HttpClient())
             {
@@ -26,7 +26,7 @@ namespace Invoice_GenUI.Models.Services
 
                 response.EnsureSuccessStatusCode();
 
-                return await response.Content.ReadFromJsonAsync<List<ClientNameViewModel>>() ?? new();
+                return await response.Content.ReadFromJsonAsync<List<ClientNameModel>>() ?? new();
             }
         }
 
