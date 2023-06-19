@@ -4,9 +4,99 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Invoice_GenUI.Views"
-             mc:Ignorable="d" Background="Red"
+             mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid IsEnabled="{Binding Path=!ClientNameLoading}">
+        <!--Main Section-->
+        <Border>
+            <Border.Background>
+                <SolidColorBrush Color="#FF353B43"/>
+            </Border.Background>
+
+            <Grid Height="450">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Header-->
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 30 0 0">
+                    <TextBlock Text="Generate" Foreground="GhostWhite" FontSize="30" FontWeight="SemiBold"/>
+                    <TextBlock Text=" Invoice" Foreground="#FF7CACFC" FontSize="30" FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 0">
+                    <TextBlock Text="Generate an invoice" Foreground="GhostWhite" FontSize="15" TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 15 0 0">
+                    <ScrollViewer>
+                        <TextBox x:Name="txt_reference" Width="500" Height="100" Background="{x:Null}"/>
+                    </ScrollViewer>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" Visibility="Visible">
+                    <StackPanel>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-300 10 0 0">
+                            <TextBlock Text="Client Name" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="5"/>
+                            <ComboBox x:Name="cb_clientName" Width="200" Height="25" ItemsSource="{Binding Path=ClientNames}" DisplayMemberPath="ClientName" 
+                                      SelectedValuePath="ClientName" SelectedItem="{Binding Path=selectedClientName, Mode=TwoWay}"/>
+                            <Button x:Name="btn_getClientNames" Height="20" Width="100" Margin="5" Content="Get Clients" HorizontalAlignment="Left" Background="#FF7CACFC" Command="{Binding GetClientNamesCommand}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20 10 0 0">
+                            <DataGrid x:Name="dg_lineItems" Width="520" Height="100" AutoGenerateColumns="False" ItemsSource="{Binding Source=LineItems}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                                    <DataGridTextColumn Header="Quatity" Binding="{Binding Quantity}"/>
+                                    <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-380 10 0 0">
+                            <Button Content="Add Item" Width="120" Height="30" Background="#FF7CACFC" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
+                            <TextBlock Text="Issue Date" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite"/>
+                            <TextBlock Text="Due Date" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="200 0 0 0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 0 0 0">
+                            <DatePicker x:Name="dt_issueDate" Width="200" Height="40"/>
+                            <DatePicker Width="200" Height="40" Margin="60 0 0 0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
+                            <TextBlock Text="VAT rate" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite"/>
+                            <TextBlock Text="Total value" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="100 0 0 0"/>
+                            <TextBlock Text="Invoice Total" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="100 0 0 0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
+                            <TextBox Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite"/>
+                            <TextBox x:Name="txt_totalValue" Width="100" Height="20" Text="Total value" FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite" Margin="55 0 0 0" IsEnabled="False"/>
+                            <TextBox Width="100" Height="20" Text="Invoice Total" FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite" Margin="65 0 0 0" IsEnabled="False"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 40 0 0">
+                            <Button x:Name="btn_generateInvoice" Content="Generate Invoice" Height="40" Width="150" Background="#FF7CACFC"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 40 0 0" Background="Black">
+                            <Rectangle Height="50"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+                <Button Content="Back" HorizontalAlignment="Left" Height="53" Margin="10,17,0,0" VerticalAlignment="Top" Width="100" Grid.RowSpan="2" FontWeight="SemiBold" Background="#FF7CACFC" Command="{Binding GoBackCommand}"/>
+            </Grid>
+        </Border>
+        <Rectangle Grid.Column="1" HorizontalAlignment="Center" Height="2" Margin="0,93,0,0" VerticalAlignment="Top" Width="332" Fill="#FF505861"/>
+        <Rectangle Grid.Column="1" HorizontalAlignment="Center" Height="6" Margin="0,91,0,0" VerticalAlignment="Top" Width="46" Fill="#FF7CACFC"/>
     </Grid>
 </UserControl>
