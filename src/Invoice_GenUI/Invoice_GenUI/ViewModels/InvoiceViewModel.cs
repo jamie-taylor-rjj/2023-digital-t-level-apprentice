@@ -15,8 +15,8 @@ namespace Invoice_GenUI.ViewModels
         private bool clientNameLoading;
         [ObservableProperty]
         public ClientNameModel _selectedClientName = new ClientNameModel();
-        private readonly IClientService _clientService;
 
+        private readonly IClientService _clientService;
         public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService)
@@ -51,6 +51,11 @@ namespace Invoice_GenUI.ViewModels
                 }
             }
             ClientNameLoading = false; // when all names loaded in
+        }
+        [RelayCommand]
+        public void PopulateLineItems()
+        {
+
         }
     }
 }

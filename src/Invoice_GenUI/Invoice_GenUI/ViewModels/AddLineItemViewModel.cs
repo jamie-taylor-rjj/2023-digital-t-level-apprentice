@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,6 +13,8 @@ namespace Invoice_GenUI.ViewModels
         private LineItemModel newItem;
         [ObservableProperty]
         private INavigationService _navigation;
+
+        public ObservableCollection<LineItemModel> LineItems { get; } = new ObservableCollection<LineItemModel>();
 
         public AddLineItemViewModel(INavigationService navService)
         {
@@ -42,7 +45,7 @@ namespace Invoice_GenUI.ViewModels
             }
         }
         [Required(ErrorMessage = "Field is required")]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer number")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter valid integer number")]
         public int Quantity
         {
             get => newItem.Quantity;
@@ -56,7 +59,7 @@ namespace Invoice_GenUI.ViewModels
             }
         }
         [Required(ErrorMessage = "Field is required")]
-        [Range(0, double.MaxValue, ErrorMessage = "Please enter valid integer number")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Please enter valid integer number")]
         public double Cost
         {
             get => newItem.Cost;
@@ -89,6 +92,25 @@ namespace Invoice_GenUI.ViewModels
                 Quantity = 0;
                 Cost = 0;
                 Total = 0;
+
+                _navigation.NavigateTo<InvoiceViewModel>();
+            }
+        }
+        [RelayCommand]
+        public void AddLineItem()
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.OK)
+            {
+                var newLineItem = new LineItemModel
+                {
+                    Description = Description,
+                    Quantity = Quantity,
+                    Cost = Cost,
+                    Total = Total
+                };
+                LineItems.Add(newLineItem);
 
                 _navigation.NavigateTo<InvoiceViewModel>();
             }
