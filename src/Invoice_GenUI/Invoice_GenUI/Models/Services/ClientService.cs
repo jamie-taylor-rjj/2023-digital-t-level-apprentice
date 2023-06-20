@@ -11,6 +11,7 @@ namespace Invoice_GenUI.Models.Services
     public interface IClientService
     {
         Task<List<ClientNameModel>> GetClientNames();
+        Task<List<CreateClientModel>> GetClientDetails();
         Task<bool> PutClient(CreateClientModel newClient);
     }
     public partial class ClientService : IClientService
@@ -26,6 +27,19 @@ namespace Invoice_GenUI.Models.Services
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadFromJsonAsync<List<ClientNameModel>>() ?? new();
+            }
+        }
+        public async Task<List<CreateClientModel>> GetClientDetails()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
+
+                var response = await client.GetAsync("clients");
+
+                response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadFromJsonAsync<List<CreateClientModel>>() ?? new();
             }
         }
 

@@ -24,5 +24,10 @@ namespace Invoice_GenUI.ViewModels
         {
             _navigation.NavigateTo<CreateClientViewModel>();
         }
+        [RelayCommand]
+        public void GoToShowClients()
+        {
+            _navigation.NavigateTo<ShowClientsViewModel>();
+        }
     }
 }
