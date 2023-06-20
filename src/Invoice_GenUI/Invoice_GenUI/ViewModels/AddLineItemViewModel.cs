@@ -12,9 +12,22 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
 
+        public AddLineItemViewModel(INavigationService navService)
+        {
+            Navigation = navService;
+            newItem = new LineItemModel();
+        }
+
         public double TotalResult()
         {
-            return Cost * Quantity;
+            if(Cost == null || Quantity == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Cost *Quantity;
+            }
         }
 
         [Required(ErrorMessage = "Field is required")]
@@ -63,11 +76,6 @@ namespace Invoice_GenUI.ViewModels
                 newItem.Total = value;
                 OnPropertyChanged(nameof(Total));
             }
-        }
-
-        public AddLineItemViewModel(INavigationService navService)
-        {
-            Navigation = navService;
         }
         [RelayCommand]
         public void GoToInvoice()

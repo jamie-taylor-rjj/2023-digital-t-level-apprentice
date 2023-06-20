@@ -12,7 +12,7 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <StackPanel>
-                            <Border BorderThickness="2" BorderBrush="OrangeRed" MaxWidth="205" MaxHeight="45">
+                            <Border BorderThickness="2" BorderBrush="OrangeRed">
                                 <StackPanel>
                                     <AdornedElementPlaceholder    
                                 x:Name="errorControl" />
@@ -26,8 +26,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="BorderBrush" Value="Red" />
-                    <Setter Property="BorderThickness" Value="1" />
+                    
                     <Setter Property="ToolTip"    
                 Value="{Binding RelativeSource={RelativeSource Self}    
                     , Path=(Validation.Errors)[0].ErrorContent}" />
@@ -67,8 +66,7 @@
                         ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
             <TextBox x:Name="txt_cost" FontSize="15" Margin="65 0" Width="100" Height="40" Text="{Binding Cost,UpdateSourceTrigger=PropertyChanged
                         ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
-            <TextBox x:Name="txt_total" FontSize="15" Margin="50 0" Width="100" Height="40" IsEnabled="False" Text="{Binding Total,UpdateSourceTrigger=PropertyChanged
-                        ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
+            <TextBox x:Name="txt_total" FontSize="15" Margin="50 0" Width="100" Height="40" IsEnabled="False" Text="{Binding Total,UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <!--Grid row 5-->
