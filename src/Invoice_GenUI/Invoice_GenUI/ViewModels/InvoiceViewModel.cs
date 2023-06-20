@@ -30,6 +30,11 @@ namespace Invoice_GenUI.ViewModels
             Navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
+        public void GoToLineItem()
+        {
+            Navigation.NavigateTo<AddLineItemViewModel>();
+        }
+        [RelayCommand]
         public async Task GetClientNames()
         {
             ClientNameLoading = true; // when button clicked 

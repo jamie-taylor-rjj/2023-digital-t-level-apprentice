@@ -45,6 +45,7 @@
                             <ComboBox x:Name="cb_clientName" Width="200" Height="25" ItemsSource="{Binding Path=ClientNames}" DisplayMemberPath="ClientName" 
                                       SelectedValuePath="ClientName" SelectedItem="{Binding Path=selectedClientName, Mode=TwoWay}"/>
                             <Button x:Name="btn_getClientNames" Height="20" Width="100" Margin="5" Content="Get Clients" HorizontalAlignment="Left" Background="#FF7CACFC" Command="{Binding GetClientNamesCommand}"/>
+                            
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20 10 0 0">
@@ -58,8 +59,9 @@
                             </DataGrid>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-380 10 0 0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-250 10 0 0">
                             <Button Content="Add Item" Width="120" Height="30" Background="#FF7CACFC" FontWeight="SemiBold"/>
+                            <Button  Height="30" Width="120" Margin="5" Content="Add Line Item" FontWeight="SemiBold" HorizontalAlignment="Left" Background="#FF7CACFC" Command="{Binding GoToLineItemCommand}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
