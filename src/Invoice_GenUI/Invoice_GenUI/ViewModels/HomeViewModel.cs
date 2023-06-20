@@ -12,17 +12,17 @@ namespace Invoice_GenUI.ViewModels
 
         public HomeViewModel(INavigationService navService)
         {
-            Navigation = navService;
+            _navigation = navService;
         }
         [RelayCommand]
         public void GoToInvoice()
         {
-            Navigation.NavigateTo<InvoiceViewModel>();
+            _navigation.NavigateTo<InvoiceViewModel>();
         }
         [RelayCommand]
         public void GoToCreateClient()
         {
-            Navigation.NavigateTo<CreateClientViewModel>();
+            _navigation.NavigateTo<CreateClientViewModel>();
         }
     }
 }

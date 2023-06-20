@@ -15,7 +15,7 @@ namespace Invoice_GenUI.ViewModels
 
         public AddLineItemViewModel(INavigationService navService)
         {
-            Navigation = navService;
+            _navigation = navService;
             newItem = new LineItemModel();
         }
 
@@ -90,7 +90,7 @@ namespace Invoice_GenUI.ViewModels
                 Cost = 0;
                 Total = 0;
 
-                Navigation.NavigateTo<InvoiceViewModel>();
+                _navigation.NavigateTo<InvoiceViewModel>();
             }
         }
     }

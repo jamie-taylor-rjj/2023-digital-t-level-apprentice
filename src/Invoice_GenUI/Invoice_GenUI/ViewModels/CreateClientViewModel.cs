@@ -18,7 +18,7 @@ namespace Invoice_GenUI.ViewModels
 
         public CreateClientViewModel(INavigationService navService, IClientService clientService)
         {
-            Navigation = navService;
+            _navigation = navService;
             _clientService = clientService;
             newClient = new CreateClientModel();
         }
@@ -69,7 +69,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         public void GoBack()
         {
-            Navigation.NavigateTo<HomeViewModel>();
+            _navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
         public async Task CreateClient()
