@@ -15,15 +15,9 @@
         <DataTemplate DataType="{x:Type TypeName=viewModel:InvoiceViewModel}">
             <view:InvoiceView/>
         </DataTemplate>
-
-        <ControlTemplate x:Key="errorTemplate">
-            <Border BorderBrush="OrangeRed" BorderThickness="2">
-                <Grid>
-                    <AdornedElementPlaceholder/>
-                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="OrangeRed" VerticalAlignment="Center"
-                               HorizontalAlignment="Right" Margin="0,0,4,0"/>
-                </Grid>
-            </Border>
-        </ControlTemplate>
+        <DataTemplate DataType="{x:Type TypeName=viewModel:AddLineItemViewModel}">
+            <view:AddLineItemView/>
+        </DataTemplate>
+        
     </Application.Resources>
 </Application>
