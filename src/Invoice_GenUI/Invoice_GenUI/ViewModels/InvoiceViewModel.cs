@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -17,6 +18,7 @@ namespace Invoice_GenUI.ViewModels
         public ClientNameModel _selectedClientName = new ClientNameModel();
 
         private readonly IClientService _clientService;
+        public ObservableCollection<LineItemModel> Lineitems { get; } = new ObservableCollection<LineItemModel>();
         public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService)
@@ -55,7 +57,10 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         public void PopulateLineItems()
         {
-
+            foreach(var item in Lineitems)
+            {
+                MessageBox.Show(item.ToString());
+            }
         }
     }
 }

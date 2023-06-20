@@ -10,27 +10,29 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class AddLineItemViewModel : ViewModel
     {
+        private readonly InvoiceViewModel _invoiceViewModel;
         private LineItemModel newItem;
         [ObservableProperty]
         private INavigationService _navigation;
 
         public ObservableCollection<LineItemModel> LineItems { get; } = new ObservableCollection<LineItemModel>();
 
-        public AddLineItemViewModel(INavigationService navService)
+        public AddLineItemViewModel(INavigationService navService, InvoiceViewModel invoiceViewModel)
         {
             _navigation = navService;
             newItem = new LineItemModel();
+            _invoiceViewModel = invoiceViewModel;
         }
 
         public double TotalResult()
         {
-            if(Cost == null || Quantity == null)
+            if(Cost == 0 || Quantity == 0)
             {
                 return 0;
             }
             else
             {
-                return Cost *Quantity;
+                return Cost * Quantity;
             }
         }
 
@@ -108,18 +110,20 @@ namespace Invoice_GenUI.ViewModels
                     Cost = Cost,
                     Total = Total
                 };
-                LineItems.Add(newLineItem);
+                _invoiceViewModel.Lineitems.Add(newLineItem);
 
                 Description = string.Empty;
                 Quantity = 0;
                 Cost = 0;
                 Total = 0;
+
+                MessageBox.Show(_invoiceViewModel.Lineitems.Count.ToString());
             }
         }
         [RelayCommand]
         public void GoBack()
         {
-            _navigation.ParameterNavigateTo<InvoiceViewModel>(LineItems);
+            _navigation.NavigateTo<InvoiceViewModel>();
         }
     }
 }
