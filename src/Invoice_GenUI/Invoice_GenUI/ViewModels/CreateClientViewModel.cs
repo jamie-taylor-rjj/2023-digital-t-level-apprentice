@@ -67,7 +67,7 @@ namespace Invoice_GenUI.ViewModels
         
         
         [RelayCommand]
-        public void GoToHome()
+        public void GoBack()
         {
             Navigation.NavigateTo<HomeViewModel>();
         }

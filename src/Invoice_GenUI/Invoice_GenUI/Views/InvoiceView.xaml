@@ -53,7 +53,7 @@
                                     <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
                                     <DataGridTextColumn Header="Quatity" Binding="{Binding Quantity}"/>
                                     <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
-
+                                    <DataGridTextColumn Header="Total" Binding="{Binding Total}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </StackPanel>

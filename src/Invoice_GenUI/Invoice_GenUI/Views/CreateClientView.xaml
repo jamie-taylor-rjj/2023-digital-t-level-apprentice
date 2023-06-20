@@ -113,6 +113,7 @@
                         </Button.Style>
                     </Button>
                 </StackPanel>
+                <Button Content="Back" HorizontalAlignment="Left" Height="53" Margin="10,17,0,0" VerticalAlignment="Top" Width="100" Grid.RowSpan="2" FontWeight="SemiBold" Background="#FF7CACFC" Command="{Binding GoBackCommand}"/>
             </Grid>
         </Border>
         <Rectangle Grid.Column="1" HorizontalAlignment="Center" Height="2" Margin="0,93,0,0" VerticalAlignment="Top" Width="332" Fill="#FF505861"/>
