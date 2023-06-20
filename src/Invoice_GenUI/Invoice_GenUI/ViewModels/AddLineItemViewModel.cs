@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -78,9 +79,19 @@ namespace Invoice_GenUI.ViewModels
             }
         }
         [RelayCommand]
-        public void GoToInvoice()
+        public void CancelLineItem()
         {
-            Navigation.NavigateTo<InvoiceViewModel>();
+            MessageBoxResult result = MessageBox.Show("Are you sure", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.OK)
+            {
+                Description = string.Empty;
+                Quantity = 0;
+                Cost = 0;
+                Total = 0;
+
+                Navigation.NavigateTo<InvoiceViewModel>();
+            }
         }
     }
 }
