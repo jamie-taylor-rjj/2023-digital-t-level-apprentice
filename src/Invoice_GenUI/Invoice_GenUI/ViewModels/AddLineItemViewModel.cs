@@ -10,18 +10,16 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class AddLineItemViewModel : ViewModel
     {
-        private readonly InvoiceViewModel _invoiceViewModel;
         private LineItemModel newItem;
         [ObservableProperty]
         private INavigationService _navigation;
 
         public ObservableCollection<LineItemModel> newLineItems { get; } = new ObservableCollection<LineItemModel>();
 
-        public AddLineItemViewModel(INavigationService navService, InvoiceViewModel invoiceViewModel)
+        public AddLineItemViewModel(INavigationService navService)
         {
             _navigation = navService;
             newItem = new LineItemModel();
-            _invoiceViewModel = invoiceViewModel;
         }
 
         public double TotalResult()
