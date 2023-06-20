@@ -71,7 +71,7 @@
         </StackPanel>
 
         <!--Grid row 5-->
-        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" Margin="308,77,0,-77">
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" Margin="253,85,0,-85">
             <Button Content="Add" Margin="5" Width="100" Height="50" Command="{Binding AddLineItemCommand}" >
                 <Button.Style>
                     <Style TargetType="Button">
@@ -90,6 +90,7 @@
                 </Button.Style>
             </Button>
             <Button Content="Cancel" Margin="10" Width="100" Height="50" Command="{Binding CancelLineItemCommand}"/>
+            <Button Content="Back" Margin="10" Width="100" Height="50" Command="{Binding GoBackCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

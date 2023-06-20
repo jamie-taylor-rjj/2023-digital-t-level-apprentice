@@ -6,6 +6,7 @@ namespace Invoice_GenUI.Models.Services
     {
         ViewModel CurrentView { get; }
         void NavigateTo<T>() where T : ViewModel;
+        void ParameterNavigateTo<T>(object parameter) where T : ViewModel;
     }
     public class NavigationService : ViewModel, INavigationService
     {
@@ -25,6 +26,11 @@ namespace Invoice_GenUI.Models.Services
             _viewModelFactory = viewModelFactory;
         }
         public void NavigateTo<TViewModels>() where TViewModels : ViewModel
+        {
+            ViewModel viewmodel = _viewModelFactory.Invoke(typeof(TViewModels));
+            CurrentView = viewmodel;
+        }
+        public void ParameterNavigateTo<TViewModels>(object parameter) where TViewModels : ViewModel
         {
             ViewModel viewmodel = _viewModelFactory.Invoke(typeof(TViewModels));
             CurrentView = viewmodel;

@@ -92,8 +92,6 @@ namespace Invoice_GenUI.ViewModels
                 Quantity = 0;
                 Cost = 0;
                 Total = 0;
-
-                _navigation.NavigateTo<InvoiceViewModel>();
             }
         }
         [RelayCommand]
@@ -112,8 +110,16 @@ namespace Invoice_GenUI.ViewModels
                 };
                 LineItems.Add(newLineItem);
 
-                _navigation.NavigateTo<InvoiceViewModel>();
+                Description = string.Empty;
+                Quantity = 0;
+                Cost = 0;
+                Total = 0;
             }
+        }
+        [RelayCommand]
+        public void GoBack()
+        {
+            _navigation.ParameterNavigateTo<InvoiceViewModel>(LineItems);
         }
     }
 }
