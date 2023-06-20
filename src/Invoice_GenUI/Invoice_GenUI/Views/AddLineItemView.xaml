@@ -7,12 +7,12 @@
              mc:Ignorable="d"  Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style TargetType="TextBox">
+        <Style TargetType="TextBox" x:Key="LongBox">
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
                     <ControlTemplate>
                         <StackPanel>
-                            <Border BorderThickness="2" BorderBrush="OrangeRed">
+                            <Border BorderThickness="2" BorderBrush="OrangeRed" MaxHeight="55" MaxWidth="775">
                                 <StackPanel>
                                     <AdornedElementPlaceholder    
                                 x:Name="errorControl" />
@@ -26,7 +26,8 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
-                    
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="1" />
                     <Setter Property="ToolTip"    
                 Value="{Binding RelativeSource={RelativeSource Self}    
                     , Path=(Validation.Errors)[0].ErrorContent}" />
@@ -51,7 +52,7 @@
         <TextBlock Grid.Row="1" Text="Description" FontSize="18" Margin="5 10" FontWeight="SemiBold"/>
 
         <!--Grid row 2-->
-        <TextBox x:Name="txt_description" Grid.Row="2" FontSize="15" BorderBrush="Black" Margin="5" TextWrapping="Wrap" Height="50" Text="{Binding Description,UpdateSourceTrigger=PropertyChanged
+        <TextBox Style="{StaticResource LongBox}" x:Name="txt_description" Grid.Row="2" FontSize="15" BorderBrush="Black" Margin="5" TextWrapping="Wrap" Height="50" Width="770" Text="{Binding Description,UpdateSourceTrigger=PropertyChanged
                         ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
         <!--Grid row 3-->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -81,7 +82,7 @@
                             <DataTrigger Binding="{Binding ElementName=txt_quantity,Path=(Validation.HasError)}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding ElementName=txt_total,Path=(Validation.HasError)}" Value="True">
+                            <DataTrigger Binding="{Binding ElementName=txt_cost,Path=(Validation.HasError)}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
                         </Style.Triggers>
