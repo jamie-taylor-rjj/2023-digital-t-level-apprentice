@@ -17,6 +17,7 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         public ClientNameModel _selectedClientName = new ClientNameModel();
 
+
         private readonly IClientService _clientService;
         public ObservableCollection<LineItemModel> Lineitems { get; } = new ObservableCollection<LineItemModel>();
         public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
@@ -53,14 +54,6 @@ namespace Invoice_GenUI.ViewModels
                 }
             }
             ClientNameLoading = false; // when all names loaded in
-        }
-        [RelayCommand]
-        public void PopulateLineItems()
-        {
-            foreach(var item in Lineitems)
-            {
-                MessageBox.Show(item.ToString());
-            }
         }
     }
 }

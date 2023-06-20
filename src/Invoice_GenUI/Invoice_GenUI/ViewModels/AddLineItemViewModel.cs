@@ -15,7 +15,7 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
 
-        public ObservableCollection<LineItemModel> LineItems { get; } = new ObservableCollection<LineItemModel>();
+        public ObservableCollection<LineItemModel> newLineItems { get; } = new ObservableCollection<LineItemModel>();
 
         public AddLineItemViewModel(INavigationService navService, InvoiceViewModel invoiceViewModel)
         {
@@ -110,14 +110,14 @@ namespace Invoice_GenUI.ViewModels
                     Cost = Cost,
                     Total = Total
                 };
-                _invoiceViewModel.Lineitems.Add(newLineItem);
+                newLineItems.Add(newLineItem);
 
                 Description = string.Empty;
                 Quantity = 0;
                 Cost = 0;
                 Total = 0;
 
-                MessageBox.Show(_invoiceViewModel.Lineitems.Count.ToString());
+                MessageBox.Show(newLineItems.Count.ToString());
             }
         }
         [RelayCommand]
