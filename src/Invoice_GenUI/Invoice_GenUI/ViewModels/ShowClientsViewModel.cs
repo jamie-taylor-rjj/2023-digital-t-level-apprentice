@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -11,7 +10,7 @@ namespace Invoice_GenUI.ViewModels
     public partial class ShowClientsViewModel : ViewModel
     {
         [ObservableProperty]
-        private INavigationService _navigation;
+        public INavigationService _navigation;
         private readonly IClientService _clientService;
         public ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
         public ShowClientsViewModel(INavigationService navService, IClientService clientService)
@@ -38,6 +37,11 @@ namespace Invoice_GenUI.ViewModels
         public void GoBack()
         {
             _navigation.NavigateTo<HomeViewModel>();
+        }
+        [RelayCommand]
+        public void ClientDetails()
+        {
+            _navigation.NavigateTo<ClientDetailsViewModel>();
         }
     }
 }

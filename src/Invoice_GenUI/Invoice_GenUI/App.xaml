@@ -21,6 +21,9 @@
         <DataTemplate DataType="{x:Type TypeName=viewModel:ShowClientsViewModel}">
             <view:ShowClientsView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type TypeName=viewModel:ClientDetailsViewModel}">
+            <view:ClientDetailsView/>
+        </DataTemplate>
 
     </Application.Resources>
 </Application>
