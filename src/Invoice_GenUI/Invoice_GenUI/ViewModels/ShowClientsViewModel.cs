@@ -12,9 +12,9 @@ namespace Invoice_GenUI.ViewModels
     public partial class ShowClientsViewModel : ViewModel
     {
         [ObservableProperty]
-        public INavigationService _navigation;
+        private INavigationService _navigation;
         private readonly IClientService _clientService;
-        public ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
+        private ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
         public ShowClientsViewModel(INavigationService navService, IClientService clientService)
         {
             _navigation = navService;
@@ -36,12 +36,12 @@ namespace Invoice_GenUI.ViewModels
             }
         }
         [RelayCommand]
-        public void GoBack()
+        private void GoBack()
         {
             _navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        public void ClientDetails(object details)
+        private void ClientDetails(object details)
         {
             _navigation.ParameterNavigateTo<ClientDetailsViewModel>(details);
         }

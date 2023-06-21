@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
 using Invoice_GenUI.Models.Services;
@@ -9,15 +10,16 @@ namespace Invoice_GenUI.ViewModels
     {
         [ObservableProperty]
         private INavigationService _navigation;
+        private ShowClientsViewModel _showClientsViewModel;
 
-        public ClientDetailsViewModel(INavigationService navService)
+        public ClientDetailsViewModel(INavigationService navService, ShowClientsViewModel showClientsViewModel)
         {
             _navigation = navService;
+            _showClientsViewModel = showClientsViewModel;
         }   
-        public string Name { get; }
 
         [RelayCommand]
-        public void GoBack()
+        private void GoBack()
         {
             _navigation.NavigateTo<ShowClientsViewModel>();
         }

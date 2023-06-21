@@ -19,7 +19,7 @@ namespace Invoice_GenUI.ViewModels
 
         private readonly IClientService _clientService;
         public ObservableCollection<LineItemModel> Lineitems { get; } = new ObservableCollection<LineItemModel>();
-        public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
+        private ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService)
         {
@@ -27,17 +27,17 @@ namespace Invoice_GenUI.ViewModels
             _clientService = clientService;
         }
         [RelayCommand]
-        public void GoBack()
+        private void GoBack()
         {
             _navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        public void GoToLineItem()
+        private void GoToLineItem()
         {
             _navigation.NavigateTo<AddLineItemViewModel>();
         }
         [RelayCommand]
-        public async Task GetClientNames()
+        private async Task GetClientNames()
         {
             ClientNameLoading = true; // when button clicked 
 

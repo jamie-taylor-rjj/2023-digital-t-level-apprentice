@@ -14,7 +14,7 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
 
-        public ObservableCollection<LineItemModel> newLineItems { get; } = new ObservableCollection<LineItemModel>();
+        private ObservableCollection<LineItemModel> newLineItems { get; } = new ObservableCollection<LineItemModel>();
 
         public AddLineItemViewModel(INavigationService navService)
         {
@@ -82,7 +82,7 @@ namespace Invoice_GenUI.ViewModels
             }
         }
         [RelayCommand]
-        public void CancelLineItem()
+        private void CancelLineItem()
         {
             MessageBoxResult result = MessageBox.Show("Are you sure", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
@@ -95,7 +95,7 @@ namespace Invoice_GenUI.ViewModels
             }
         }
         [RelayCommand]
-        public void AddLineItem()
+        private void AddLineItem()
         {
             MessageBoxResult result = MessageBox.Show("Are you sure", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
@@ -119,7 +119,7 @@ namespace Invoice_GenUI.ViewModels
             }
         }
         [RelayCommand]
-        public void GoBack()
+        private void GoBack()
         {
             _navigation.ParameterNavigateTo<InvoiceViewModel>(newLineItems);
         }

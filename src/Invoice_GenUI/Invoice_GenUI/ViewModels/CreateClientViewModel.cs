@@ -67,12 +67,12 @@ namespace Invoice_GenUI.ViewModels
         
         
         [RelayCommand]
-        public void GoBack()
+        private void GoBack()
         {
             _navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        public async Task CreateClient()
+        private async Task CreateClient()
         {
             var connected = await _clientService.PutClient(newClient); // make it return bool value
             bool result = connected; // The bool value result

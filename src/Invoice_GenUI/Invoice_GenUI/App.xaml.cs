@@ -30,7 +30,6 @@ namespace Invoice_GenUI
 
             services.AddSingleton<INavigationService, NavigationService>();
             
-
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType
             => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 
