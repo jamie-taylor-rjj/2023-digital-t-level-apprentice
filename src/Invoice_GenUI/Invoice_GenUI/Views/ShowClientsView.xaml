@@ -27,7 +27,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="View" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ClientDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
-                                    CommandParameter="{Binding ElementName=dg_clients,Path=SelectedItems}"/>
+                                    CommandParameter="{Binding ElementName=dg_clients,Path=SelectedItem}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

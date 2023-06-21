@@ -43,7 +43,6 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         public void ClientDetails(object details)
         {
-            MessageBox.Show(details.ToString());
             _navigation.ParameterNavigateTo<ClientDetailsViewModel>(details);
         }
     }

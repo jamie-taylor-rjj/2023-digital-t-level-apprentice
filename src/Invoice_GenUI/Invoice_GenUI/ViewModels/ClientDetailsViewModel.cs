@@ -12,6 +12,7 @@ namespace Invoice_GenUI.ViewModels
         public ClientDetailsViewModel(INavigationService navService, object details)
         {
             _navigation = navService;
+            object items = details;
         }   
         public string Name { get; }
     }
