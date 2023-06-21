@@ -14,7 +14,7 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
 
-        private ObservableCollection<LineItemModel> newLineItems { get; } = new ObservableCollection<LineItemModel>();
+        public ObservableCollection<LineItemModel> newLineItems { get; } = new ObservableCollection<LineItemModel>();
 
         public AddLineItemViewModel(INavigationService navService)
         {

@@ -27,11 +27,12 @@ namespace Invoice_GenUI
             services.AddTransient<ShowClientsViewModel>();
             services.AddTransient<ClientDetailsViewModel>();
             services.AddTransient<IClientService, ClientService>();
+            
 
             services.AddSingleton<INavigationService, NavigationService>();
             
-            services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType
-            => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
+            services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => ofViewModelType
+            => (ViewModel)serviceProvider.GetRequiredService(ofViewModelType));
 
             _serviceProvider = services.BuildServiceProvider();
         }

@@ -19,7 +19,7 @@ namespace Invoice_GenUI.ViewModels
 
         private readonly IClientService _clientService;
         public ObservableCollection<LineItemModel> Lineitems { get; } = new ObservableCollection<LineItemModel>();
-        private ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
+        public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService)
         {

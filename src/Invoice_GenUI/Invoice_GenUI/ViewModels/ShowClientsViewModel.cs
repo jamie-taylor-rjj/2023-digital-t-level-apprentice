@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,13 +15,16 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
         private readonly IClientService _clientService;
-        private ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
+        public ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
+
         public ShowClientsViewModel(INavigationService navService, IClientService clientService)
         {
             _navigation = navService;
             _clientService = clientService;
             GetClientDetails();
         }
+        public int details = 2;
+       
         public async Task GetClientDetails()
         {
             var tempClients = await _clientService.GetClientDetails();
@@ -41,9 +45,9 @@ namespace Invoice_GenUI.ViewModels
             _navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        private void ClientDetails(object details)
+        private void ClientDetails(object clientDetails)
         {
-            _navigation.ParameterNavigateTo<ClientDetailsViewModel>(details);
+            _navigation.NavigateTo<ClientDetailsViewModel>();
         }
     }
 }

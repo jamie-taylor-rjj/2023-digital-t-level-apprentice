@@ -12,6 +12,7 @@ namespace Invoice_GenUI.Models.Services
     {
         Task<List<ClientNameModel>> GetClientNames();
         Task<List<CreateClientModel>> GetClientDetails();
+        Task<List<string>> GetSingleClientDetails(string index);
         Task<bool> PutClient(CreateClientModel newClient);
     }
     public partial class ClientService : IClientService
@@ -40,6 +41,19 @@ namespace Invoice_GenUI.Models.Services
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadFromJsonAsync<List<CreateClientModel>>() ?? new();
+            }
+        }
+        public async Task<List<string>> GetSingleClientDetails(string index)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
+
+                var response = await client.GetAsync($"clients/{index}");
+
+                response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadFromJsonAsync<List<string>>() ?? new();
             }
         }
 
