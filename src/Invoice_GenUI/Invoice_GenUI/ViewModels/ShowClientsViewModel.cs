@@ -44,7 +44,7 @@ namespace Invoice_GenUI.ViewModels
         public void ClientDetails(object details)
         {
             MessageBox.Show(details.ToString());
-            _navigation.NavigateTo<ClientDetailsViewModel>();
+            _navigation.ParameterNavigateTo<ClientDetailsViewModel>(details);
         }
     }
 }

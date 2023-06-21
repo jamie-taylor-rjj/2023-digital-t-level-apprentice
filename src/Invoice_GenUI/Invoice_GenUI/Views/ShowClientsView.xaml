@@ -18,6 +18,7 @@
         </StackPanel>
         <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=ShowClientDetails}" AutoGenerateColumns="False">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding ClientId}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Client Name" Width="auto" Binding="{Binding ClientName}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Client Contact" Width="auto" Binding="{Binding ContactName}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Client Address" Width="auto" Binding="{Binding ClientAddress}" IsReadOnly="True"/>

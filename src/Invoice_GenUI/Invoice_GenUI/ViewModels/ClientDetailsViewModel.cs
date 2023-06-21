@@ -9,9 +9,10 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
 
-        public ClientDetailsViewModel(INavigationService navService)
+        public ClientDetailsViewModel(INavigationService navService, object details)
         {
             _navigation = navService;
-        }
+        }   
+        public string Name { get; }
     }
 }

@@ -2,6 +2,7 @@
 {
     public partial class CreateClientModel
     {
+        public int ClientId { get; set; }
         public string? ClientName { get; set; }
         public string? ClientAddress { get; set; }
         public string? ContactName { get; set; } 
