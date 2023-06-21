@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -39,8 +41,9 @@ namespace Invoice_GenUI.ViewModels
             _navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        public void ClientDetails()
+        public void ClientDetails(object details)
         {
+            MessageBox.Show(details.ToString());
             _navigation.NavigateTo<ClientDetailsViewModel>();
         }
     }

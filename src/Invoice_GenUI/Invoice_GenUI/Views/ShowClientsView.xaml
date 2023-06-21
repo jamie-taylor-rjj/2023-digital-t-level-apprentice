@@ -16,7 +16,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="303,0,0,345" Grid.RowSpan="2" Width="165">
             <TextBlock Text="View Clients" FontSize="24" Margin="20 20 0 0"/>
         </StackPanel>
-        <DataGrid Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=ShowClientDetails}" AutoGenerateColumns="False">
+        <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=ShowClientDetails}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Client Name" Width="auto" Binding="{Binding ClientName}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Client Contact" Width="auto" Binding="{Binding ContactName}" IsReadOnly="True"/>
@@ -25,7 +25,8 @@
                 <DataGridTemplateColumn Header="View">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="View" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ClientDetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                            <Button Content="View" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ClientDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                    CommandParameter="{Binding ElementName=dg_clients,Path=SelectedItems}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
