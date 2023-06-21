@@ -16,7 +16,7 @@ namespace Invoice_GenUI.ViewModels
         private IClientService _clientService;
         private ShowClientsViewModel _showClientsViewModel;
 
-        public List<string> getClient { get; } = new List<string> { "ABUH", "BUBA", "LALA", "AAAAA" };
+        public ObservableCollection<SingleClientModel> getClient { get; } = new ObservableCollection<SingleClientModel>();
 
         public ClientDetailsViewModel(INavigationService navService, IClientService clientService, ShowClientsViewModel showClientsViewModel)
         {
@@ -25,46 +25,18 @@ namespace Invoice_GenUI.ViewModels
             _showClientsViewModel = showClientsViewModel;
             GetClientID();
         }
-        public string Name
-        {
-            get => getClient[0];
-            set
-            {
-                Name = value;
-            }
-        }
-        public string Contact
-        {
-            get => getClient[1];
-            set
-            {
-                Contact = value;
-            }
-        }
-        public string Email
-        {
-            get => getClient[2];
-            set
-            {
-                Email = value;
-            }
-        }
-        public string Address
-        {
-            get => getClient[3];
-            set
-            {
-                Address = value;
-            }
-        }
+        public int index => _showClientsViewModel.details + 1;
+        public string Name => "banana";
+        public string Contact => "apple";
+        public string Email => "grape";
+        public string Address => "pineapple";
+        
         private async Task GetClientID()
         {
-            var tempClients = await _clientService.GetSingleClientDetails(_showClientsViewModel.details.ToString());
+            var tempClients = await _clientService.GetSingleClientDetails(index);
 
             if (tempClients.Count != 0)
             {
-                getClient.Clear();
-
                 foreach (var clientName in tempClients)
                 {
                     getClient.Add(clientName);
@@ -75,7 +47,6 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            MessageBox.Show(_showClientsViewModel.details.ToString());
             _navigation.NavigateTo<ShowClientsViewModel>();
         }
     }

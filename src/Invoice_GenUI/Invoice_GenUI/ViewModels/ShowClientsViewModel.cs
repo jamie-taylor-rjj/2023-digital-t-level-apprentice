@@ -23,7 +23,7 @@ namespace Invoice_GenUI.ViewModels
             _clientService = clientService;
             GetClientDetails();
         }
-        public int details = 2;
+        public int details { get; set; }
        
         public async Task GetClientDetails()
         {
@@ -31,8 +31,6 @@ namespace Invoice_GenUI.ViewModels
 
             if (tempClients.Count != 0)
             {
-                ShowClientDetails.Clear();
-
                 foreach (var clientName in tempClients)
                 {
                     ShowClientDetails.Add(clientName);
