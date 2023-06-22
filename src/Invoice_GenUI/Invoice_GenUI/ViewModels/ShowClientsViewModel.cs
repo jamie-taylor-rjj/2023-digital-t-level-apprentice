@@ -21,8 +21,7 @@ namespace Invoice_GenUI.ViewModels
             _clientService = clientService;
             Task.Run(() => GetClientDetails()).Wait();
         }
-        public int details { get; set; }
-       
+        public int details { get; set; }   
         public async Task GetClientDetails()
         {
             var tempClients = await _clientService.GetClientDetails();
