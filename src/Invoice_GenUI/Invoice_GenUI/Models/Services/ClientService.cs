@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -13,7 +12,7 @@ namespace Invoice_GenUI.Models.Services
     {
         Task<List<ClientNameModel>> GetClientNames();
         Task<List<CreateClientModel>> GetClientDetails();
-        Task<ObservableCollection<SingleClientModel>> GetSingleClientDetails(int index);
+        Task<SingleClientModel> GetSingleClientDetails(int index);
         Task<bool> PutClient(CreateClientModel newClient);
     }
     public partial class ClientService : IClientService
@@ -44,17 +43,17 @@ namespace Invoice_GenUI.Models.Services
                 return await response.Content.ReadFromJsonAsync<List<CreateClientModel>>() ?? new();
             }
         }
-        public async Task<ObservableCollection<SingleClientModel>> GetSingleClientDetails(int index)
+        public async Task<SingleClientModel> GetSingleClientDetails(int index)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
 
-                var response = await client.GetAsync($"clients/1");
+                var response = await client.GetAsync($"clients/{index}");
 
                 response.EnsureSuccessStatusCode();
 
-                return await response.Content.ReadFromJsonAsync<ObservableCollection<SingleClientModel>>() ?? new();
+                return await response.Content.ReadFromJsonAsync<SingleClientModel>() ?? new();
             }
         }
 

@@ -28,21 +28,21 @@
                 <TextBlock Text="Client Contact" Foreground="GhostWHite" FontSize="18" FontWeight="SemiBold" Margin="180 0 0 0"/>
             </StackPanel>
 
-            <Label Content="{Binding Name}" Foreground="GhostWhite" HorizontalAlignment="Left" FontSize="18" Height="39" Margin="214,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="auto"/>
-            <Label Content="{Binding Contact}" Foreground="GhostWhite" HorizontalAlignment="Left" FontSize="18" Height="39" Margin="501,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="auto"/>
+            <TextBlock Text="{Binding Name}" Foreground="GhostWhite" HorizontalAlignment="Left" FontSize="15" Height="40" Margin="152,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="200" TextWrapping="Wrap" TextAlignment="Center"/>
+            <TextBlock Text="{Binding Contact}" Foreground="GhostWhite" HorizontalAlignment="Left" FontSize="15" Height="40" Margin="443,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="200" TextWrapping="Wrap" TextAlignment="Center"/>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,105,0,-85">
                 <TextBlock Text="Client Address" Foreground="GhostWhite" FontSize="18" FontWeight="SemiBold"/>
                 <TextBlock Text="Client Email" Foreground="GhostWhite" FontSize="18" FontWeight="SemiBold" Margin="180 0 0 0"/>
             </StackPanel>
 
-            <Label Content="{Binding Address}" Foreground="GhostWhite" HorizontalAlignment="Left" FontSize="18" Height="39" Margin="209,136,0,0" Grid.Row="2" VerticalAlignment="Top" Width="auto"/>
-            <Label Content="{Binding Email}" Foreground="GhostWhite" HorizontalAlignment="Left" FontSize="18" Height="39" Margin="506,136,0,0" Grid.Row="2" VerticalAlignment="Top" Width="auto" Grid.RowSpan="2"/>
+            <TextBlock Text="{Binding Address}" Foreground="GhostWhite" HorizontalAlignment="Left" FontSize="15" Height="40" Margin="161,95,0,0" Grid.Row="3" VerticalAlignment="Top" Width="200" TextAlignment="Center" TextWrapping="Wrap"/>
+            <TextBlock Text="{Binding Email}" Foreground="GhostWhite" HorizontalAlignment="Left" FontSize="15" Height="40" Margin="443,136,0,0" Grid.Row="2" VerticalAlignment="Top" Width="200" Grid.RowSpan="2" TextAlignment="Center" TextWrapping="Wrap"/>
 
             <Rectangle Grid.Row="1" HorizontalAlignment="Left" Height="2" Margin="240,7,0,0" VerticalAlignment="Top" Width="332" Fill="#FF505861"/>
             <Rectangle Grid.Row="1" HorizontalAlignment="Left" Height="6" Margin="384,5,0,0" VerticalAlignment="Top" Width="46" Fill="#FF7CACFC"/>
 
-            <Button Content="Go Back" Margin="27,128,673,17" Width="100" FontWeight="SemiBold" Background="#FF7CACFC" Height="30" Command="{Binding GoBackCommand}" Grid.Row="3"/>
+            <Button Content="Go Back" Margin="19,234,681,-169" Width="100" FontWeight="SemiBold" Background="#FF7CACFC" Height="30" Command="{Binding GoBackCommand}" Grid.Row="3"/>
         </Grid>
     </Border>
 </UserControl>

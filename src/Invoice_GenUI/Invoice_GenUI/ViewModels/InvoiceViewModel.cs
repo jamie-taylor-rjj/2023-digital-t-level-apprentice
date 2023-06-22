@@ -16,9 +16,7 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         public ClientNameModel _selectedClientName = new ClientNameModel();
 
-
         private readonly IClientService _clientService;
-        public ObservableCollection<LineItemModel> Lineitems { get; } = new ObservableCollection<LineItemModel>();
         public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService)
@@ -39,7 +37,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private async Task GetClientNames()
         {
-            ClientNameLoading = true; // when button clicked 
+            ClientNameLoading = true;
 
             var tempClients = await _clientService.GetClientNames();
 
@@ -52,7 +50,7 @@ namespace Invoice_GenUI.ViewModels
                     ClientNames.Add(clientName);
                 }
             }
-            ClientNameLoading = false; // when all names loaded in
+            ClientNameLoading = false;
         }
     }
 }

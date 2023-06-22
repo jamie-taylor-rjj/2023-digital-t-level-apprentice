@@ -18,14 +18,11 @@ namespace Invoice_GenUI.Models
             {
                 var validationResults = new List<ValidationResult>();
 
-                if (Validator.TryValidateProperty(
-                        GetType().GetProperty(columnName).GetValue(this)
-                        , new ValidationContext(this)
-                        {
-                            MemberName = columnName
-                        }
-                        , validationResults))
-                    return null;
+                if (Validator.TryValidateProperty(GetType().GetProperty(columnName).GetValue(this), new ValidationContext(this)
+                {
+                    MemberName = columnName
+                },
+                validationResults)) return null;
 
                 return validationResults.First().ErrorMessage;
             }

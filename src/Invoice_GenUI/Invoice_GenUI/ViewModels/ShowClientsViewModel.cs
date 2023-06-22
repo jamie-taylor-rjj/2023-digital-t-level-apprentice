@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -21,7 +19,7 @@ namespace Invoice_GenUI.ViewModels
         {
             _navigation = navService;
             _clientService = clientService;
-            GetClientDetails();
+            Task.Run(() => GetClientDetails()).Wait();
         }
         public int details { get; set; }
        
@@ -43,8 +41,9 @@ namespace Invoice_GenUI.ViewModels
             _navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        private void ClientDetails(object clientDetails)
+        private void ClientDetails()
         {
+            MessageBox.Show(details.ToString());
             _navigation.NavigateTo<ClientDetailsViewModel>();
         }
     }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -16,32 +13,26 @@ namespace Invoice_GenUI.ViewModels
         private IClientService _clientService;
         private ShowClientsViewModel _showClientsViewModel;
 
-        public ObservableCollection<SingleClientModel> getClient { get; } = new ObservableCollection<SingleClientModel>();
-
         public ClientDetailsViewModel(INavigationService navService, IClientService clientService, ShowClientsViewModel showClientsViewModel)
         {
             _navigation = navService;
             _clientService = clientService;
             _showClientsViewModel = showClientsViewModel;
-            GetClientID();
+            Task.Run(() => GetClientID()).Wait();
         }
-        public int index => _showClientsViewModel.details + 1;
-        public string Name => "banana";
-        public string Contact => "apple";
-        public string Email => "grape";
-        public string Address => "pineapple";
+        public string Name { get; set; }
+        public string Contact { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
         
         private async Task GetClientID()
         {
-            var tempClients = await _clientService.GetSingleClientDetails(index);
+            var singleClient = await _clientService.GetSingleClientDetails(_showClientsViewModel.details + 1);
 
-            if (tempClients.Count != 0)
-            {
-                foreach (var clientName in tempClients)
-                {
-                    getClient.Add(clientName);
-                }
-            }
+            Name = singleClient.ClientName ?? string.Empty;
+            Contact = singleClient.ContactName ?? string.Empty;
+            Email = singleClient.ContactEmail ?? string.Empty;
+            Address = singleClient.ClientAddress ?? string.Empty;
         }
 
         [RelayCommand]
