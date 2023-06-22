@@ -24,7 +24,7 @@ namespace Invoice_GenUI.ViewModels
         public string Contact { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        
+
         private async Task GetClientID()
         {
             var singleClient = await _clientService.GetSingleClientDetails(_showClientsViewModel.details + 1);
@@ -38,7 +38,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            _navigation.NavigateTo<ShowClientsViewModel>();
+            Navigation.NavigateTo<ShowClientsViewModel>();
         }
     }
 }

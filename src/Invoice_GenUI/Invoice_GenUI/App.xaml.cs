@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
-using Invoice_GenUI.Models.Services;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.Services;
 using Invoice_GenUI.ViewModels;
 using Invoice_GenUI.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,10 +27,10 @@ namespace Invoice_GenUI
             services.AddSingleton<ShowClientsViewModel>();
             services.AddTransient<ClientDetailsViewModel>();
             services.AddTransient<IClientService, ClientService>();
-            
+
 
             services.AddSingleton<INavigationService, NavigationService>();
-            
+
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => ofViewModelType
             => (ViewModel)serviceProvider.GetRequiredService(ofViewModelType));
 

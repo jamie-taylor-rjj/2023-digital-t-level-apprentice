@@ -23,7 +23,7 @@ namespace Invoice_GenUI.Models.Services
             {
                 client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
 
-                var response = await client.GetAsync("clients"); 
+                var response = await client.GetAsync("clients");
 
                 response.EnsureSuccessStatusCode();
 

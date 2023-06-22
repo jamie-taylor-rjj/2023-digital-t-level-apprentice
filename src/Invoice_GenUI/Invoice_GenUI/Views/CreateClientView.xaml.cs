@@ -2,7 +2,7 @@
 
 namespace Invoice_GenUI.Views
 {
- 
+
     public partial class CreateClientView : UserControl
     {
         public CreateClientView()

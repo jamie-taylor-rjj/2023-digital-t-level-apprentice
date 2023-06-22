@@ -64,19 +64,19 @@ namespace Invoice_GenUI.ViewModels
                 OnPropertyChanged(nameof(ClientAddress));
             }
         }
-        
-        
+
+
         [RelayCommand]
         private void GoBack()
         {
-            _navigation.NavigateTo<HomeViewModel>();
+            Navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
         private async Task CreateClient()
         {
             var connected = await _clientService.PutClient(newClient);
             bool result = connected;
-            MessageBox.Show("Client has been created","Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Client has been created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             if (result)
             {
                 ClientName = string.Empty;
@@ -86,7 +86,7 @@ namespace Invoice_GenUI.ViewModels
             }
             else
             {
-                MessageBox.Show("Failed to create client","Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Failed to create client", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

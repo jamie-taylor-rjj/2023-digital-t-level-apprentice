@@ -21,7 +21,7 @@ namespace Invoice_GenUI.ViewModels
             _clientService = clientService;
             Task.Run(() => GetClientDetails()).Wait();
         }
-        public int details { get; set; }   
+        public int details { get; set; }
         public async Task GetClientDetails()
         {
             var tempClients = await _clientService.GetClientDetails();
@@ -37,13 +37,13 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            _navigation.NavigateTo<HomeViewModel>();
+            Navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
         private void ClientDetails()
         {
             MessageBox.Show(details.ToString());
-            _navigation.NavigateTo<ClientDetailsViewModel>();
+            Navigation.NavigateTo<ClientDetailsViewModel>();
         }
     }
 }

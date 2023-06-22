@@ -17,17 +17,17 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoToInvoice()
         {
-            _navigation.NavigateTo<InvoiceViewModel>();
+            Navigation.NavigateTo<InvoiceViewModel>();
         }
         [RelayCommand]
         private void GoToCreateClient()
         {
-            _navigation.NavigateTo<CreateClientViewModel>();
+            Navigation.NavigateTo<CreateClientViewModel>();
         }
         [RelayCommand]
         private void GoToShowClients()
         {
-            _navigation.NavigateTo<ShowClientsViewModel>();
+            Navigation.NavigateTo<ShowClientsViewModel>();
         }
     }
 }

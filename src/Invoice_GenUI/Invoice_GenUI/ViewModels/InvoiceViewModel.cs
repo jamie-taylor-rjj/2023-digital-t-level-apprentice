@@ -27,12 +27,12 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            _navigation.NavigateTo<HomeViewModel>();
+            Navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
         private void GoToLineItem()
         {
-            _navigation.NavigateTo<AddLineItemViewModel>();
+            Navigation.NavigateTo<AddLineItemViewModel>();
         }
         [RelayCommand]
         private async Task GetClientNames()

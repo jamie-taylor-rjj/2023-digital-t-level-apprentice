@@ -24,7 +24,7 @@ namespace Invoice_GenUI.ViewModels
 
         public double TotalResult()
         {
-            if(Cost == 0 || Quantity == 0)
+            if (Cost == 0 || Quantity == 0)
             {
                 return 0;
             }
@@ -121,7 +121,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            _navigation.ParameterNavigateTo<InvoiceViewModel>(newLineItems);
+            Navigation.ParameterNavigateTo<InvoiceViewModel>(newLineItems);
         }
     }
 }
