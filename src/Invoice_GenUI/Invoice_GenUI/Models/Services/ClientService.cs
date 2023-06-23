@@ -8,13 +8,6 @@ using System.Threading.Tasks;
 
 namespace Invoice_GenUI.Models.Services
 {
-    public interface IClientService
-    {
-        Task<List<ClientNameModel>> GetClientNames();
-        Task<List<CreateClientModel>> GetClientDetails();
-        Task<SingleClientModel> GetSingleClientDetails(int index);
-        Task<bool> PutClient(CreateClientModel newClient);
-    }
     public partial class ClientService : IClientService
     {
         public async Task<List<ClientNameModel>> GetClientNames()
@@ -43,7 +36,7 @@ namespace Invoice_GenUI.Models.Services
                 return await response.Content.ReadFromJsonAsync<List<CreateClientModel>>() ?? new();
             }
         }
-        public async Task<SingleClientModel> GetSingleClientDetails(int index)
+        public async Task<CreateClientModel> GetSingleClientDetails(int index)
         {
             using (var client = new HttpClient())
             {
@@ -53,11 +46,9 @@ namespace Invoice_GenUI.Models.Services
 
                 response.EnsureSuccessStatusCode();
 
-                return await response.Content.ReadFromJsonAsync<SingleClientModel>() ?? new();
+                return await response.Content.ReadFromJsonAsync<CreateClientModel>() ?? new();
             }
         }
-
-
         public async Task<bool> PutClient(CreateClientModel newClient) // valid values passed from xaml.cs
         {
             bool result = false;

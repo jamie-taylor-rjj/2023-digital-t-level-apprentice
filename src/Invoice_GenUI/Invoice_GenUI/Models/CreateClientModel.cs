@@ -1,6 +1,6 @@
 ﻿namespace Invoice_GenUI.Models
 {
-    public partial class CreateClientModel
+    public class CreateClientModel
     {
         public int ClientId { get; set; }
         public string? ClientName { get; set; }

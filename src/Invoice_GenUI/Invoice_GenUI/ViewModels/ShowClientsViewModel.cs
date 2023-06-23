@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -42,7 +41,6 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void ClientDetails()
         {
-            MessageBox.Show(details.ToString());
             Navigation.NavigateTo<ClientDetailsViewModel>();
         }
     }
