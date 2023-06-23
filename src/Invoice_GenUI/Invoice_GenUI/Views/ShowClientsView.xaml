@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Invoice_GenUI.Views.ShowClientsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewmodels="clr-namespace:Invoice_GenUI.ViewModels"
+             xmlns:local="clr-namespace:Invoice_GenUI.Views" d:DataContext="{d:DesignInstance Type=viewmodels:ShowClientsViewModel}"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="HeaderColour" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#FF353B43" />
+            <Setter Property="Foreground" Value="GhostWhite" />
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </UserControl.Resources>
+    <Border>
+        <Border.Background>
+            <SolidColorBrush Color="#FF353B43"/>
+        </Border.Background>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Width="auto">
+                <TextBlock Text="View" Foreground="GhostWhite" FontWeight="SemiBold" FontSize="24" Margin="20 20 0 0"/>
+                <TextBlock Text="Clients" Foreground="#FF7CACFC" FontWeight="SemiBold" FontSize="24" Margin="5 20 0 0"/>
+            </StackPanel>
+            <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" SelectedIndex="{Binding details}" ItemsSource="{Binding Path=ShowClientDetails}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Client Name" Width="auto" Binding="{Binding ClientName}" IsReadOnly="True"/>
+                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Client Contact" Width="auto" Binding="{Binding ContactName}" IsReadOnly="True"/>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="View">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="View" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ClientDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="2" Content="Go Back" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" HorizontalAlignment="Left" Margin="10 10 0 0" Height="30" Command="{Binding GoBackCommand}"/>
+            <Rectangle Grid.Row="1" HorizontalAlignment="Left" Height="2" Margin="238,5,0,0" VerticalAlignment="Top" Width="332" Fill="#FF505861"/>
+            <Rectangle Grid.Row="1" HorizontalAlignment="Left" Height="6" VerticalAlignment="Top" Width="46" Fill="#FF7CACFC" Margin="381,3,0,0"/>
+        </Grid>
+
+    </Border>
+</UserControl>

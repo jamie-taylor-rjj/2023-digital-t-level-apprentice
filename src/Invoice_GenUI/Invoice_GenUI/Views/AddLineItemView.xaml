@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="Invoice_GenUI.Views.AddLineItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Invoice_GenUI.Views"
+             mc:Ignorable="d"  Background="White"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBox" x:Key="LongBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Border BorderThickness="2" BorderBrush="OrangeRed" MaxHeight="55" MaxWidth="775">
+                                <StackPanel>
+                                    <AdornedElementPlaceholder    
+                                x:Name="errorControl" />
+                                </StackPanel>
+                            </Border>
+                            <TextBlock Text="{Binding AdornedElement.ToolTip    
+                        , ElementName=errorControl}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="ToolTip"    
+                Value="{Binding RelativeSource={RelativeSource Self}    
+                    , Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Border>
+        <Border.Background>
+            <SolidColorBrush Color="#FF353B43"/>
+        </Border.Background>
+
+        <Grid Grid.IsSharedSizeScope="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <!--Grid row 0-->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5 10">
+                <TextBlock Grid.Row="0" Text="Add an" FontSize="24" FontWeight="SemiBold" Foreground="GhostWhite" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Text="Item" FontSize="24" Margin="5 0 0 0" FontWeight="SemiBold" Foreground="#FF7CACFC" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 20">
+                <TextBlock Text="Add a line item" Foreground="GhostWhite" FontSize="15" TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <!--Grid row 1-->
+            <TextBlock Grid.Row="2" Text="Description" Foreground="GhostWhite" HorizontalAlignment="Center" FontSize="18" Margin="5 10" FontWeight="SemiBold"/>
+
+            <!--Grid row 2-->
+            <TextBox Style="{StaticResource LongBox}" x:Name="txt_description" Background="{x:Null}" Foreground="GhostWhite" Grid.Row="3" FontSize="15" BorderBrush="GhostWhite" BorderThickness="2" Margin="5" TextWrapping="Wrap" Height="50" Width="770" Text="{Binding Description,UpdateSourceTrigger=PropertyChanged
+                        ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
+            <!--Grid row 3-->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <TextBlock Text="Quantity" Foreground="GhostWhite" FontSize="18" Margin="90 20" FontWeight="SemiBold"/>
+                <TextBlock Text="Cost" Foreground="GhostWhite" FontSize="18" Margin="90 20" FontWeight="SemiBold"/>
+                <TextBlock Text="Total" Foreground="GhostWhite" FontSize="18" Margin="90 20" FontWeight="SemiBold"/>
+            </StackPanel>
+
+            <!--Grid row 4-->
+            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 30">
+                <TextBox x:Name="txt_quantity" FontSize="15" Foreground="GhostWhite" Background="{x:Null}" BorderThickness="2" BorderBrush="GhostWhite" Margin="70 0" Width="100" Height="40" Text="{Binding Quantity,UpdateSourceTrigger=PropertyChanged
+                        ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
+                <TextBox x:Name="txt_cost" FontSize="15" Foreground="GhostWhite" Background="{x:Null}" BorderThickness="2" BorderBrush="GhostWhite" Margin="65 0" Width="100" Height="40" Text="{Binding Cost,UpdateSourceTrigger=PropertyChanged
+                        ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
+                <TextBox x:Name="txt_total" FontSize="15" Foreground="GhostWhite" Background="{x:Null}" BorderThickness="2" BorderBrush="GhostWhite" Margin="50 0" Width="100" Height="40" IsEnabled="False" Text="{Binding Total,UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <!--Grid row 5-->
+            <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" Margin="253,70,0,-85">
+                <Button Content="Add" Margin="5" Width="100" Height="50" FontWeight="SemiBold" Background="#FF7CACFC" Command="{Binding AddLineItemCommand}" >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=txt_description,Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=txt_quantity,Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=txt_cost,Path=(Validation.HasError)}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="Cancel" Margin="10" Width="100" FontWeight="SemiBold" Background="#FF7CACFC" Height="50" Command="{Binding CancelLineItemCommand}"/>
+                <Button Content="Back" Margin="10" Width="100" FontWeight="SemiBold" Background="#FF7CACFC" Height="50" Command="{Binding GoBackCommand}"/>
+            </StackPanel>
+            <Rectangle Grid.Row="1" HorizontalAlignment="Center" Height="2" Margin="0,22,0,0" VerticalAlignment="Top" Width="332" Fill="#FF505861"/>
+            <Rectangle Grid.Row="1" HorizontalAlignment="Center" Height="6" Margin="0,20,0,0" VerticalAlignment="Top" Width="46" Fill="#FF7CACFC"/>
+
+        </Grid>
+    </Border>
+</UserControl>

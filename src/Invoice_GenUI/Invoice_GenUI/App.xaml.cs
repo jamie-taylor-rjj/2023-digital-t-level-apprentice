@@ -1,41 +1,46 @@
 ﻿using System;
 using System.Windows;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.Services;
 using Invoice_GenUI.ViewModels;
+using Invoice_GenUI.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Invoice_GenUI
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        private IServiceProvider serviceProvider;
-
+        private readonly ServiceProvider _serviceProvider;
         public App()
         {
-            var services = new ServiceCollection();
+            IServiceCollection services = new ServiceCollection();
+            services.AddSingleton<MainWindow>(provider => new MainWindow
+            {
+                DataContext = provider.GetRequiredService<MainViewModel>()
+            });
 
-            ConfigureServices(services);
-
-            serviceProvider = services.BuildServiceProvider();
-        }
-        private void ConfigureServices(ServiceCollection services) // Add instance of a viewmodel
-        {
-            services.AddTransient<StartUpWindow>();
-            services.AddTransient<CreateClientWindow>();
+            services.AddTransient<MainViewModel>();
+            services.AddTransient<HomeViewModel>();
+            services.AddTransient<InvoiceViewModel>();
             services.AddTransient<CreateClientViewModel>();
-            services.AddTransient<ClientService>();
-            services.AddTransient<InvoiceWindow>();
-            services.AddTransient<InvoiceViewModel>(); // Gives brand new instance of invoiceviewmodel every time
+            services.AddTransient<AddLineItemViewModel>();
+            services.AddSingleton<ShowClientsViewModel>();
+            services.AddTransient<ClientDetailsViewModel>();
             services.AddTransient<IClientService, ClientService>();
+
+
+            services.AddSingleton<INavigationService, NavigationService>();
+
+            services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => ofViewModelType
+            => (ViewModel)serviceProvider.GetRequiredService(ofViewModelType));
+
+            _serviceProvider = services.BuildServiceProvider();
         }
-        private void OnStartUp(object sender, EventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
-            var startUpWindow = serviceProvider.GetService<StartUpWindow>();
-            startUpWindow.Show();
+            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+            base.OnStartup(e);
         }
     }
-
 }

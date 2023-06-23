@@ -1,46 +1,43 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.Services;
 
 namespace Invoice_GenUI.ViewModels
 {
-    public partial class InvoiceViewModel : ObservableObject // Observable object is closed for modification but opened it up for extension
+    public partial class InvoiceViewModel : ViewModel
     {
-        private readonly IClientService _clientService;
-
+        [ObservableProperty]
+        private INavigationService _navigation;
         [ObservableProperty]
         private bool clientNameLoading;
-
-        [ObservableProperty] // Populating property
-        public LineItemViewModel lineItem = new();
-
-        public ObservableCollection<LineItemViewModel> LineItems { get; } = new ObservableCollection<LineItemViewModel>(); // Two-way observable list
-
-        public ObservableCollection<ClientNameViewModel> ClientNames { get; } = new ObservableCollection<ClientNameViewModel>();
-
         [ObservableProperty]
-        public ClientNameViewModel _selectedClientName = new ClientNameViewModel();
+        public ClientNameModel _selectedClientName = new ClientNameModel();
 
-        public InvoiceViewModel(IClientService clientService)
+        private readonly IClientService _clientService;
+        public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
+
+        public InvoiceViewModel(INavigationService navService, IClientService clientService)
         {
+            _navigation = navService;
             _clientService = clientService;
-
-
-            LineItems.Add(new LineItemViewModel
-            {
-                Description = Guid.NewGuid().ToString(),
-                Quantity = 2,
-                Cost = 9.99
-            });
         }
-
         [RelayCommand]
-        public async Task GetClientNames()
+        private void GoBack()
         {
-            ClientNameLoading = true; // when button clicked 
+            Navigation.NavigateTo<HomeViewModel>();
+        }
+        [RelayCommand]
+        private void GoToLineItem()
+        {
+            Navigation.NavigateTo<AddLineItemViewModel>();
+        }
+        [RelayCommand]
+        private async Task GetClientNames()
+        {
+            ClientNameLoading = true;
 
             var tempClients = await _clientService.GetClientNames();
 
@@ -53,29 +50,7 @@ namespace Invoice_GenUI.ViewModels
                     ClientNames.Add(clientName);
                 }
             }
-            ClientNameLoading = false; // when all names loaded in
-        }
-
-        [RelayCommand]
-        public void AddLineItem()
-        {
-            var newLineItem = new LineItemViewModel // Object initialisation
-            {
-                Description = LineItem.Description,
-                Quantity = LineItem.Quantity,
-                Cost = LineItem.Cost,
-            };
-            LineItems.Add(newLineItem);
-        }
-        public double LineItemsTotal()
-        {
-            var runningTotal = 0.0;
-
-            foreach (var item in LineItems)
-            {
-                runningTotal += item.Total();
-            }
-            return runningTotal;
+            ClientNameLoading = false;
         }
     }
 }

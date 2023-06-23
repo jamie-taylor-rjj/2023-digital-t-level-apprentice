@@ -1,89 +1,92 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.Services;
 
-namespace Invoice_GenUI.ViewModels;
-public class ClientPostModel
+namespace Invoice_GenUI.ViewModels
 {
-    public string ClientName { get; set; }
-    public string ClientAddress { get; set; }
-    public string ContactName { get; set; }
-    public string ContactEmail { get; set; }
-
-}
-public partial class CreateClientViewModel : ViewModelBase
-{
-    private readonly IClientService _clientService;
-    private CreateClientModel newClient;
-    private string client;
-
-
-    public CreateClientViewModel(IClientService clientService)
+    public partial class CreateClientViewModel : ViewModel
     {
-        newClient = new CreateClientModel();
-        _clientService = clientService;
-    }
-    public string clientName
-    {
-        get => newClient.ClientName;
-        set
+        private CreateClientModel newClient;
+        private readonly IClientService _clientService;
+
+        [ObservableProperty]
+        private INavigationService _navigation;
+
+        public CreateClientViewModel(INavigationService navService, IClientService clientService)
         {
-            newClient.ClientName = value;
-            OnPropertyChanged(nameof(clientName));
+            _navigation = navService;
+            _clientService = clientService;
+            newClient = new CreateClientModel();
         }
-    }
 
-    public string clientAddress
-    {
-        get => newClient.ClientAddress;
-        set
+        [Required(ErrorMessage = "Field is required")]
+        public string? ClientName
         {
-            newClient.ClientAddress = value;
-            OnPropertyChanged(nameof(clientAddress));
+            get => newClient.ClientName;
+            set
+            {
+                newClient.ClientName = value;
+                OnPropertyChanged(nameof(ClientName));
+            }
         }
-    }
-    public string contactName
-    {
-        get => newClient.ContactName;
-        set
+        [Required(ErrorMessage = "Field is required")]
+        public string? ContactName
         {
-            newClient.ContactName = value;
-            OnPropertyChanged(nameof(contactName));
+            get => newClient.ContactName;
+            set
+            {
+                newClient.ContactName = value;
+                OnPropertyChanged(nameof(ContactName));
+            }
         }
-    }
-    public string contactEmail
-    {
-        get => newClient.ContactEmail;
-        set
+        [Required(ErrorMessage = "Field is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string? ContactEmail
         {
-            newClient.ContactEmail = value;
-            OnPropertyChanged(nameof(contactEmail));
+            get => newClient.ContactEmail;
+            set
+            {
+                newClient.ContactEmail = value;
+                OnPropertyChanged(nameof(ContactEmail));
+            }
         }
-    }
-    [RelayCommand] // async response
-    public async Task CreateClient()
-    {
+        [Required(ErrorMessage = "Field is required")]
+        public string? ClientAddress
+        {
+            get => newClient.ClientAddress;
+            set
+            {
+                newClient.ClientAddress = value;
+                OnPropertyChanged(nameof(ClientAddress));
+            }
+        }
 
-        if (string.IsNullOrWhiteSpace(clientName) ||
-            string.IsNullOrWhiteSpace(clientAddress) ||
-            string.IsNullOrWhiteSpace(contactName) ||
-            string.IsNullOrWhiteSpace(contactEmail))
-        {
-            MessageBox.Show("Invalid data");
 
-        }
-        else
+        [RelayCommand]
+        private void GoBack()
         {
-            var connected = await _clientService.PutClient(clientName, clientAddress, contactName, contactEmail); // make it return bool value
-            bool result = connected; // The bool value result
-            MessageBox.Show($"{result}");
+            Navigation.NavigateTo<HomeViewModel>();
+        }
+        [RelayCommand]
+        private async Task CreateClient()
+        {
+            var connected = await _clientService.PutClient(newClient);
+            bool result = connected;
+            MessageBox.Show("Client has been created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             if (result)
             {
-                clientName = string.Empty;
-                contactName = string.Empty;
-                clientAddress = string.Empty;
-                contactEmail = string.Empty;
+                ClientName = string.Empty;
+                ContactEmail = string.Empty;
+                ClientAddress = string.Empty;
+                ContactName = string.Empty;
+            }
+            else
+            {
+                MessageBox.Show("Failed to create client", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

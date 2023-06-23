@@ -2,10 +2,28 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Invoice_GenUI"
-             Startup="OnStartUp">
+             xmlns:viewModel="clr-namespace:Invoice_GenUI.ViewModels"
+             xmlns:view="clr-namespace:Invoice_GenUI.Views">
     <Application.Resources>
 
-      
-        
+        <DataTemplate DataType="{x:Type TypeName=viewModel:HomeViewModel}">
+            <view:HomeView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type TypeName=viewModel:CreateClientViewModel}">
+            <view:CreateClientView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type TypeName=viewModel:InvoiceViewModel}">
+            <view:InvoiceView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type TypeName=viewModel:AddLineItemViewModel}">
+            <view:AddLineItemView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type TypeName=viewModel:ShowClientsViewModel}">
+            <view:ShowClientsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type TypeName=viewModel:ClientDetailsViewModel}">
+            <view:ClientDetailsView/>
+        </DataTemplate>
+
     </Application.Resources>
 </Application>
