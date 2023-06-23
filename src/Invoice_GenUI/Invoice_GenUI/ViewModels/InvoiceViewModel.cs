@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -31,10 +30,8 @@ namespace Invoice_GenUI.ViewModels
         }
         public void PopulateGrid()
         {
-            MessageBox.Show(_addLineItemViewModel.newLineItems.Count.ToString());
             foreach (var item in _addLineItemViewModel.newLineItems)
             {
-               
                 LineItems.Add(item);
             }
         }
