@@ -114,8 +114,6 @@ namespace Invoice_GenUI.ViewModels
                 Quantity = 0;
                 Cost = 0;
                 Total = 0;
-
-                MessageBox.Show(newLineItems.Count.ToString());
             }
         }
         [RelayCommand]

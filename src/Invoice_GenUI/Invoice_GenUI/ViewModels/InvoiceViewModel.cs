@@ -15,14 +15,25 @@ namespace Invoice_GenUI.ViewModels
         private bool clientNameLoading;
         [ObservableProperty]
         public ClientNameModel _selectedClientName = new ClientNameModel();
+        private AddLineItemViewModel _addLineItemViewModel;
 
         private readonly IClientService _clientService;
+        public ObservableCollection<LineItemModel> LineItems { get; } = new ObservableCollection<LineItemModel>();
         public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
-        public InvoiceViewModel(INavigationService navService, IClientService clientService)
+        public InvoiceViewModel(INavigationService navService, IClientService clientService, AddLineItemViewModel addLineItemViewModel)
         {
             _navigation = navService;
             _clientService = clientService;
+            _addLineItemViewModel = addLineItemViewModel;
+            PopulateGrid();
+        }
+        public void PopulateGrid()
+        {
+            foreach (var item in _addLineItemViewModel.newLineItems)
+            {
+                LineItems.Add(item);
+            }
         }
         [RelayCommand]
         private void GoBack()

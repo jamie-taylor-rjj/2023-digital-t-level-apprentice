@@ -77,11 +77,11 @@
 
             <!--Grid row 4-->
             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 30">
-                <TextBox x:Name="txt_quantity" FontSize="15" Foreground="GhostWhite" Background="{x:Null}" BorderThickness="2" BorderBrush="GhostWhite" Margin="70 0" Width="100" Height="40" Text="{Binding Quantity,UpdateSourceTrigger=PropertyChanged
+                <TextBox x:Name="txt_quantity" FontSize="15" Foreground="GhostWhite" Background="{x:Null}" BorderThickness="2" TextAlignment="Center" BorderBrush="GhostWhite" Margin="70 0" Width="100" Height="40" Text="{Binding Quantity,UpdateSourceTrigger=PropertyChanged
                         ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
-                <TextBox x:Name="txt_cost" FontSize="15" Foreground="GhostWhite" Background="{x:Null}" BorderThickness="2" BorderBrush="GhostWhite" Margin="65 0" Width="100" Height="40" Text="{Binding Cost,UpdateSourceTrigger=PropertyChanged
+                <TextBox x:Name="txt_cost" FontSize="15" Foreground="GhostWhite" Background="{x:Null}" BorderThickness="2" TextAlignment="Center" BorderBrush="GhostWhite" Margin="65 0" Width="100" Height="40" Text="{Binding Cost,UpdateSourceTrigger=PropertyChanged
                         ,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"/>
-                <TextBox x:Name="txt_total" FontSize="15" Foreground="GhostWhite" Background="{x:Null}" BorderThickness="2" BorderBrush="GhostWhite" Margin="50 0" Width="100" Height="40" IsEnabled="False" Text="{Binding Total,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox x:Name="txt_total" FontSize="15" Foreground="GhostWhite" Background="{x:Null}" BorderThickness="2" TextAlignment="Center" BorderBrush="GhostWhite" Margin="50 0" Width="100" Height="40" IsEnabled="False" Text="{Binding Total,UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <!--Grid row 5-->
