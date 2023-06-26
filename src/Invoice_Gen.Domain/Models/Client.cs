@@ -10,4 +10,5 @@ public class Client
     public string ClientAddress { get; set; } = null!;
     public string ContactName { get; set; } = null!;
     public string ContactEmail { get; set; } = null!;
+    public IList<Invoice> Invoices { get; set; } = new List<Invoice>();
 }

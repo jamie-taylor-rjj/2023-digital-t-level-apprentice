@@ -29,7 +29,8 @@ public class ClientNameViewModelMapperTests
         var clientViewModel = _mapper.Convert(client);
 
         // Assert
-        Assert.NotNull(clientViewModel); Assert.IsAssignableFrom<ClientViewModel>(clientViewModel);
+        Assert.NotNull(clientViewModel);
+        Assert.IsAssignableFrom<ClientViewModel>(clientViewModel);
         Assert.Equal(client.ClientId, clientViewModel.ClientId);
         Assert.Equal(client.ClientName, clientViewModel.ClientName);
         Assert.Equal(client.ClientAddress, clientViewModel.ClientAddress);

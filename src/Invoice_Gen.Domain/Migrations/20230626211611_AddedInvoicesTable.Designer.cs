@@ -3,6 +3,7 @@ using System;
 using Invoice_Gen.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Invoice_Gen.Domain.Migrations
 {
     [DbContext(typeof(InvoiceGenDbContext))]
-    partial class InvoiceGenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230626211611_AddedInvoicesTable")]
+    partial class AddedInvoicesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -121,42 +124,6 @@ namespace Invoice_Gen.Domain.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Invoice_Gen.Domain.Models.LineItem", b =>
-                {
-                    b.Property<int>("LineItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("LineItemId");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.ToTable("LineItems", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            LineItemId = 1,
-                            Cost = 80.0,
-                            Description = "Time spent building API (per hour)",
-                            InvoiceId = 1,
-                            Quantity = 1
-                        });
-                });
-
             modelBuilder.Entity("Invoice_Gen.Domain.Models.Invoice", b =>
                 {
                     b.HasOne("Invoice_Gen.Domain.Models.Client", "Client")
@@ -168,25 +135,9 @@ namespace Invoice_Gen.Domain.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Invoice_Gen.Domain.Models.LineItem", b =>
-                {
-                    b.HasOne("Invoice_Gen.Domain.Models.Invoice", "Invoice")
-                        .WithMany("LineItems")
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Invoice");
-                });
-
             modelBuilder.Entity("Invoice_Gen.Domain.Models.Client", b =>
                 {
                     b.Navigation("Invoices");
-                });
-
-            modelBuilder.Entity("Invoice_Gen.Domain.Models.Invoice", b =>
-                {
-                    b.Navigation("LineItems");
                 });
 #pragma warning restore 612, 618
         }
