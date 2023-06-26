@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net.Mime;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_Gen.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Produces("application/json")]
+[Produces(MediaTypeNames.Application.Json)]
 public class ClientsController : ControllerBase
 {
     private readonly ILogger<ClientsController> _logger;
