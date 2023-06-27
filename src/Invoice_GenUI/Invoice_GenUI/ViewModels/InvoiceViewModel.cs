@@ -17,12 +17,14 @@ namespace Invoice_GenUI.ViewModels
         private DateTime _issueDate;
         [ObservableProperty]
         private DateTime _dueDate;
-        [ObservableProperty]
-        [NotifyDataErrorInfo]
+        [ObservableProperty, NotifyDataErrorInfo]
         [Required]
         [Range(0.01, 100)]
         private double _vatRate;
+        [ObservableProperty]
+        private double _total;
 
+      
 
         [ObservableProperty]
         private INavigationService _navigation;
@@ -39,12 +41,13 @@ namespace Invoice_GenUI.ViewModels
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService, AddLineItemViewModel addLineItemViewModel)
         {
+            PopulateGrid();
+            _total = CalculateTotal();
             _dueDate = DateTime.Now.AddDays(1);
             _issueDate = DateTime.Now;
             _navigation = navService;
             _clientService = clientService;
             _addLineItemViewModel = addLineItemViewModel;
-            PopulateGrid();
         }
         public void PopulateGrid()
         {
@@ -56,6 +59,15 @@ namespace Invoice_GenUI.ViewModels
             {
                 LineItems.Add(item);
             }
+        }
+        public double CalculateTotal()
+        {
+            double total = 0;
+            foreach (var item in LineItems)
+            {
+                total = +item.Total;
+            }
+            return total;
         }
         [RelayCommand]
         private void GoBack()
