@@ -18,10 +18,19 @@ try
 
     builder.Services
         .AddTransient<IMapper<ClientViewModel, Client>, ClientNameViewModelMapper>()
+        .AddTransient<IMapper<InvoiceViewModel, Invoice>, InvoiceViewModelMapper>()
+        .AddTransient<IMapper<InvoiceCreateModel, Invoice>, InvoiceCreateModelMapper>()
+        .AddTransient<IMapper<LineItemViewModel, LineItem>, LineItemViewModelMapper>()
         .AddTransient(typeof(IClientRepository), typeof(ClientRepository))
+        .AddTransient<IInvoiceRepository, InvoiceRepository>()
+        .AddTransient<ILineItemRepository, LineItemRepository>()
         .AddTransient<IDbContext, InvoiceGenDbContext>()
         .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
-    builder.Services.AddTransient<IClientService, ClientService>();
+
+    builder.Services
+        .AddTransient<IClientService, ClientService>()
+        .AddTransient<IInvoiceService, InvoiceService>()
+        .AddTransient<ILineItemService, LineItemService>();
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
