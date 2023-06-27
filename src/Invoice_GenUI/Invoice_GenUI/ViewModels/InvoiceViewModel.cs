@@ -12,10 +12,18 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class InvoiceViewModel : ViewModel
     {
+        // Invoice creation properties
         [ObservableProperty]
         private DateTime _issueDate;
         [ObservableProperty]
         private DateTime _dueDate;
+        [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [Required]
+        [Range(0.01, 100)]
+        private double _vatRate;
+
+
         [ObservableProperty]
         private INavigationService _navigation;
         [ObservableProperty]
@@ -86,15 +94,18 @@ namespace Invoice_GenUI.ViewModels
         
             if (result == MessageBoxResult.Yes)
             {
-                if(SelectedClientName.ClientID == 0 || SelectedClientName.ClientName == null)
+                if (SelectedClientName.ClientID == 0 || SelectedClientName.ClientName == null)
                 {
-                    MessageBox.Show("A client has not been selected");
+                    MessageBox.Show("A client has not been selected", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                if(LineItems.Count == 0)
+                else if (LineItems.Count == 0)
                 {
-                    MessageBox.Show("Must have at least one item");
+                    MessageBox.Show("Must have at least one item", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
+                else if (IssueDate > DueDate)
+                {
+                    MessageBox.Show("The issue date must be before the due date\nThe due date must be after the issue date", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
