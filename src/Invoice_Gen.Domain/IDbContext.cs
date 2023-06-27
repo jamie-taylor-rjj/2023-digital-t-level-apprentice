@@ -20,4 +20,6 @@ public interface IDbContext
     Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess = true,
         CancellationToken cancellationToken = default(CancellationToken));
     DbSet<Client> Clients { get; }
+    DbSet<Invoice> Invoices { get; }
+    DbSet<LineItem> LineItems { get; }
 }

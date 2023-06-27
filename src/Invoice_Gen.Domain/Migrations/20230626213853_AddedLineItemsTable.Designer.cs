@@ -3,6 +3,7 @@ using System;
 using Invoice_Gen.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Invoice_Gen.Domain.Migrations
 {
     [DbContext(typeof(InvoiceGenDbContext))]
-    partial class InvoiceGenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230626213853_AddedLineItemsTable")]
+    partial class AddedLineItemsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
