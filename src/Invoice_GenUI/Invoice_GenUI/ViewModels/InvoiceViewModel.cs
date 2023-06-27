@@ -13,9 +13,9 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
         [ObservableProperty]
-        private bool clientNameLoading;
+        private bool _clientNameLoading;
         [ObservableProperty]
-        public ClientNameModel _selectedClientName = new ClientNameModel();
+        private ClientNameModel _selectedClientName = new ClientNameModel();
  
         private AddLineItemViewModel _addLineItemViewModel;
 
@@ -32,6 +32,10 @@ namespace Invoice_GenUI.ViewModels
         }
         public void PopulateGrid()
         {
+            if (LineItems.Count != 0)
+            {
+                LineItems.Clear();
+            }
             foreach (var item in _addLineItemViewModel.newLineItems)
             {
                 LineItems.Add(item);
@@ -72,7 +76,7 @@ namespace Invoice_GenUI.ViewModels
         
             if (result == MessageBoxResult.Yes)
             {
-                if(SelectedClientName == null)
+                if(SelectedClientName.ClientID == 0 || SelectedClientName.ClientName == null)
                 {
                     MessageBox.Show("A client has not been selected");
                 }
