@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,12 +13,16 @@ namespace Invoice_GenUI.ViewModels
     public partial class InvoiceViewModel : ViewModel
     {
         [ObservableProperty]
+        private DateTime _issueDate;
+        [ObservableProperty]
+        private DateTime _dueDate;
+        [ObservableProperty]
         private INavigationService _navigation;
         [ObservableProperty]
         private bool _clientNameLoading;
         [ObservableProperty]
         private ClientNameModel _selectedClientName = new ClientNameModel();
- 
+        
         private AddLineItemViewModel _addLineItemViewModel;
 
         private readonly IClientService _clientService;
@@ -25,6 +31,8 @@ namespace Invoice_GenUI.ViewModels
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService, AddLineItemViewModel addLineItemViewModel)
         {
+            _dueDate = DateTime.Now.AddDays(1);
+            _issueDate = DateTime.Now;
             _navigation = navService;
             _clientService = clientService;
             _addLineItemViewModel = addLineItemViewModel;
@@ -73,6 +81,8 @@ namespace Invoice_GenUI.ViewModels
         private void CreateInvoice()
         {
            MessageBoxResult result = MessageBox.Show("Do you want to create this invoice?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            //DateTime test = Convert.ToDateTime(IssueDate.ToString("yyyy/MM/dd"));
+            //MessageBox.Show(test.ToString("yyyy/MM/dd"));
         
             if (result == MessageBoxResult.Yes)
             {

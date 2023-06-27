@@ -47,7 +47,7 @@
                     </ScrollViewer>
                 </StackPanel>
 
-                <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" Visibility="Visible" Margin="0,0,0,-189">
+                <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" Visibility="Visible">
                     <StackPanel>
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-300 10 0 0">
                             <TextBlock Text="Client Name" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="5"/>
@@ -78,8 +78,32 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 0 0 0">
-                            <DatePicker x:Name="dt_issueDate" Width="200" Height="40" DisplayDateStart="{x:Static sys:DateTime.Now}"/>
-                            <DatePicker Width="200" Height="40" Margin="60 0 0 0" DisplayDateStart="{x:Static sys:DateTime.Now}"/>
+                            <DatePicker Width="200" Height="40" SelectedDate="{Binding IssueDate}" DisplayDateStart="{x:Static sys:DateTime.Today}">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Control.Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBox Text="{Binding Path=SelectedDate,StringFormat='yyyy/MM/dd', RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DatePicker}}}"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                            <DatePicker Width="200" Height="40" Margin="60 0 0 0" SelectedDate="{Binding DueDate}" DisplayDateStart="{x:Static sys:DateTime.Today}">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Control.Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBox Text="{Binding Path=SelectedDate,StringFormat='yyyy/MM/dd', RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DatePicker}}}"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
@@ -89,7 +113,7 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
-                            <TextBox Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite"/>
+                            <TextBox Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite" />
                             <TextBox x:Name="txt_totalValue" Width="100" Height="20" Text="Total value" FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite" Margin="55 0 0 0" IsEnabled="False"/>
                             <TextBox Width="100" Height="20" Text="Invoice Total" FontWeight="SemiBold" FontSize="12" Foreground="GhostWhite" Margin="65 0 0 0" IsEnabled="False"/>
                         </StackPanel>
