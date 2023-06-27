@@ -122,7 +122,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            Navigation.ParameterNavigateTo<InvoiceViewModel>(newLineItems);
+            _navigation.ParameterNavigateTo<InvoiceViewModel>(newLineItems);
         }
     }
 }

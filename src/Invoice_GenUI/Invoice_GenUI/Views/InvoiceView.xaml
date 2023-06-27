@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Invoice_GenUI.Views"
+             xmlns:viewmodels="clr-namespace:Invoice_GenUI.ViewModels"
+             xmlns:local="clr-namespace:Invoice_GenUI.Views" d:DataContext="{d:DesignInstance Type=viewmodels:InvoiceViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -45,12 +46,12 @@
                     </ScrollViewer>
                 </StackPanel>
 
-                <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" Visibility="Visible" Margin="0,0,0,-229">
+                <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" Visibility="Visible">
                     <StackPanel>
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-300 10 0 0">
                             <TextBlock Text="Client Name" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="5"/>
-                            <ComboBox x:Name="cb_clientName" Width="200" Height="25" ItemsSource="{Binding Path=ClientNames}" DisplayMemberPath="ClientName" 
-                                      SelectedValuePath="ClientName" SelectedItem="{Binding Path=selectedClientName, Mode=TwoWay}"/>
+                            <ComboBox Width="200" Height="25" ItemsSource="{Binding Path=ClientNames}" DisplayMemberPath="ClientName"
+                                       SelectedItem="{Binding Path=SelectedClientName}"/>
                             <Button x:Name="btn_getClientNames" Height="20" Width="100" Margin="5" Content="Get Clients" HorizontalAlignment="Left" Background="#FF7CACFC" Command="{Binding GetClientNamesCommand}"/>
                             
                         </StackPanel>
@@ -93,7 +94,7 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 40 0 0">
-                            <Button x:Name="btn_generateInvoice" Content="Generate Invoice" Height="40" Width="150" Background="#FF7CACFC"/>
+                            <Button x:Name="btn_generateInvoice" Content="Generate Invoice" Height="40" Width="150" Background="#FF7CACFC" Command="{Binding CreateInvoiceCommand}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 40 0 0" Background="Black">

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
@@ -15,6 +16,7 @@ namespace Invoice_GenUI.ViewModels
         private bool clientNameLoading;
         [ObservableProperty]
         public ClientNameModel _selectedClientName = new ClientNameModel();
+ 
         private AddLineItemViewModel _addLineItemViewModel;
 
         private readonly IClientService _clientService;
@@ -66,7 +68,20 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void CreateInvoice()
         {
+           MessageBoxResult result = MessageBox.Show("Do you want to create this invoice?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        
+            if (result == MessageBoxResult.Yes)
+            {
+                if(SelectedClientName == null)
+                {
+                    MessageBox.Show("A client has not been selected");
+                }
+                if(LineItems.Count == 0)
+                {
+                    MessageBox.Show("Must have at least one item");
+                }
 
+            }
         }
     }
 }
