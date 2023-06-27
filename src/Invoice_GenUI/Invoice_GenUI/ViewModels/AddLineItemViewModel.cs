@@ -33,6 +33,7 @@ namespace Invoice_GenUI.ViewModels
                 return Cost * Quantity;
             }
         }
+        public int ItemId;
 
         [Required(ErrorMessage = "Field is required")]
         public string? Description
@@ -101,8 +102,10 @@ namespace Invoice_GenUI.ViewModels
 
             if (result == MessageBoxResult.OK)
             {
+                ItemId = newLineItems.Count + 1;
                 var newLineItem = new LineItemModel
                 {
+                    ItemId = ItemId,
                     Description = Description,
                     Quantity = Quantity,
                     Cost = Cost,

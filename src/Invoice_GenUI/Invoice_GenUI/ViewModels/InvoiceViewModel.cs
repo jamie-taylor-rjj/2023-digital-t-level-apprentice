@@ -63,5 +63,10 @@ namespace Invoice_GenUI.ViewModels
             }
             ClientNameLoading = false;
         }
+        [RelayCommand]
+        private void CreateInvoice()
+        {
+
+        }
     }
 }
