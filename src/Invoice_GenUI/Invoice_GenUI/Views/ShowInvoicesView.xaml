@@ -32,7 +32,7 @@
             </StackPanel>
             <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=DisplayInvoices}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White">
                 <DataGrid.Columns>
-                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Invoice ID" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Invoice ID" Width="auto" Binding="{Binding InvoiceId}" IsReadOnly="True"/>
                     <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Date Created" Width="auto" Binding="{Binding IssueDate}" IsReadOnly="True"/>
                     <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Total Value" Width="auto" Binding="{Binding DataContext.Total, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" IsReadOnly="True"/>
                     <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="View Details">

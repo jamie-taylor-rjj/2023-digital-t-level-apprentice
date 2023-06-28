@@ -23,17 +23,29 @@ namespace Invoice_GenUI.ViewModels
             _navigation = navService;
             _invoiceListService = invoiceListService;
             Task.Run(() => GetInvoiceDetails()).Wait();
+            AssignIDs();
             _total = CalculateTotal();
+        }
+        public void AssignIDs()
+        {
+            int idCounter = 1;
+            foreach(var item in DisplayInvoices)
+            {
+                item.InvoiceId = idCounter;
+                idCounter++;
+            }
         }
         public double CalculateTotal()
         {
             double total = 0;
-            foreach(var item in DisplayInvoices)
+            foreach (var item in DisplayInvoices)
             {
-              foreach(var line in item.LineItems)
+
+                foreach (var line in item.LineItems)
                 {
-                    total += line.Cost;
+                    total += line.Cost * line.Quantity;
                 }
+
             }
 
             return total;
