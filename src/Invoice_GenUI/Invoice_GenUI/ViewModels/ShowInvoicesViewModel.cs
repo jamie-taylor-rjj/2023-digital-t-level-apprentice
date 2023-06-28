@@ -13,7 +13,7 @@ namespace Invoice_GenUI.ViewModels
         private INavigationService _navigation;
         private readonly IInvoiceListService _invoiceListService;
 
-        public ObservableCollection<InvoiceModel> displayInvoices = new ObservableCollection<InvoiceModel>();
+        public ObservableCollection<InvoiceModel> DisplayInvoices { get; } = new ObservableCollection<InvoiceModel>();
 
         public ShowInvoicesViewModel(INavigationService navService, IInvoiceListService invoiceListService)
         {
@@ -27,9 +27,9 @@ namespace Invoice_GenUI.ViewModels
 
             if (tempInvoices.Count != 0)
             {
-                foreach (var clientName in tempInvoices)
+                foreach (var invoice in tempInvoices)
                 {
-                    displayInvoices.Add(clientName);
+                    DisplayInvoices.Add(invoice);
                 }
             }
         }
