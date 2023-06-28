@@ -17,15 +17,29 @@ namespace Invoice_GenUI.ViewModels
         private DateTime _issueDate;
         [ObservableProperty]
         private DateTime _dueDate;
-        [ObservableProperty, NotifyDataErrorInfo]
-        [Required]
-        [Range(0.01, 100)]
-        private double _vatRate;
         [ObservableProperty]
         private double _total;
+        [ObservableProperty]
+        private double _invoiceTotal;
+        private double _vatRate;
+        [Required]
+        [Range(1,25)]
+        public double VatRate
+        {
+            get => _vatRate;
+            set
+            {
+                _vatRate = value;
+                OnPropertyChanged(nameof(VatRate));
 
-      
-
+                if(_vatRate > 0.01 && _vatRate <= 25 )
+                {
+                    _invoiceTotal = CalculateInvoiceTotal();
+                    OnPropertyChanged(nameof(InvoiceTotal));
+                }
+            }
+        }
+   
         [ObservableProperty]
         private INavigationService _navigation;
         [ObservableProperty]
@@ -41,13 +55,13 @@ namespace Invoice_GenUI.ViewModels
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService, AddLineItemViewModel addLineItemViewModel)
         {
-            PopulateGrid();
-            _total = CalculateTotal();
             _dueDate = DateTime.Now.AddDays(1);
             _issueDate = DateTime.Now;
             _navigation = navService;
             _clientService = clientService;
             _addLineItemViewModel = addLineItemViewModel;
+            PopulateGrid();
+            _total = CalculateTotal();
         }
         public void PopulateGrid()
         {
@@ -68,6 +82,11 @@ namespace Invoice_GenUI.ViewModels
                 total = +item.Total;
             }
             return total;
+        }
+        private double CalculateInvoiceTotal()
+        {
+            double rate = Total * VatRate / 100;
+            return rate + Total;
         }
         [RelayCommand]
         private void GoBack()
@@ -100,9 +119,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void CreateInvoice()
         {
-           MessageBoxResult result = MessageBox.Show("Do you want to create this invoice?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            //DateTime test = Convert.ToDateTime(IssueDate.ToString("yyyy/MM/dd"));
-            //MessageBox.Show(test.ToString("yyyy/MM/dd"));
+            MessageBoxResult result = MessageBox.Show("Do you want to create this invoice?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
         
             if (result == MessageBoxResult.Yes)
             {
@@ -117,6 +134,14 @@ namespace Invoice_GenUI.ViewModels
                 else if (IssueDate > DueDate)
                 {
                     MessageBox.Show("The issue date must be before the due date\nThe due date must be after the issue date", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (Total > 0)
+                {
+                    MessageBox.Show("The total must be over 0", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if(VatRate > 25)
+                {
+                    MessageBox.Show("The VAT rate must be a positive integer no higher than 25%", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

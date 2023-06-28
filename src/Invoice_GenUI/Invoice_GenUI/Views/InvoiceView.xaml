@@ -113,9 +113,9 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
-                            <TextBox Text="{Binding VatRate,UpdateSourceTrigger=PropertyChanged,NotifyOnValidationError=True, ValidatesOnDataErrors=True, StringFormat=N2}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" />
+                            <TextBox Text="{Binding VatRate,UpdateSourceTrigger=PropertyChanged,NotifyOnValidationError=True, ValidatesOnDataErrors=True}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" />
                             <TextBox Text="{Binding Total}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="55 0 0 0" IsEnabled="False"/>
-                            <TextBox Width="100" Height="20" Text="Invoice Total" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="65 0 0 0" IsEnabled="False"/>
+                            <TextBox Text="{Binding InvoiceTotal}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="65 0 0 0" IsEnabled="False"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 40 0 0">
