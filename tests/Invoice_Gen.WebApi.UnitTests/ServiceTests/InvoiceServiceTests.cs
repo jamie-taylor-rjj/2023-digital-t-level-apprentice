@@ -74,7 +74,7 @@ public class InvoiceServiceTests
         Assert.Equal(_issueDate, result.FirstOrDefault()?.IssueDate);
         Assert.Equal(_vatRate, result.FirstOrDefault()?.VatRate);
     }
-    
+
     [Fact]
     public void Given_A_Valid_InvoiceId_GetById_Should_Return_The_Matching_InvoiceViewModel()
     {

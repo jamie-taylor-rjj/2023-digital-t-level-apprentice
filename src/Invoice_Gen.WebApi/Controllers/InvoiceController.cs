@@ -35,7 +35,7 @@ public class InvoiceController : ControllerBase
             return new OkObjectResult(invoices);
         }
     }
-    
+
     /// <summary>
     /// Gets the instance of <see cref="InvoiceViewModel"/> for the provided <paramref name="invoiceId"/>
     /// </summary>

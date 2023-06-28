@@ -37,7 +37,7 @@ public class InvoiceRepoTests
         Assert.IsAssignableFrom<List<Invoice>>(response);
         Assert.NotEmpty(response);
     }
-    
+
     [Fact]
     public async Task Add_AddsInstance_ToRepo()
     {
@@ -51,13 +51,13 @@ public class InvoiceRepoTests
             }
         };
         var invoiceListSet = DbSetHelpers.GetQueryableDbSet(invoiceList);
-    
+
         var mockedRepo = new Mock<IDbContext>();
         mockedRepo.Setup(s => s.Invoices).Returns(invoiceListSet.Object);
         var mockedLogger = new Mock<ILogger<InvoiceRepository>>();
-    
+
         var sut = new InvoiceRepository(mockedLogger.Object, mockedRepo.Object);
-    
+
         var invoiceToAdd = new Invoice
         {
             ClientId = 1,
@@ -65,14 +65,14 @@ public class InvoiceRepoTests
             IssueDate = new DateTime(2023, 06, 28),
             VatRate = 10
         };
-    
+
         // act
         var response = await sut.Add(invoiceToAdd);
-    
+
         // asset
         Assert.NotNull(response);
         Assert.IsAssignableFrom<Invoice>(response);
-    
+
         Assert.Equal(invoiceToAdd.ClientId, response.ClientId);
         Assert.Equal(invoiceToAdd.DueDate, response.DueDate);
         Assert.Equal(invoiceToAdd.IssueDate, response.IssueDate);

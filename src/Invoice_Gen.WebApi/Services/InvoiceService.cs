@@ -37,7 +37,7 @@ public class InvoiceService : IInvoiceService
             return returnData;
         }
     }
-    
+
     public InvoiceViewModel? GetById(int id)
     {
         using (_logger.BeginScope("{InvoiceService} getting invoice record for {ID}", nameof(InvoiceService), id))
