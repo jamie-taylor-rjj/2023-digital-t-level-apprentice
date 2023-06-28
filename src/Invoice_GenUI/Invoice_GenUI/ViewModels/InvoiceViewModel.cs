@@ -34,7 +34,7 @@ namespace Invoice_GenUI.ViewModels
 
                 if(_vatRate > 0.01 && _vatRate <= 25 )
                 {
-                    _invoiceTotal = CalculateInvoiceTotal();
+                    InvoiceTotal = CalculateInvoiceTotal();
                     OnPropertyChanged(nameof(InvoiceTotal));
                 }
             }
@@ -115,10 +115,11 @@ namespace Invoice_GenUI.ViewModels
                     ClientNames.Add(clientName);
                 }
             }
+
             ClientNameLoading = false;
         }
         [RelayCommand]
-        private void CreateInvoice()
+        private async void CreateInvoice()
         {
             MessageBoxResult result = MessageBox.Show("Do you want to create this invoice?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
         
@@ -136,13 +137,13 @@ namespace Invoice_GenUI.ViewModels
                 {
                     MessageBox.Show("The issue date must be before the due date\nThe due date must be after the issue date", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                else if (Total > 0)
+                else if (Total < 0)
                 {
                     MessageBox.Show("The total must be over 0", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                else if(VatRate > 25)
+                else if(VatRate > 25 || VatRate < 0)
                 {
-                    MessageBox.Show("The VAT rate must be a positive integer no higher than 25%", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The VAT rate must be a positive integer no higher than 25", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -154,7 +155,16 @@ namespace Invoice_GenUI.ViewModels
                         VatRate = VatRate,
                         LineItems = LineItems
                     };
-
+                    var connected = await _invoiceService.PutInvoice(newInvoice);
+                    bool isConnect = connected;
+                    if (isConnect)
+                    {
+                        MessageBox.Show("Invoice has been created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invoice creation failed", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
                 }
             }
         }
