@@ -10,6 +10,9 @@ namespace Invoice_GenUI.ViewModels
     public partial class ShowInvoicesViewModel : ViewModel
     {
         [ObservableProperty]
+        private double _total;
+
+        [ObservableProperty]
         private INavigationService _navigation;
         private readonly IInvoiceListService _invoiceListService;
 
@@ -20,6 +23,20 @@ namespace Invoice_GenUI.ViewModels
             _navigation = navService;
             _invoiceListService = invoiceListService;
             Task.Run(() => GetInvoiceDetails()).Wait();
+            _total = CalculateTotal();
+        }
+        public double CalculateTotal()
+        {
+            double total = 0;
+            foreach(var item in DisplayInvoices)
+            {
+              foreach(var line in item.LineItems)
+                {
+                    total += line.Cost;
+                }
+            }
+
+            return total;
         }
         public async Task GetInvoiceDetails()
         {
