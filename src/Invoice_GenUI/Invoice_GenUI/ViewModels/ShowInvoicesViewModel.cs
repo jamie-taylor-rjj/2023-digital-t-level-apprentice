@@ -69,5 +69,10 @@ namespace Invoice_GenUI.ViewModels
         {
             Navigation.NavigateTo<HomeViewModel>();
         }
+        [RelayCommand]
+        public void ViewInvoiceDetails()
+        {
+            Navigation.NavigateTo<InvoiceDetailsViewModel>();
+        }
     }
 }
