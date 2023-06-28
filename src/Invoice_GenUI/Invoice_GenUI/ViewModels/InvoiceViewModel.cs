@@ -143,6 +143,10 @@ namespace Invoice_GenUI.ViewModels
                 {
                     MessageBox.Show("The VAT rate must be a positive integer no higher than 25%", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                else
+                {
+
+                }
             }
         }
     }
