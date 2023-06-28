@@ -10,7 +10,7 @@ namespace Invoice_GenUI.ViewModels
     public partial class ShowInvoicesViewModel : ViewModel
     {
         [ObservableProperty]
-        private readonly INavigationService _navigation;
+        private INavigationService _navigation;
         private readonly IInvoiceListService _invoiceListService;
 
         public ObservableCollection<InvoiceModel> displayInvoices = new ObservableCollection<InvoiceModel>();
@@ -23,7 +23,7 @@ namespace Invoice_GenUI.ViewModels
         }
         public async Task GetInvoiceDetails()
         {
-            var tempInvoices = await _invoiceListService.GetInvoices(1);
+            var tempInvoices = await _invoiceListService.GetInvoices();
 
             if (tempInvoices.Count != 0)
             {

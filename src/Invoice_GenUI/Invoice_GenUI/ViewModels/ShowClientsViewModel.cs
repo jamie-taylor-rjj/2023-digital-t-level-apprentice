@@ -10,7 +10,7 @@ namespace Invoice_GenUI.ViewModels
     public partial class ShowClientsViewModel : ViewModel
     {
         [ObservableProperty]
-        private readonly INavigationService _navigation;
+        private INavigationService _navigation;
         private readonly IClientService _clientService;
         public ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
 
@@ -27,6 +27,7 @@ namespace Invoice_GenUI.ViewModels
 
             if (tempClients.Count != 0)
             {
+                ShowClientDetails.Clear();
                 foreach (var clientName in tempClients)
                 {
                     ShowClientDetails.Add(clientName);

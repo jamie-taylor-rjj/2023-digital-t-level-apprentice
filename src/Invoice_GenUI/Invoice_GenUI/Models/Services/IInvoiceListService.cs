@@ -5,6 +5,6 @@ namespace Invoice_GenUI.Models.Services
 {
     public interface IInvoiceListService
     {
-        Task<List<InvoiceModel>> GetInvoices(int invoiceID);
+        Task<List<InvoiceModel>> GetInvoices();
     }
 }
