@@ -74,6 +74,10 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private async Task CreateClient()
         {
+            var newClient = new CreateClientModel
+            {
+                ClientName = ClientName
+            };
             var connected = await _clientService.PutClient(newClient);
             bool result = connected;
             if (result)

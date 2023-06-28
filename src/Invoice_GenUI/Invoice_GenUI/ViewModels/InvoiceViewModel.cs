@@ -149,7 +149,7 @@ namespace Invoice_GenUI.ViewModels
                 {
                     var newInvoice = new InvoiceModel
                     {
-                        Id = SelectedClientName.ClientID,
+                        ClientId = SelectedClientName.ClientID,
                         IssueDate = IssueDate,
                         DueDate = DueDate,
                         VatRate = VatRate,
