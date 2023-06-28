@@ -79,7 +79,7 @@ namespace Invoice_GenUI.ViewModels
             double total = 0;
             foreach (var item in LineItems)
             {
-                total = +item.Total;
+                total += item.Total;
             }
             return total;
         }
