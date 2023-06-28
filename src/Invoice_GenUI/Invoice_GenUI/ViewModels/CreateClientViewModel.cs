@@ -74,11 +74,16 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private async Task CreateClient()
         {
+            var newClient = new CreateClientModel
+            {
+                ClientName = ClientName
+            };
             var connected = await _clientService.PutClient(newClient);
             bool result = connected;
-            MessageBox.Show("Client has been created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             if (result)
             {
+                MessageBox.Show("Client has been created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 ClientName = string.Empty;
                 ContactEmail = string.Empty;
                 ClientAddress = string.Empty;

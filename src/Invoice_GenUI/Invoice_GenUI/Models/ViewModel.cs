@@ -6,12 +6,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Invoice_GenUI.Models
 {
-    public abstract class ViewModel : ObservableObject, IDataErrorInfo
+    public abstract class ViewModel : ObservableValidator, IDataErrorInfo
     {
-        // check for general model error    
         public string Error { get { return null; } }
-
-        // check for property errors    
         public string this[string columnName]
         {
             get
