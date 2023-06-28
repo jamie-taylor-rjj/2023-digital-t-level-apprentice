@@ -48,17 +48,18 @@ namespace Invoice_GenUI.ViewModels
         private ClientNameModel _selectedClientName = new ClientNameModel();
         
         private AddLineItemViewModel _addLineItemViewModel;
-
+        private readonly IInvoiceService _invoiceService;
         private readonly IClientService _clientService;
         public ObservableCollection<LineItemModel> LineItems { get; } = new ObservableCollection<LineItemModel>();
         public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
-        public InvoiceViewModel(INavigationService navService, IClientService clientService, AddLineItemViewModel addLineItemViewModel)
+        public InvoiceViewModel(INavigationService navService, IClientService clientService, IInvoiceService invoiceService, AddLineItemViewModel addLineItemViewModel)
         {
             _dueDate = DateTime.Now.AddDays(1);
             _issueDate = DateTime.Now;
             _navigation = navService;
             _clientService = clientService;
+            _invoiceService = invoiceService;
             _addLineItemViewModel = addLineItemViewModel;
             PopulateGrid();
             _total = CalculateTotal();
@@ -145,6 +146,14 @@ namespace Invoice_GenUI.ViewModels
                 }
                 else
                 {
+                    var newInvoice = new InvoiceModel
+                    {
+                        Id = SelectedClientName.ClientID,
+                        IssueDate = IssueDate,
+                        DueDate = DueDate,
+                        VatRate = VatRate,
+                        LineItems = LineItems
+                    };
 
                 }
             }

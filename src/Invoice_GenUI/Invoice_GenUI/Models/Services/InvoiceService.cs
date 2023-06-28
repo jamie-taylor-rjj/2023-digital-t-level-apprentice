@@ -18,7 +18,7 @@ namespace Invoice_GenUI.Models.Services
                 var json = JsonSerializer.Serialize(newInvoice);
                 var content = new StringContent(json, Encoding.UTF8, "application/json"); 
 
-                var responseMessage = await client.PutAsync("Clients/Client", content); 
+                var responseMessage = await client.PutAsync("Invoice", content); 
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     var responseContent = await responseMessage.Content.ReadAsStringAsync();
