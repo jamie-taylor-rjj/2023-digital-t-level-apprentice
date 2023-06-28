@@ -49,22 +49,21 @@ namespace Invoice_GenUI.Models.Services
                 return await response.Content.ReadFromJsonAsync<CreateClientModel>() ?? new();
             }
         }
-        public async Task<bool> PutClient(CreateClientModel newClient) // valid values passed from xaml.cs
+        public async Task<bool> PutClient(CreateClientModel newClient)
         {
             bool result = false;
             using (var client = new HttpClient())
             {
-                // Post request
-                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/"); // API URL
+                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
 
-                var json = JsonSerializer.Serialize(newClient); // Turn C# object into json
-                var content = new StringContent(json, Encoding.UTF8, "application/json"); // Saying that information im sending comes in json formatting 
+                var json = JsonSerializer.Serialize(newClient);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
 
-                var responseMessage = await client.PutAsync("Clients/Client", content); // Creating the client, choosing the correct endpoint, want to put my content
-                if (responseMessage.IsSuccessStatusCode) // Makes sure response is valid
+                var responseMessage = await client.PutAsync("Clients/Client", content);
+                if (responseMessage.IsSuccessStatusCode)
                 {
-                    var responseContent = await responseMessage.Content.ReadAsStringAsync(); // Wait until get result
+                    var responseContent = await responseMessage.Content.ReadAsStringAsync();
                     result = true;
                 }
 

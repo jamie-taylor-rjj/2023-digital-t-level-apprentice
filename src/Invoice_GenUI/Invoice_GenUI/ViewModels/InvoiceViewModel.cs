@@ -12,7 +12,6 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class InvoiceViewModel : ViewModel
     {
-        // Invoice creation properties
         [ObservableProperty]
         private DateTime _issueDate;
         [ObservableProperty]
