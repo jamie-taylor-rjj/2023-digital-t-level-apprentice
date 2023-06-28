@@ -22,7 +22,7 @@ namespace Invoice_GenUI.ViewModels
         private double _invoiceTotal;
         private double _vatRate;
         [Required]
-        [Range(1,25)]
+        [Range(1, 25)]
         public double VatRate
         {
             get => _vatRate;
@@ -31,21 +31,21 @@ namespace Invoice_GenUI.ViewModels
                 _vatRate = value;
                 OnPropertyChanged(nameof(VatRate));
 
-                if(_vatRate > 0.01 && _vatRate <= 25 )
+                if (_vatRate > 0.01 && _vatRate <= 25)
                 {
                     InvoiceTotal = CalculateInvoiceTotal();
                     OnPropertyChanged(nameof(InvoiceTotal));
                 }
             }
         }
-   
+
         [ObservableProperty]
         private INavigationService _navigation;
         [ObservableProperty]
         private bool _clientNameLoading;
         [ObservableProperty]
         private ClientNameModel _selectedClientName = new ClientNameModel();
-        
+
         private AddLineItemViewModel _addLineItemViewModel;
         private readonly IInvoiceService _invoiceService;
         private readonly IClientService _clientService;
@@ -121,7 +121,7 @@ namespace Invoice_GenUI.ViewModels
         private async void CreateInvoice()
         {
             MessageBoxResult result = MessageBox.Show("Do you want to create this invoice?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-        
+
             if (result == MessageBoxResult.Yes)
             {
                 if (SelectedClientName.ClientID == 0 || SelectedClientName.ClientName == null)
@@ -140,7 +140,7 @@ namespace Invoice_GenUI.ViewModels
                 {
                     MessageBox.Show("The total must be over 0", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                else if(VatRate > 25 || VatRate < 0)
+                else if (VatRate > 25 || VatRate < 0)
                 {
                     MessageBox.Show("The VAT rate must be a positive integer no higher than 25", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
