@@ -24,7 +24,7 @@ namespace Invoice_GenUI.ViewModels
             _invoiceListService = invoiceListService;
             Task.Run(() => GetInvoiceDetails()).Wait();
             AssignIDs();
-            _total = CalculateTotal();
+            AssignTotal();
         }
         public void AssignIDs()
         {
@@ -35,20 +35,22 @@ namespace Invoice_GenUI.ViewModels
                 idCounter++;
             }
         }
-        public double CalculateTotal()
+        public void AssignTotal()
         {
             double total = 0;
-            foreach (var item in DisplayInvoices)
+            double vatTotal = 0;
+            foreach(var item in DisplayInvoices)
             {
-
-                foreach (var line in item.LineItems)
+                foreach(var lineItem in item.LineItems)
                 {
-                    total += line.Cost * line.Quantity;
+                    total = lineItem.Cost * lineItem.Quantity;
+                    vatTotal = total * (item.VatRate / 100);
+                    item.Total = total + vatTotal;
+
+                    total = 0;
+                    vatTotal = 0;
                 }
-
             }
-
-            return total;
         }
         public async Task GetInvoiceDetails()
         {

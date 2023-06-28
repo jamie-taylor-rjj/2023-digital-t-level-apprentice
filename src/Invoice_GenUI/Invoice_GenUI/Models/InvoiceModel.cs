@@ -6,6 +6,7 @@ namespace Invoice_GenUI.Models
     public class InvoiceModel
     {
         public int InvoiceId { get; set; }
+        public double Total { get; set; }
         public int ClientId { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime DueDate { get; set; }
