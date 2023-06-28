@@ -18,7 +18,7 @@ public class ClientsController : ControllerBase
     }
 
     /// <summary>
-    /// Returns a new instance of <see cref="ClientViewModel"/>
+    /// Returns all clients in the system in a list of <see cref="ClientViewModel"/>
     /// </summary>
     /// <returns>
     /// A list of <see cref="ClientViewModel"/> instances with some default data

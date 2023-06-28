@@ -22,10 +22,21 @@ public class InvoiceViewModelMapperTests
         // Arrange
         var entity = new Invoice
         {
+            InvoiceId = 1,
             ClientId = _rng.Next(0, 200),
             DueDate = new DateTime(),
             IssueDate = new DateTime(),
             VatRate = _rng.Next(10, 25),
+            LineItems = new List<LineItem>
+            {
+                new()
+                {
+                    InvoiceId = 1,
+                    Cost = 10,
+                    Description = Guid.NewGuid().ToString(),
+                    Quantity = 1
+                }
+            }
         };
 
         // Act
@@ -38,6 +49,7 @@ public class InvoiceViewModelMapperTests
         Assert.Equal(vm.DueDate, entity.DueDate);
         Assert.Equal(vm.IssueDate, entity.IssueDate);
         Assert.Equal(vm.VatRate, entity.VatRate);
+        Assert.NotEmpty(vm.LineItems);
     }
 
     [Fact]
