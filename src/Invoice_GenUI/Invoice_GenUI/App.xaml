@@ -27,6 +27,9 @@
         <DataTemplate DataType="{x:Type TypeName=viewModel:ShowInvoicesViewModel}">
             <view:ShowInvoicesView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type TypeName=viewModel:InvoiceDetailsViewModel}">
+            <view:InvoiceDetailsView/>
+        </DataTemplate>
 
     </Application.Resources>
 </Application>
