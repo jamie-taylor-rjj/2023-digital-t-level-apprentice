@@ -8,7 +8,7 @@ namespace Invoice_GenUI.ViewModels
     public partial class ShowInvoicesViewModel : ViewModel
     {
         [ObservableProperty]
-        private INavigationService _navigation;
+        private readonly INavigationService _navigation;
 
         public ShowInvoicesViewModel(INavigationService navService)
         {
