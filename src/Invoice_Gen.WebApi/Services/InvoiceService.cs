@@ -20,6 +20,24 @@ public class InvoiceService : IInvoiceService
         _invoiceCreateModelMapper = invoiceCreateModelMapper;
     }
 
+    public List<InvoiceViewModel> GetInvoices()
+    {
+        using (_logger.BeginScope("{InvoiceService} getting all clients", nameof(InvoiceService)))
+        {
+            var all = _invoiceRepository.GetAll();
+
+            _logger.LogInformation("Retrieved {Count} {InvoiceModel}", all.Count, nameof(Invoice));
+
+            _logger.LogInformation("Converting to List of {InvoiceViewModel} using {Mapper}",
+                nameof(InvoiceViewModel), typeof(InvoiceViewModelMapper));
+            var returnData = all.Select(c => _invoiceViewModelMapper.Convert(c)).ToList();
+
+            _logger.LogInformation("Returning {count} of {InvoiceViewModel} instances", returnData.Count,
+                nameof(InvoiceViewModel));
+            return returnData;
+        }
+    }
+    
     public InvoiceViewModel? GetById(int id)
     {
         using (_logger.BeginScope("{InvoiceService} getting invoice record for {ID}", nameof(InvoiceService), id))

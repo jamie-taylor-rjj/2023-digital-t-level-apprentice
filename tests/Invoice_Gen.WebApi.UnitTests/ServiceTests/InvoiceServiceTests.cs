@@ -3,75 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;
 
-public class LineItemServiceTests
-{
-    private readonly Random _rng;
-    private readonly int _lineItemId;
-    private readonly int _invoiceId;
-    private readonly int _cost;
-    private readonly string _description;
-    private readonly int _quantity;
-
-    private readonly Mock<IMapper<LineItemViewModel, LineItem>> _mockedLineItemViewModelMapper;
-
-    public LineItemServiceTests()
-    {
-        _rng = new Random();
-        _lineItemId = _rng.Next(1, 200);
-        _invoiceId = _rng.Next(1, 200);
-        _cost = _rng.Next(1, 200);
-        _description = Guid.NewGuid().ToString();
-        _quantity = _rng.Next(1, 25);
-
-        _mockedLineItemViewModelMapper = new Mock<IMapper<LineItemViewModel, LineItem>>();
-    }
-
-    [Fact]
-    public void Given_Atleast_One_LineItem_GetAll_Should_Return_At_Least_One_LineItemViewModel()
-    {
-        // Arrange
-        var entity = new LineItem
-        {
-            LineItemId = _lineItemId,
-            InvoiceId = _invoiceId,
-            Cost = _cost,
-            Description = _description,
-            Quantity = _quantity
-        };
-        var lineItemsForMock = new List<LineItem> { entity };
-
-        var mockedRepository = new Mock<ILineItemRepository>();
-        mockedRepository.Setup(x => x.GetAll()).Returns(lineItemsForMock);
-        var mockedLogger = new Mock<ILogger<LineItemService>>();
-
-        var expectedOutput = new LineItemViewModel
-        {
-            LineItemId = _lineItemId,
-            InvoiceId = _invoiceId,
-            Cost = _cost,
-            Description = _description,
-            Quantity = _quantity
-        };
-
-        _mockedLineItemViewModelMapper.Setup(x => x.Convert(entity)).Returns(expectedOutput);
-
-        var sut = new LineItemService(mockedLogger.Object, mockedRepository.Object, _mockedLineItemViewModelMapper.Object);
-
-        // Act
-        var result = sut.GetById(_lineItemId);
-
-        // Assert
-        Assert.NotNull(result);
-        Assert.IsAssignableFrom<LineItemViewModel>(result);
-
-        Assert.Equal(_lineItemId, result.LineItemId);
-        Assert.Equal(_invoiceId, result.InvoiceId);
-        Assert.Equal(_cost, result.Cost);
-        Assert.Equal(_description, result.Description);
-        Assert.Equal(_quantity, result.Quantity);
-    }
-}
-
+[ExcludeFromCodeCoverage]
 public class InvoiceServiceTests
 {
     private readonly Random _rng;
@@ -130,6 +62,52 @@ public class InvoiceServiceTests
             _mockedInvoiceCreateModelMapper.Object);
 
         // Act
+        var result = sut.GetInvoices();
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsAssignableFrom<List<InvoiceViewModel>>(result);
+
+        Assert.Equal(_invoiceId, result.FirstOrDefault()?.InvoiceId);
+        Assert.Equal(_clientId, result.FirstOrDefault()?.ClientId);
+        Assert.Equal(_dueDate, result.FirstOrDefault()?.DueDate);
+        Assert.Equal(_issueDate, result.FirstOrDefault()?.IssueDate);
+        Assert.Equal(_vatRate, result.FirstOrDefault()?.VatRate);
+    }
+    
+    [Fact]
+    public void Given_A_Valid_InvoiceId_GetById_Should_Return_The_Matching_InvoiceViewModel()
+    {
+        // Arrange
+        var entity = new Invoice
+        {
+            InvoiceId = _invoiceId,
+            ClientId = _clientId,
+            DueDate = _dueDate,
+            IssueDate = _issueDate,
+            VatRate = _vatRate
+        };
+        var invoicesForMock = new List<Invoice> { entity };
+
+        var mockedRepository = new Mock<IInvoiceRepository>();
+        mockedRepository.Setup(x => x.GetAll()).Returns(invoicesForMock);
+        var mockedLogger = new Mock<ILogger<InvoiceService>>();
+
+        var expectedOutput = new InvoiceViewModel
+        {
+            ClientId = _clientId,
+            InvoiceId = _invoiceId,
+            IssueDate = _issueDate,
+            DueDate = _dueDate,
+            VatRate = _vatRate
+        };
+
+        _mockedInvoiceViewModelMapper.Setup(x => x.Convert(entity)).Returns(expectedOutput);
+
+        var sut = new InvoiceService(mockedLogger.Object, mockedRepository.Object, _mockedInvoiceViewModelMapper.Object,
+            null);
+
+        // Act
         var result = sut.GetById(_invoiceId);
 
         // Assert
@@ -141,6 +119,7 @@ public class InvoiceServiceTests
         Assert.Equal(_dueDate, result.DueDate);
         Assert.Equal(_issueDate, result.IssueDate);
         Assert.Equal(_vatRate, result.VatRate);
+        Assert.Empty(result.LineItems);
     }
 
     [Fact]
@@ -162,7 +141,16 @@ public class InvoiceServiceTests
             ClientId = _clientId,
             DueDate = _dueDate,
             IssueDate = _issueDate,
-            VatRate = _vatRate
+            VatRate = _vatRate,
+            LineItems = new List<LineItem>
+            {
+                new()
+                {
+                    Cost = 10,
+                    Description = Guid.NewGuid().ToString(),
+                    Quantity = 1
+                }
+            }
         };
         var invoicesForMock = new List<Invoice> { entity };
         var mockedRepository = new Mock<IInvoiceRepository>();
@@ -182,7 +170,15 @@ public class InvoiceServiceTests
             IssueDate = new DateTime(),
             DueDate = new DateTime(),
             VatRate = _rng.Next(10, 25),
-            LineItems = new List<LineItemViewModel>()
+            LineItems = new List<LineItemViewModel>
+            {
+                new()
+                {
+                    Cost = 10,
+                    Description = Guid.NewGuid().ToString(),
+                    Quantity = 1
+                }
+            }
         });
 
         // Assert

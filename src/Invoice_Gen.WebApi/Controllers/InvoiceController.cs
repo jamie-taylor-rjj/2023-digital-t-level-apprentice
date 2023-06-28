@@ -18,6 +18,25 @@ public class InvoiceController : ControllerBase
     }
 
     /// <summary>
+    /// Returns all invoices in the system in a list of <see cref="InvoiceViewModel"/>
+    /// </summary>
+    /// <returns>
+    /// A list of <see cref="InvoiceViewModel"/> instances with some default data
+    /// </returns>
+    [HttpGet(Name = "GetInvoices")]
+    [ProducesResponseType(typeof(List<InvoiceViewModel>), StatusCodes.Status200OK)]
+    public IActionResult Get()
+    {
+        using (_logger.BeginScope("Getting all invoices"))
+        {
+            var invoices = _invoiceService.GetInvoices();
+
+            _logger.LogInformation("Returning list of {InvoiceViewModel}", typeof(InvoiceViewModel));
+            return new OkObjectResult(invoices);
+        }
+    }
+    
+    /// <summary>
     /// Gets the instance of <see cref="InvoiceViewModel"/> for the provided <paramref name="invoiceId"/>
     /// </summary>
     /// <returns>
@@ -25,7 +44,7 @@ public class InvoiceController : ControllerBase
     /// or a <see cref="StatusCodes.Status404NotFound"/> if one cannot be found
     /// </returns>
     [HttpGet("{invoiceId}", Name = "GetInvoiceById")]
-    [ProducesResponseType(typeof(ClientViewModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(InvoiceViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetInvoiceById(int invoiceId)
     {
@@ -55,7 +74,7 @@ public class InvoiceController : ControllerBase
     [HttpPut]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> CreateClient(InvoiceCreateModel newInvoice)
+    public async Task<IActionResult> CreateInvoice(InvoiceCreateModel newInvoice)
     {
         using (_logger.BeginScope("Request to create new client Invoice for client {ClientId} received",
                    newInvoice.ClientId))

@@ -2,6 +2,7 @@
 
 public interface IInvoiceService
 {
+    List<InvoiceViewModel> GetInvoices();
     InvoiceViewModel? GetById(int id);
     Task<int> CreateNewInvoice(InvoiceCreateModel newInvoice);
 }

@@ -26,7 +26,7 @@ public class ClientService : IClientService
                 nameof(ClientViewModel), typeof(ClientNameViewModelMapper));
             var returnData = all.Select(c => _clientViewModelMapper.Convert(c)).ToList();
 
-            _logger.LogInformation("Returning {count} of {ClientNameViewModel} instances", returnData.Count(),
+            _logger.LogInformation("Returning {count} of {ClientNameViewModel} instances", returnData.Count,
                 nameof(ClientViewModel));
             return returnData;
         }
