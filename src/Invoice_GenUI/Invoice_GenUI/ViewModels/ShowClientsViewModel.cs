@@ -10,7 +10,7 @@ namespace Invoice_GenUI.ViewModels
     public partial class ShowClientsViewModel : ViewModel
     {
         [ObservableProperty]
-        private INavigationService _navigation;
+        private readonly INavigationService _navigation;
         private readonly IClientService _clientService;
         public ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
 
