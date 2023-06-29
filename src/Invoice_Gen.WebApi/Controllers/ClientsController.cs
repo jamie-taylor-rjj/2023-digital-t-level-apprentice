@@ -96,6 +96,7 @@ public class ClientsController : ControllerBase
     /// </returns>
     [HttpDelete("{clientId}", Name = "Client")]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(int), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteClient(int clientId)
     {
         using (_logger.BeginScope("Request to delete client {ClientId} received", clientId))
