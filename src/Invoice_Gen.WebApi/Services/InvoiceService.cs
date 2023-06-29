@@ -68,4 +68,10 @@ public class InvoiceService : IInvoiceService
             return response.InvoiceId;
         }
     }
+
+    public async Task DeleteInvoice(int invoiceId)
+    {
+        _logger.LogInformation("Deleting invoice with ID of {InvoiceId}", invoiceId);
+        await _invoiceRepository.Delete(invoiceId);
+    }
 }
