@@ -35,7 +35,6 @@ namespace Invoice_GenUI.ViewModels
         public DateTime DueDate { get; set; }
         private async Task GetInvoiceID()
         {
-            int ID;
             var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(_showInvoicesViewModel.InvoiceID);
 
             VatRate = singleInvoice.VatRate;
@@ -50,8 +49,8 @@ namespace Invoice_GenUI.ViewModels
                 InvoiceTotal = Total + vatTotal;
             }
 
-            ID = singleInvoice.ClientId;
-            var singleClient = await _clientService.GetSingleClientDetails(ID);
+            int iD = singleInvoice.ClientId;
+            var singleClient = await _clientService.GetSingleClientDetails(iD);
 
             ClientName = singleClient.ClientName ?? string.Empty;
         }

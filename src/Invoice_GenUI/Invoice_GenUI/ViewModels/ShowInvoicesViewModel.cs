@@ -38,13 +38,12 @@ namespace Invoice_GenUI.ViewModels
         public void AssignTotal()
         {
             double total = 0;
-            double vatTotal;
             foreach (var item in DisplayInvoices)
             {
                 foreach (var lineItem in item.LineItems)
                 {
                     total += lineItem.Cost * lineItem.Quantity;
-                    vatTotal = total * (item.VatRate / 100);
+                    double vatTotal = total * (item.VatRate / 100);
                     item.Total = total + vatTotal;
                 }
                 total = 0;
@@ -68,12 +67,9 @@ namespace Invoice_GenUI.ViewModels
             Navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        public void ViewInvoiceDetails(object parameter)
+        public void ViewInvoiceDetails(InvoiceModel parameter)
         {
-            if (parameter is InvoiceModel details)
-            {
-                InvoiceID = details.ClientId;
-            }
+            InvoiceID = parameter.ClientId;
             Navigation.NavigateTo<InvoiceDetailsViewModel>();
         }
     }

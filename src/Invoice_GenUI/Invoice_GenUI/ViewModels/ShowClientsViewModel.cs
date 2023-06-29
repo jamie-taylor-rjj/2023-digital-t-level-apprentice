@@ -40,12 +40,9 @@ namespace Invoice_GenUI.ViewModels
             Navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        private void ClientDetails(object parameter)
+        private void ClientDetails(CreateClientModel parameter)
         {
-            if (parameter is CreateClientModel client)
-            {
-                details = client.ClientId;
-            }
+            details = parameter.ClientId;
             Navigation.NavigateTo<ClientDetailsViewModel>();
         }
     }
