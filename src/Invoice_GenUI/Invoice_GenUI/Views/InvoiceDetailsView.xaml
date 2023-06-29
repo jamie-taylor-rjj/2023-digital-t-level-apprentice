@@ -44,7 +44,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20 10 0 0">
-                        <DataGrid x:Name="dg_lineItems" Width="520" Height="100" AutoGenerateColumns="False" ItemsSource="{Binding LineItems}" Background="GhostWhite" RowBackground="GhostWhite">
+                        <DataGrid x:Name="dg_lineItems" Width="520" Height="100" AutoGenerateColumns="False" ItemsSource="{Binding LineItemDetails}" Background="GhostWhite" RowBackground="GhostWhite">
                             <DataGrid.Columns>
                                 <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour }" Header="Description" Width="auto" Binding="{Binding Description}"/>
                                 <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour }" Header="Quatity" Width="auto" Binding="{Binding Quantity}"/>
@@ -73,8 +73,8 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
                         <TextBox Text="{Binding VatRate}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" IsReadOnly="True"  Background="GhostWhite"/>
-                        <TextBox Text="{Binding Total}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="55 0 0 0" IsReadOnly="False"/>
-                        <TextBox Text="{Binding InvoiceTotal}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="65 0 0 0" IsReadOnly="False"/>
+                        <TextBox Text="{Binding Total}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="55 0 0 0" IsReadOnly="True"/>
+                        <TextBox Text="{Binding InvoiceTotal}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="65 0 0 0" IsReadOnly="True"/>
                     </StackPanel>
                 </StackPanel>
                 <Button Content="Back" HorizontalAlignment="Left" Height="53" Margin="10,17,0,0" VerticalAlignment="Top" Width="100" Grid.RowSpan="2" FontWeight="SemiBold" Background="#FF7CACFC" Command="{Binding GoBackCommand}"/>

@@ -38,18 +38,16 @@ namespace Invoice_GenUI.ViewModels
         public void AssignTotal()
         {
             double total = 0;
-            double vatTotal = 0;
+            double vatTotal;
             foreach(var item in DisplayInvoices)
             {
                 foreach(var lineItem in item.LineItems)
                 {
-                    total = lineItem.Cost * lineItem.Quantity;
+                    total += lineItem.Cost * lineItem.Quantity;
                     vatTotal = total * (item.VatRate / 100);
-                    item.Total = total + vatTotal;
-
-                    total = 0;
-                    vatTotal = 0;
+                    item.Total = total + vatTotal;  
                 }
+                total = 0;
             }
         }
         public async Task GetInvoiceDetails()

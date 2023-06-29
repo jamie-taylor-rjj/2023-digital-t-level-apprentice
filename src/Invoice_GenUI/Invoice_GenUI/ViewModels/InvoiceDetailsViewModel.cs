@@ -16,7 +16,7 @@ namespace Invoice_GenUI.ViewModels
         private readonly IClientService _clientService;
         private readonly ShowInvoicesViewModel _showInvoicesViewModel;
 
-        public ObservableCollection<InvoiceModel> InvoiceDetails { get; } = new ObservableCollection<InvoiceModel>();
+        public ObservableCollection<LineItemModel> LineItemDetails { get; set; }
 
         public InvoiceDetailsViewModel(INavigationService navService, IInvoiceService invoiceService, ShowInvoicesViewModel showInvoicesViewModel, IClientService clientService)
         {
@@ -25,10 +25,12 @@ namespace Invoice_GenUI.ViewModels
             _showInvoicesViewModel = showInvoicesViewModel;
             _clientService = clientService;
             Task.Run(() => GetInvoiceID()).Wait();
+            AssignTotal();
         }
-
         public string? ClientName { get; set; }
         public double VatRate { get; set; }
+        public double Total { get; set; }
+        public double InvoiceTotal { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime DueDate { get; set; }
         private async Task GetInvoiceID()
@@ -39,11 +41,26 @@ namespace Invoice_GenUI.ViewModels
             VatRate = singleInvoice.VatRate;
             IssueDate = singleInvoice.IssueDate.Date;
             DueDate = singleInvoice.DueDate.Date;
+            LineItemDetails = singleInvoice.LineItems;
+            
+            foreach(var item in singleInvoice.LineItems)
+            {
+                Total = item.Cost * item.Quantity;
+                var vatTotal = Total * (singleInvoice.VatRate / 100);
+                InvoiceTotal = Total + vatTotal;
+            }
 
             ID = singleInvoice.ClientId;
             var singleClient = await _clientService.GetSingleClientDetails(ID);
 
             ClientName = singleClient.ClientName ?? string.Empty;
+        }
+        public void AssignTotal()
+        {
+            foreach(var lineItems in LineItemDetails)
+            {
+                lineItems.Total = lineItems.Quantity * lineItems.Cost;
+            }
         }
 
         [RelayCommand]
