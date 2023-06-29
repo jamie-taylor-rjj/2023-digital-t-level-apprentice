@@ -6,4 +6,5 @@ public interface IInvoiceRepository
 {
     List<Invoice> GetAll();
     Task<Invoice> Add(Invoice invoice);
+    Task Delete(int invoiceId);
 }
