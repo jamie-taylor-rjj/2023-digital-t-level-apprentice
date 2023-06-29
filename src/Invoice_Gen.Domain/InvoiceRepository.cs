@@ -33,4 +33,20 @@ public class InvoiceRepository : IInvoiceRepository
             return invoice;
         }
     }
+
+    public async Task Delete(int invoiceId)
+    {
+        using (_logger.BeginScope("{RepositoryName} - deleting {RecordName} with ID of {RecordId}",
+                   nameof(InvoiceRepository), nameof(invoiceId), invoiceId))
+        {
+            _logger.LogInformation("Ensuring that a record with matching ID exists");
+            var entity = _dbContext.Invoices.FirstOrDefault(i => i.InvoiceId == invoiceId);
+            if (entity != null)
+            {
+                _logger.LogInformation("Found matching record, deleting now.");
+                _dbContext.Invoices.Remove(entity);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+    }
 }
