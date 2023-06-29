@@ -40,7 +40,7 @@
                 <StackPanel Grid.Row="3">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-300 10 0 0">
                         <TextBlock Text="Client Name" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="5"/>
-                        <TextBlock Width="200" Height="25" Text="{Binding ClientName}" Background="GhostWhite" Foreground="Black" FontWeight="SemiBold" IsEnabled="False"/>
+                        <TextBox Width="200" Height="25" Text="{Binding ClientName}" Foreground="Black" FontWeight="SemiBold" IsReadOnly="True"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20 10 0 0">
@@ -60,32 +60,9 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 0 0 0">
-                        <DatePicker Width="200" Height="40" DisplayDate="{Binding IssueDate}" IsEnabled="False">
-                            <DatePicker.Resources>
-                                <Style TargetType="DatePickerTextBox">
-                                    <Setter Property="Control.Template">
-                                        <Setter.Value>
-                                            <ControlTemplate>
-                                                <TextBox Text="{Binding Path=SelectedDate,StringFormat='yyyy/MM/dd', RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DatePicker}}}"/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </DatePicker.Resources>
-                        </DatePicker>
-                        <DatePicker Width="200" Height="40" Margin="60 0 0 0" DisplayDate="{Binding DueDate}" IsEnabled="False">
-                            <DatePicker.Resources>
-                                <Style TargetType="DatePickerTextBox">
-                                    <Setter Property="Control.Template">
-                                        <Setter.Value>
-                                            <ControlTemplate>
-                                                <TextBox Text="{Binding Path=SelectedDate,StringFormat='yyyy/MM/dd', RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DatePicker}}}"/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </DatePicker.Resources>
-                        </DatePicker>
+                        <DatePickerTextBox Width="150" Height="40" Text="{Binding Path=IssueDate,StringFormat='{}{0:yyyy/MM/dd}'}" Foreground="Black" FontWeight="SemiBold" FontSize="15" Padding="5" IsReadOnly="True" TextAlignment="Center"/>
+
+                        <DatePickerTextBox Width="150" Height="40" Margin="110 0 0 0" Text="{Binding Path=DueDate, StringFormat='{}{0:yyyy/MM/dd}'}" Foreground="Black" FontWeight="SemiBold" FontSize="15" Padding="5" IsReadOnly="True" TextAlignment="Center"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
@@ -95,9 +72,9 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
-                        <TextBox Text="{Binding VatRate}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" IsEnabled="False" Background="GhostWhite"/>
-                        <TextBox Text="{Binding Total}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="55 0 0 0" IsEnabled="False"/>
-                        <TextBox Text="{Binding InvoiceTotal}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="65 0 0 0" IsEnabled="False"/>
+                        <TextBox Text="{Binding VatRate}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" IsReadOnly="True"  Background="GhostWhite"/>
+                        <TextBox Text="{Binding Total}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="55 0 0 0" IsReadOnly="False"/>
+                        <TextBox Text="{Binding InvoiceTotal}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="65 0 0 0" IsReadOnly="False"/>
                     </StackPanel>
                 </StackPanel>
                 <Button Content="Back" HorizontalAlignment="Left" Height="53" Margin="10,17,0,0" VerticalAlignment="Top" Width="100" Grid.RowSpan="2" FontWeight="SemiBold" Background="#FF7CACFC" Command="{Binding GoBackCommand}"/>

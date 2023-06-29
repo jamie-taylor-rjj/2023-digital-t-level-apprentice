@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -27,10 +28,17 @@ namespace Invoice_GenUI.ViewModels
         }
 
         public string? ClientName { get; set; }
+        public double VatRate { get; set; }
+        public DateTime IssueDate { get; set; }
+        public DateTime DueDate { get; set; }
         private async Task GetInvoiceID()
         {
             int ID;
             var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(_showInvoicesViewModel.InvoiceID);
+            
+            VatRate = singleInvoice.VatRate;
+            IssueDate = singleInvoice.IssueDate.Date;
+            DueDate = singleInvoice.DueDate.Date;
 
             ID = singleInvoice.ClientId;
             var singleClient = await _clientService.GetSingleClientDetails(ID);
