@@ -30,7 +30,7 @@ namespace Invoice_GenUI.ViewModels
         private async Task GetInvoiceID()
         {
             int ID;
-            var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(1);
+            var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(_showInvoicesViewModel.InvoiceID);
 
             ID = singleInvoice.ClientId;
             var singleClient = await _clientService.GetSingleClientDetails(ID);

@@ -30,14 +30,14 @@
                 <TextBlock Text="View" Foreground="GhostWhite" FontWeight="SemiBold" FontSize="24" Margin="20 20 0 0"/>
                 <TextBlock Text="Clients" Foreground="#FF7CACFC" FontWeight="SemiBold" FontSize="24" Margin="5 20 0 0"/>
             </StackPanel>
-            <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" SelectedIndex="{Binding details}" ItemsSource="{Binding Path=ShowClientDetails}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White">
+            <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=ShowClientDetails}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White">
                 <DataGrid.Columns>
                     <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Client Name" Width="auto" Binding="{Binding ClientName}" IsReadOnly="True"/>
                     <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Client Contact" Width="auto" Binding="{Binding ContactName}" IsReadOnly="True"/>
                     <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="View">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="View" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ClientDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                                <Button Content="View" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ClientDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

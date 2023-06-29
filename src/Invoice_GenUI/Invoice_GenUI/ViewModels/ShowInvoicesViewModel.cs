@@ -17,7 +17,7 @@ namespace Invoice_GenUI.ViewModels
         private readonly IInvoiceListService _invoiceListService;
 
         public ObservableCollection<InvoiceModel> DisplayInvoices { get; } = new ObservableCollection<InvoiceModel>();
-
+        public int InvoiceID { get; set; }
         public ShowInvoicesViewModel(INavigationService navService, IInvoiceListService invoiceListService)
         {
             _navigation = navService;
@@ -70,8 +70,12 @@ namespace Invoice_GenUI.ViewModels
             Navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        public void ViewInvoiceDetails()
+        public void ViewInvoiceDetails(object parameter)
         {
+            if(parameter is InvoiceModel details)
+            {
+                InvoiceID = details.ClientId;
+            }
             Navigation.NavigateTo<InvoiceDetailsViewModel>();
         }
     }

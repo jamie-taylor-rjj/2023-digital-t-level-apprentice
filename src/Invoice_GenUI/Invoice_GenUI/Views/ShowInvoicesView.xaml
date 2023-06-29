@@ -38,7 +38,7 @@
                     <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="View Details">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="View" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ViewInvoiceDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                                <Button Content="View" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ViewInvoiceDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
