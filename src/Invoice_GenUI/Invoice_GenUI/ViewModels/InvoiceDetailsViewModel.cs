@@ -50,7 +50,7 @@ namespace Invoice_GenUI.ViewModels
             }
 
             int id = singleInvoice.ClientId;
-            var singleClient = await _clientService.GetSingleClientDetails(iD);
+            var singleClient = await _clientService.GetSingleClientDetails(id);
 
             ClientName = singleClient.ClientName ?? string.Empty;
         }
