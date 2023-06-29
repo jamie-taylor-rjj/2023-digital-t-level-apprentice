@@ -85,7 +85,7 @@ public class InvoiceController : ControllerBase
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            return new CreatedResult(nameof(GetInvoiceById), new { clientId = response });
+            return new CreatedResult(nameof(GetInvoiceById), new { invoiceId = response });
         }
     }
     
@@ -98,7 +98,7 @@ public class InvoiceController : ControllerBase
     /// OK (i.e. 200) if the new record could be deleted
     /// Bad Request (i.e. 400) if clientId is incorrect
     /// </returns>
-    [HttpDelete("{clientId}", Name = "Client")]
+    [HttpDelete("{invoiceId}", Name = "Invoice")]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(int), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteInvoice(int invoiceId)
