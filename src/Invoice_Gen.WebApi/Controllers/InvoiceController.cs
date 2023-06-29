@@ -88,4 +88,32 @@ public class InvoiceController : ControllerBase
             return new CreatedResult(nameof(GetInvoiceById), new { clientId = response });
         }
     }
+    
+    /// <summary>
+    /// Used to delete an Invoice record from the database. The Invoice record selected for
+    /// deletion is the one which matches on <paramref name="invoiceId"/>
+    /// </summary>
+    /// <param name="invoiceId">The ID of the invoice record to delete</param>
+    /// <returns>
+    /// OK (i.e. 200) if the new record could be deleted
+    /// Bad Request (i.e. 400) if clientId is incorrect
+    /// </returns>
+    [HttpDelete("{clientId}", Name = "Client")]
+    [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(int), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteInvoice(int invoiceId)
+    {
+        using (_logger.BeginScope("Request to delete invoice {InvoiceId} received", invoiceId))
+        {
+            if (invoiceId == default)
+            {
+                _logger.LogInformation("Supplied InvoiceId was 0");
+                return new BadRequestResult();
+            }
+
+            await _invoiceService.DeleteInvoice(invoiceId);
+
+            return new OkResult();
+        }
+    }
 }
