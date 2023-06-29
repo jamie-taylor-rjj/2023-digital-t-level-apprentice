@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
 using Invoice_GenUI.Models.Services;
@@ -10,16 +12,31 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
         private readonly IInvoiceService _invoiceService;
+        private readonly IClientService _clientService;
         private readonly ShowInvoicesViewModel _showInvoicesViewModel;
 
-        public InvoiceDetailsViewModel(INavigationService navService, IInvoiceService invoiceService, ShowInvoicesViewModel showInvoicesViewModel)
+        public ObservableCollection<InvoiceModel> InvoiceDetails { get; } = new ObservableCollection<InvoiceModel>();
+
+        public InvoiceDetailsViewModel(INavigationService navService, IInvoiceService invoiceService, ShowInvoicesViewModel showInvoicesViewModel, IClientService clientService)
         {
             _navigation = navService;
             _invoiceService = invoiceService;
             _showInvoicesViewModel = showInvoicesViewModel;
+            _clientService = clientService;
+            Task.Run(() => GetInvoiceID()).Wait();
         }
 
+        public string? ClientName { get; set; }
+        private async Task GetInvoiceID()
+        {
+            int ID;
+            var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(1);
 
+            ID = singleInvoice.ClientId;
+            var singleClient = await _clientService.GetSingleClientDetails(ID);
+
+            ClientName = singleClient.ClientName ?? string.Empty;
+        }
 
         [RelayCommand]
         public void GoBack()

@@ -40,7 +40,7 @@
                 <StackPanel Grid.Row="3">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-300 10 0 0">
                         <TextBlock Text="Client Name" FontWeight="SemiBold" FontSize="14" Foreground="GhostWhite" Margin="5"/>
-                        <ComboBox Width="200" Height="25" ItemsSource="{Binding Path=ClientNames}" DisplayMemberPath="ClientName" IsEnabled="False"/>
+                        <TextBlock Width="200" Height="25" Text="{Binding ClientName}" Background="GhostWhite" Foreground="Black" FontWeight="SemiBold" IsEnabled="False"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20 10 0 0">
@@ -95,7 +95,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40 10 0 0">
-                        <TextBox Text="{Binding VatRate}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" IsEnabled="False"/>
+                        <TextBox Text="{Binding VatRate}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" IsEnabled="False" Background="GhostWhite"/>
                         <TextBox Text="{Binding Total}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="55 0 0 0" IsEnabled="False"/>
                         <TextBox Text="{Binding InvoiceTotal}" Width="100" Height="20" FontWeight="SemiBold" FontSize="12" Foreground="Black" Margin="65 0 0 0" IsEnabled="False"/>
                     </StackPanel>
