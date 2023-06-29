@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace Invoice_GenUI.Models.Services
 {
@@ -26,6 +28,19 @@ namespace Invoice_GenUI.Models.Services
                 }
 
                 return result;
+            }
+        }
+        public async Task<InvoiceModel> GetSingleInvoiceDetails(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
+
+                var response = await client.GetAsync($"Invoice/{id}");
+
+                response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadFromJsonAsync<InvoiceModel>() ?? new();
             }
         }
     }
