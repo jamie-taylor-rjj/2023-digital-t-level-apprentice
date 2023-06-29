@@ -105,7 +105,7 @@ public class InvoiceServiceTests
         _mockedInvoiceViewModelMapper.Setup(x => x.Convert(entity)).Returns(expectedOutput);
 
         var sut = new InvoiceService(mockedLogger.Object, mockedRepository.Object, _mockedInvoiceViewModelMapper.Object,
-            null);
+            _mockedInvoiceCreateModelMapper.Object);
 
         // Act
         var result = sut.GetById(_invoiceId);
