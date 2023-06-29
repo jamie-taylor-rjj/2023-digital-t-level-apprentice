@@ -49,7 +49,7 @@ namespace Invoice_GenUI.ViewModels
                 InvoiceTotal = Total + vatTotal;
             }
 
-            int iD = singleInvoice.ClientId;
+            int id = singleInvoice.ClientId;
             var singleClient = await _clientService.GetSingleClientDetails(iD);
 
             ClientName = singleClient.ClientName ?? string.Empty;
