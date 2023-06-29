@@ -88,7 +88,7 @@ public class InvoiceController : ControllerBase
             return new CreatedResult(nameof(GetInvoiceById), new { invoiceId = response });
         }
     }
-    
+
     /// <summary>
     /// Used to delete an Invoice record from the database. The Invoice record selected for
     /// deletion is the one which matches on <paramref name="invoiceId"/>

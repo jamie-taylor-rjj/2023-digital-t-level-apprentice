@@ -78,8 +78,8 @@ public class InvoiceRepoTests
         Assert.Equal(invoiceToAdd.IssueDate, response.IssueDate);
         Assert.Equal(invoiceToAdd.VatRate, response.VatRate);
     }
-    
-        [Fact]
+
+    [Fact]
     public async Task Delete_RemovesInstance_FromRepo()
     {
         // arrange

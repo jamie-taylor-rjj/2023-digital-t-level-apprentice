@@ -184,7 +184,7 @@ public class InvoiceServiceTests
         // Assert
         Assert.NotEqual(0, response);
     }
-    
+
     [Fact]
     public async Task Given_Valid_InvoiceId_DeleteClient_DoesntRaiseException()
     {
