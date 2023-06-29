@@ -37,13 +37,13 @@ namespace Invoice_GenUI.ViewModels
         {
             int ID;
             var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(_showInvoicesViewModel.InvoiceID);
-            
+
             VatRate = singleInvoice.VatRate;
             IssueDate = singleInvoice.IssueDate.Date;
             DueDate = singleInvoice.DueDate.Date;
             LineItemDetails = singleInvoice.LineItems;
-            
-            foreach(var item in singleInvoice.LineItems)
+
+            foreach (var item in singleInvoice.LineItems)
             {
                 Total += item.Cost * item.Quantity;
                 var vatTotal = Total * (singleInvoice.VatRate / 100);
@@ -57,7 +57,7 @@ namespace Invoice_GenUI.ViewModels
         }
         public void AssignTotal()
         {
-            foreach(var lineItems in LineItemDetails)
+            foreach (var lineItems in LineItemDetails)
             {
                 lineItems.Total = lineItems.Quantity * lineItems.Cost;
             }

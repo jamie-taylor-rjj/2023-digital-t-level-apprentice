@@ -42,7 +42,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void ClientDetails(object parameter)
         {
-            if(parameter is CreateClientModel client)
+            if (parameter is CreateClientModel client)
             {
                 details = client.ClientId;
             }

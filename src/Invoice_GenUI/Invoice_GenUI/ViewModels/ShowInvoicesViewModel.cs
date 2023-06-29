@@ -29,7 +29,7 @@ namespace Invoice_GenUI.ViewModels
         public void AssignIDs()
         {
             int idCounter = 1;
-            foreach(var item in DisplayInvoices)
+            foreach (var item in DisplayInvoices)
             {
                 item.InvoiceId = idCounter;
                 idCounter++;
@@ -39,13 +39,13 @@ namespace Invoice_GenUI.ViewModels
         {
             double total = 0;
             double vatTotal;
-            foreach(var item in DisplayInvoices)
+            foreach (var item in DisplayInvoices)
             {
-                foreach(var lineItem in item.LineItems)
+                foreach (var lineItem in item.LineItems)
                 {
                     total += lineItem.Cost * lineItem.Quantity;
                     vatTotal = total * (item.VatRate / 100);
-                    item.Total = total + vatTotal;  
+                    item.Total = total + vatTotal;
                 }
                 total = 0;
             }
@@ -70,7 +70,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         public void ViewInvoiceDetails(object parameter)
         {
-            if(parameter is InvoiceModel details)
+            if (parameter is InvoiceModel details)
             {
                 InvoiceID = details.ClientId;
             }

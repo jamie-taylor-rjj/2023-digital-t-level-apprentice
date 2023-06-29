@@ -30,7 +30,7 @@ namespace Invoice_GenUI.ViewModels
             Navigation.NavigateTo<ShowClientsViewModel>();
         }
         [RelayCommand]
-        private void GoToInvoices() 
+        private void GoToInvoices()
         {
             Navigation.NavigateTo<ShowInvoicesViewModel>();
         }
