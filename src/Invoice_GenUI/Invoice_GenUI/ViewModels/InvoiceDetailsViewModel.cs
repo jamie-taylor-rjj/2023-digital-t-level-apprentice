@@ -45,7 +45,7 @@ namespace Invoice_GenUI.ViewModels
             
             foreach(var item in singleInvoice.LineItems)
             {
-                Total = item.Cost * item.Quantity;
+                Total += item.Cost * item.Quantity;
                 var vatTotal = Total * (singleInvoice.VatRate / 100);
                 InvoiceTotal = Total + vatTotal;
             }
