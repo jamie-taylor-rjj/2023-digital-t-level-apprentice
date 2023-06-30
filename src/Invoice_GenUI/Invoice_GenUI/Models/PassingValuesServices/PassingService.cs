@@ -3,5 +3,6 @@
     public class PassingService : IPassingService
     {
         public int InvoiceID { get; set; }
+        public int ClientID { get; set; }
     }
 }

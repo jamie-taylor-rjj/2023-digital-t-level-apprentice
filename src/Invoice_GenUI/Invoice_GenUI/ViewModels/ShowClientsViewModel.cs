@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.PassingValuesServices;
 using Invoice_GenUI.Models.Services;
 
 namespace Invoice_GenUI.ViewModels
@@ -12,15 +13,16 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private INavigationService _navigation;
         private readonly IClientService _clientService;
+        private readonly IPassingService _passingService;
         public ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
 
-        public ShowClientsViewModel(INavigationService navService, IClientService clientService)
+        public ShowClientsViewModel(INavigationService navService, IClientService clientService, IPassingService passingService)
         {
             _navigation = navService;
             _clientService = clientService;
+            _passingService = passingService;
             Task.Run(() => GetClientDetails()).Wait();
         }
-        public int details { get; set; }
         public async Task GetClientDetails()
         {
             var tempClients = await _clientService.GetClientDetails();
@@ -42,7 +44,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void ClientDetails(CreateClientModel parameter)
         {
-            details = parameter.ClientId;
+            _passingService.ClientID = parameter.ClientId;
             Navigation.NavigateTo<ClientDetailsViewModel>();
         }
     }

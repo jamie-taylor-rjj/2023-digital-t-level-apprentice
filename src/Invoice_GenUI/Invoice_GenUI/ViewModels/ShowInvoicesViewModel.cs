@@ -21,7 +21,6 @@ namespace Invoice_GenUI.ViewModels
 
         public ObservableCollection<InvoiceModel> DisplayInvoices { get; } = new ObservableCollection<InvoiceModel>();
         public int DisplayedID { get; set; }
-        public int ActualID { get; set; }
         public ShowInvoicesViewModel(INavigationService navService, IInvoiceListService invoiceListService, IPassingService passingService)
         {
             _passingService = passingService;
@@ -75,8 +74,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         public void ViewInvoiceDetails(InvoiceModel parameter)
         {
-            ActualID = parameter.InvoiceId;
-            _passingService.InvoiceID = ActualID;
+            _passingService.InvoiceID = parameter.InvoiceId;
             Navigation.NavigateTo<InvoiceDetailsViewModel>();
         }
         [RelayCommand]

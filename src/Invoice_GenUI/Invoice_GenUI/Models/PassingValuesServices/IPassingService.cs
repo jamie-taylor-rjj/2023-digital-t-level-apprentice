@@ -3,5 +3,6 @@
     public interface IPassingService
     {
         int InvoiceID { get; set; }
+        int ClientID { get; set; }
     }
 }
