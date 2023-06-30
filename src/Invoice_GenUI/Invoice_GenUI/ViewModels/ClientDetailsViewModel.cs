@@ -27,7 +27,7 @@ namespace Invoice_GenUI.ViewModels
 
         private async Task GetClientID()
         {
-            var singleClient = await _clientService.GetSingleClientDetails(_showClientsViewModel.details + 1);
+            var singleClient = await _clientService.GetSingleClientDetails(_showClientsViewModel.details);
 
             Name = singleClient.ClientName ?? string.Empty;
             Contact = singleClient.ContactName ?? string.Empty;

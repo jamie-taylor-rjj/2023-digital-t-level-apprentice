@@ -27,6 +27,7 @@ namespace Invoice_GenUI.ViewModels
 
             if (tempClients.Count != 0)
             {
+                ShowClientDetails.Clear();
                 foreach (var clientName in tempClients)
                 {
                     ShowClientDetails.Add(clientName);
@@ -39,8 +40,9 @@ namespace Invoice_GenUI.ViewModels
             Navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
-        private void ClientDetails()
+        private void ClientDetails(CreateClientModel parameter)
         {
+            details = parameter.ClientId;
             Navigation.NavigateTo<ClientDetailsViewModel>();
         }
     }
