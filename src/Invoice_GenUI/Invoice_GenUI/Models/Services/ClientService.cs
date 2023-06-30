@@ -1,30 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Invoice_GenUI.Models.Services
 {
-    public partial class ClientService : IClientService
+    public partial class ClientService : BaseService, IClientService
     {
-        private HttpClient CreateHttpClient()
-        {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
-            return client;
-        }
-        private async Task<T?> SendHttpRequest<T>(string url) // T can be nullable
-        {
-            using (var client = CreateHttpClient())
-            {
-                var response = await client.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromJsonAsync<T>();
-            }
-        }
         public async Task<List<ClientNameModel>> GetClientNames()
         {
             return await SendHttpRequest<List<ClientNameModel>>("Clients") ?? new();
