@@ -47,5 +47,10 @@ namespace Invoice_GenUI.ViewModels
             _passingService.ClientID = parameter.ClientId;
             Navigation.NavigateTo<ClientDetailsViewModel>();
         }
+        [RelayCommand]
+        private void DeleteClientDetails(CreateClientModel parameter)
+        {
+
+        }
     }
 }

@@ -41,6 +41,13 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="Delete Client">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="DELETE" FontWeight="Bold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.DeleteClientDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Button Grid.Row="2" Content="Go Back" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" HorizontalAlignment="Left" Margin="10 10 0 0" Height="30" Command="{Binding GoBackCommand}"/>

@@ -70,5 +70,23 @@ namespace Invoice_GenUI.Models.Services
                 return result;
             }
         }
+        public async Task<bool> DeleteClient(int id)
+        {
+            bool result = false;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
+
+                var respone = await client.DeleteAsync($"Clients/{id}");
+
+                respone.EnsureSuccessStatusCode();
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    result = true;
+                }
+                return result;
+            }
+        }
     }
 }

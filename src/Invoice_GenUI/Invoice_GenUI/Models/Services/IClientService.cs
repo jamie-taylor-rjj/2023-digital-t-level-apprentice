@@ -9,5 +9,6 @@ namespace Invoice_GenUI.Models.Services
         Task<List<CreateClientModel>> GetClientDetails();
         Task<CreateClientModel> GetSingleClientDetails(int index);
         Task<bool> PutClient(CreateClientModel newClient);
+        Task<bool> DeleteClient(int id);
     }
 }
