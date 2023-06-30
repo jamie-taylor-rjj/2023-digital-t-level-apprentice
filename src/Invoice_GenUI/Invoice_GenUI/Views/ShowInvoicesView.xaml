@@ -30,11 +30,17 @@
                 <TextBlock Text="View" Foreground="GhostWhite" FontWeight="SemiBold" FontSize="24" Margin="20 20 0 0"/>
                 <TextBlock Text="Invoices" Foreground="#FF7CACFC" FontWeight="SemiBold" FontSize="24" Margin="5 20 0 0"/>
             </StackPanel>
-            <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=DisplayInvoices}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White">
+            <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=DisplayInvoices}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Invoice ID" Width="auto" Binding="{Binding InvoiceId}" IsReadOnly="True"/>
-                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Date Created" Width="auto" Binding="{Binding Path=IssueDate, StringFormat='{}{0:yyyy/MM/dd}'}" IsReadOnly="True"/>
-                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Total Value" Width="auto" Binding="{Binding Total}" IsReadOnly="True"/>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="Invoice ID">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DataContext.DisplayedID, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Date Created" Width="auto" Binding="{Binding Path=IssueDate, StringFormat='{}{0:yyyy/MM/dd}'}"/>
+                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Total Value" Width="auto" Binding="{Binding Total}"/>
                     <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="View Details">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -45,7 +51,7 @@
                     <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="Delete Invoice">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="DELETE" FontWeight="Bold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5"/>
+                                <Button Content="DELETE" FontWeight="Bold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.DeleteInvoiceDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
