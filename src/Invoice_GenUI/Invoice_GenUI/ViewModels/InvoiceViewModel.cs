@@ -80,7 +80,12 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            Navigation.NavigateTo<HomeViewModel>();
+            MessageBoxResult result = MessageBox.Show("Going back will delete all your progress","Confirm",MessageBoxButton.OKCancel,MessageBoxImage.Information);
+            if (result == MessageBoxResult.OK)
+            {
+                _passingService.StoredItems!.Clear();
+                Navigation.NavigateTo<HomeViewModel>();
+            }
         }
         [RelayCommand]
         private void GoToLineItem()
