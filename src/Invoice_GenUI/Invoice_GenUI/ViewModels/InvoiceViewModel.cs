@@ -6,6 +6,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.PassingValuesServices;
 using Invoice_GenUI.Models.Services;
 
 namespace Invoice_GenUI.ViewModels
@@ -46,33 +47,21 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         private ClientNameModel _selectedClientName = new ClientNameModel();
 
-        private AddLineItemViewModel _addLineItemViewModel;
+        private readonly IPassingService _passingService;
         private readonly IInvoiceService _invoiceService;
         private readonly IClientService _clientService;
-        public ObservableCollection<LineItemModel> LineItems { get; } = new ObservableCollection<LineItemModel>();
+        public ObservableCollection<LineItemModel> LineItems  => _passingService.StoredItems!;
         public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
-        public InvoiceViewModel(INavigationService navService, IClientService clientService, IInvoiceService invoiceService, AddLineItemViewModel addLineItemViewModel)
+        public InvoiceViewModel(INavigationService navService, IClientService clientService, IInvoiceService invoiceService, IPassingService passingService)
         {
             _dueDate = DateTime.Now.AddDays(1);
             _issueDate = DateTime.Now;
             _navigation = navService;
             _clientService = clientService;
             _invoiceService = invoiceService;
-            _addLineItemViewModel = addLineItemViewModel;
-            PopulateGrid();
+            _passingService = passingService;
             _total = CalculateTotal();
-        }
-        public void PopulateGrid()
-        {
-            if (LineItems.Count != 0)
-            {
-                LineItems.Clear();
-            }
-            foreach (var item in _addLineItemViewModel.newLineItems)
-            {
-                LineItems.Add(item);
-            }
         }
         public double CalculateTotal()
         {

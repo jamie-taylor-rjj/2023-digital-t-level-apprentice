@@ -4,22 +4,68 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.PassingValuesServices;
 using Invoice_GenUI.Models.Services;
 
 namespace Invoice_GenUI.ViewModels
 {
     public partial class AddLineItemViewModel : ViewModel
     {
-        private LineItemModel newItem;
         [ObservableProperty]
         private INavigationService _navigation;
+        private readonly IPassingService _passingService;
 
         public ObservableCollection<LineItemModel> newLineItems { get; } = new ObservableCollection<LineItemModel>();
 
-        public AddLineItemViewModel(INavigationService navService)
+        public AddLineItemViewModel(INavigationService navService, IPassingService passingService)
         {
+            _passingService = passingService;
             _navigation = navService;
-            newItem = new LineItemModel();
+        }
+
+        [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [Required(ErrorMessage = "Field is required")]
+        private string _description;
+        private double _total;
+        private double _cost;
+        private int _quantity;
+        public int ItemId;
+
+        [Required(ErrorMessage = "Field is required")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter valid integer number")]
+        public int Quantity
+        {
+            get => _quantity;
+            set
+            {
+                _quantity = value;
+                OnPropertyChanged(nameof(Quantity));
+
+                Total = TotalResult();
+            }
+        }
+        [Required(ErrorMessage = "Field is required")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Please enter valid integer number")]
+        public double Cost
+        {
+            get => _cost;
+            set
+            {
+                _cost = value;
+                OnPropertyChanged(nameof(Cost));
+
+                Total = TotalResult();
+            }
+        }
+        public double Total
+        {
+            get => _total;
+            set
+            {
+                _total = value;
+                OnPropertyChanged(nameof(Total));
+            }
         }
 
         public double TotalResult()
@@ -33,55 +79,7 @@ namespace Invoice_GenUI.ViewModels
                 return Cost * Quantity;
             }
         }
-        public int ItemId;
 
-        [Required(ErrorMessage = "Field is required")]
-        public string? Description
-        {
-            get => newItem.Description;
-            set
-            {
-                newItem.Description = value;
-                OnPropertyChanged(nameof(Description));
-            }
-        }
-        [Required(ErrorMessage = "Field is required")]
-        [Range(1, int.MaxValue, ErrorMessage = "Please enter valid integer number")]
-        public int Quantity
-        {
-            get => newItem.Quantity;
-            set
-            {
-                newItem.Quantity = value;
-                OnPropertyChanged(nameof(Quantity));
-
-                newItem.Total = TotalResult();
-                OnPropertyChanged(nameof(Total));
-            }
-        }
-        [Required(ErrorMessage = "Field is required")]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Please enter valid integer number")]
-        public double Cost
-        {
-            get => newItem.Cost;
-            set
-            {
-                newItem.Cost = value;
-                OnPropertyChanged(nameof(Cost));
-
-                newItem.Total = TotalResult();
-                OnPropertyChanged(nameof(Total));
-            }
-        }
-        public double Total
-        {
-            get => newItem.Total;
-            set
-            {
-                newItem.Total = value;
-                OnPropertyChanged(nameof(Total));
-            }
-        }
         [RelayCommand]
         private void CancelLineItem()
         {
@@ -122,6 +120,10 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
+            foreach(var item in newLineItems)
+            {
+                _passingService.StoredItems.Add(item);
+            }
             Navigation.NavigateTo<InvoiceViewModel>();
         }
     }
