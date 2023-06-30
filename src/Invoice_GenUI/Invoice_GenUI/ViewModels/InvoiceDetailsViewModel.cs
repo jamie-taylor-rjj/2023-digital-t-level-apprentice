@@ -16,7 +16,7 @@ namespace Invoice_GenUI.ViewModels
         private readonly IInvoiceService _invoiceService;
         private readonly IClientService _clientService;
         private readonly IPassingService _passingService;
-       
+
         public ObservableCollection<LineItemModel> LineItemDetails { get; set; }
 
         public InvoiceDetailsViewModel(INavigationService navService, IInvoiceService invoiceService, IClientService clientService, IPassingService passingService)

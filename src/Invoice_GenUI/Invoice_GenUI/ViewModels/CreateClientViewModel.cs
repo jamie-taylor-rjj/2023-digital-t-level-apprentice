@@ -11,7 +11,7 @@ namespace Invoice_GenUI.ViewModels
     public partial class CreateClientViewModel : ViewModel
     {
         private readonly IClientService _clientService;
-      
+
         [ObservableProperty]
         private INavigationService _navigation;
 

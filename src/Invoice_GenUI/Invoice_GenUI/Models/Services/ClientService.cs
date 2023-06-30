@@ -43,11 +43,11 @@ namespace Invoice_GenUI.Models.Services
         {
             bool result = false;
 
-            using(var client = CreateHttpClient())
+            using (var client = CreateHttpClient())
             {
                 var response = await client.DeleteAsync($"Clients/{id}");
                 response.EnsureSuccessStatusCode();
-                if (response.IsSuccessStatusCode )
+                if (response.IsSuccessStatusCode)
                 {
                     result = true;
                 }

@@ -120,7 +120,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            foreach(var item in newLineItems)
+            foreach (var item in newLineItems)
             {
                 _passingService.StoredItems.Add(item);
             }

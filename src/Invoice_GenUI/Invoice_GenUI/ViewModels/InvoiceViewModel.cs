@@ -50,7 +50,7 @@ namespace Invoice_GenUI.ViewModels
         private readonly IPassingService _passingService;
         private readonly IInvoiceService _invoiceService;
         private readonly IClientService _clientService;
-        public ObservableCollection<LineItemModel> LineItems  => _passingService.StoredItems!;
+        public ObservableCollection<LineItemModel> LineItems => _passingService.StoredItems!;
         public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService, IInvoiceService invoiceService, IPassingService passingService)
@@ -80,7 +80,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            MessageBoxResult result = MessageBox.Show("Going back will delete all your progress","Confirm",MessageBoxButton.OKCancel,MessageBoxImage.Information);
+            MessageBoxResult result = MessageBox.Show("Going back will delete all your progress", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Information);
             if (result == MessageBoxResult.OK)
             {
                 _passingService.StoredItems!.Clear();
