@@ -72,5 +72,10 @@ namespace Invoice_GenUI.ViewModels
             InvoiceID = parameter.ClientId;
             Navigation.NavigateTo<InvoiceDetailsViewModel>();
         }
+        [RelayCommand]
+        public void DeleteInvoiceDetails()
+        {
+
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace Invoice_GenUI.Models.Services
     public interface IInvoiceListService
     {
         Task<List<InvoiceModel>> GetInvoices();
+        Task<bool> DeleteInvoice(int id);
     }
 }
