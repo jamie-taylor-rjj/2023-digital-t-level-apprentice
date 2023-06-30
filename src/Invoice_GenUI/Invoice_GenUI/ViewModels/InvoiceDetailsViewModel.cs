@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.PassingValuesServices;
 using Invoice_GenUI.Models.Services;
 
 namespace Invoice_GenUI.ViewModels
@@ -14,15 +15,15 @@ namespace Invoice_GenUI.ViewModels
         private INavigationService _navigation;
         private readonly IInvoiceService _invoiceService;
         private readonly IClientService _clientService;
-        private readonly ShowInvoicesViewModel _showInvoicesViewModel;
-
+        private readonly IPassingService _passingService;
+       
         public ObservableCollection<LineItemModel> LineItemDetails { get; set; }
 
-        public InvoiceDetailsViewModel(INavigationService navService, IInvoiceService invoiceService, ShowInvoicesViewModel showInvoicesViewModel, IClientService clientService)
+        public InvoiceDetailsViewModel(INavigationService navService, IInvoiceService invoiceService, IClientService clientService, IPassingService passingService)
         {
+            _passingService = passingService;
             _navigation = navService;
             _invoiceService = invoiceService;
-            _showInvoicesViewModel = showInvoicesViewModel;
             _clientService = clientService;
             Task.Run(() => GetInvoiceID()).Wait();
             AssignTotal();
@@ -35,7 +36,7 @@ namespace Invoice_GenUI.ViewModels
         public DateTime DueDate { get; set; }
         private async Task GetInvoiceID()
         {
-            var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(_showInvoicesViewModel.ActualID);
+            var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(_passingService.InvoiceID);
 
             VatRate = singleInvoice.VatRate;
             IssueDate = singleInvoice.IssueDate.Date;
