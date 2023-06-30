@@ -76,7 +76,10 @@ namespace Invoice_GenUI.ViewModels
         {
             var newClient = new CreateClientModel
             {
-                ClientName = ClientName
+                ClientName = ClientName,
+                ContactEmail = ContactEmail,
+                ClientAddress = ClientAddress,
+                ContactName = ContactName
             };
             var connected = await _clientService.PutClient(newClient);
             bool result = connected;
