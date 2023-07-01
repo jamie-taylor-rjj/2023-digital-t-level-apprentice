@@ -7,12 +7,12 @@ namespace Invoice_Gen.WebApi.Controllers;
 [ApiController]
 [Route("[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
-public class LineItemController : ControllerBase
+public class LineItemsController : ControllerBase
 {
     private readonly ILineItemService _lineItemService;
-    private readonly ILogger<LineItemController> _logger;
+    private readonly ILogger<LineItemsController> _logger;
 
-    public LineItemController(ILineItemService lineItemService, ILogger<LineItemController> logger)
+    public LineItemsController(ILineItemService lineItemService, ILogger<LineItemsController> logger)
     {
         _lineItemService = lineItemService;
         _logger = logger;
