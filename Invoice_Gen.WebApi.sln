@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.Mappers", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.Services", "src\Invoice_Gen.Services\Invoice_Gen.Services.csproj", "{1A89107D-0A76-496D-9816-219D49C3BA24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice_Gen.WebApi.IntegrationTests", "tests\Invoice_Gen.WebApi.IntegrationTests\Invoice_Gen.WebApi.IntegrationTests.csproj", "{353FB657-7226-4701-895E-394588903E79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{1A89107D-0A76-496D-9816-219D49C3BA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A89107D-0A76-496D-9816-219D49C3BA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A89107D-0A76-496D-9816-219D49C3BA24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{353FB657-7226-4701-895E-394588903E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{353FB657-7226-4701-895E-394588903E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{353FB657-7226-4701-895E-394588903E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{353FB657-7226-4701-895E-394588903E79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F9489BCA-CA8F-4A00-9E5A-094204898D50} = {E0C658C8-F6D9-4991-A98C-B6EF2400A08A}
@@ -66,5 +72,6 @@ Global
 		{01D33B43-FC2C-4EC2-82DB-74E56E3B939E} = {E0C658C8-F6D9-4991-A98C-B6EF2400A08A}
 		{6DAB9F30-71E2-466D-9385-E17DD09B776E} = {E0C658C8-F6D9-4991-A98C-B6EF2400A08A}
 		{1A89107D-0A76-496D-9816-219D49C3BA24} = {E0C658C8-F6D9-4991-A98C-B6EF2400A08A}
+		{353FB657-7226-4701-895E-394588903E79} = {7799EA93-AD32-46A4-90EE-124E41833BC5}
 	EndGlobalSection
 EndGlobal

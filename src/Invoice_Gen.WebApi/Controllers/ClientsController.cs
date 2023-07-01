@@ -74,7 +74,7 @@ public class ClientsController : ControllerBase
     [ProducesResponseType(typeof(PagedResponse<ClientViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpGet("[controller]/page/{pageNumber}", Name = "GetPageOfClients")]
+    [HttpGet("page/{pageNumber}", Name = "GetPageOfClients")]
     public IActionResult GetPage(int pageNumber, [FromQuery] int pageSize = 10)
     {
         using (_logger.BeginScope("Getting page {PageNumber} of Clients; requested {PageSize} per page",
@@ -143,7 +143,7 @@ public class ClientsController : ControllerBase
     {
         using (_logger.BeginScope("Request to delete client {ClientId} received", clientId))
         {
-            if (clientId == default)
+            if (clientId <= (int)default!)
             {
                 _logger.LogInformation("Supplied ClientId was 0");
                 return new BadRequestResult();

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <VersionPrefix>0.0.0.8-beta</VersionPrefix>
+    <VersionPrefix>0.0.0.9-beta</VersionPrefix>
     <AssemblyName>Invoice_Gen.WebApi</AssemblyName>
     <PackageId>Invoice_Gen.WebApi</PackageId>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -19,6 +19,10 @@
     <Content Update="appsettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Invoice_Gen.WebApi.IntegrationTests" />
   </ItemGroup>
 
   <ItemGroup>

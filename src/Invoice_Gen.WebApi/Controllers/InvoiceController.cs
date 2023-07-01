@@ -76,7 +76,7 @@ public class InvoiceController : ControllerBase
     [ProducesResponseType(typeof(PagedResponse<InvoiceViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpGet("[controller]/page/{pageNumber}", Name = "GetPageOfInvoices")]
+    [HttpGet("page/{pageNumber}", Name = "GetPageOfInvoices")]
     public IActionResult GetPage(int pageNumber, [FromQuery] int pageSize = 10)
     {
         using (_logger.BeginScope("Getting page {PageNumber} of Invoices; requested {PageSize} per page",
@@ -147,7 +147,7 @@ public class InvoiceController : ControllerBase
     {
         using (_logger.BeginScope("Request to delete invoice {InvoiceId} received", invoiceId))
         {
-            if (invoiceId == default)
+            if (invoiceId <= (int)default!)
             {
                 _logger.LogInformation("Supplied InvoiceId was 0");
                 return new BadRequestResult();
