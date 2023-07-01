@@ -22,5 +22,19 @@ namespace Invoice_GenUI.Models.InternalServices
         {
             return MessageBox.Show(message, "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+        public MessageBoxResult ValidationError(string message)
+        {
+            return MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        public bool Warning(string message) 
+        {
+            bool confirm = false;
+            var result = MessageBox.Show(message, "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                confirm = true;
+            }
+            return confirm;
+        }
     }
 }

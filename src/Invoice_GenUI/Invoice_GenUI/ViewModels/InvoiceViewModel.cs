@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.InternalServices;
 using Invoice_GenUI.Models.PassingValuesServices;
 using Invoice_GenUI.Models.Services;
 
@@ -13,6 +13,30 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class InvoiceViewModel : ViewModel
     {
+        private readonly INavigationService _navigation;
+        private readonly IPassingService _passingService;
+        private readonly IInvoiceService _invoiceService;
+        private readonly IClientService _clientService;
+        private readonly IMessageBoxService _messageBoxService;
+
+        public ObservableCollection<LineItemModel> LineItems => _passingService.StoredItems!;
+        public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
+
+        public InvoiceViewModel(INavigationService navService, IClientService clientService, IInvoiceService invoiceService, IPassingService passingService, IMessageBoxService messageBoxService)
+        {
+            _dueDate = DateTime.Now.AddDays(1);
+            _issueDate = DateTime.Now;
+            _navigation = navService;
+            _clientService = clientService;
+            _invoiceService = invoiceService;
+            _passingService = passingService;
+            _messageBoxService = messageBoxService;
+            _total = CalculateTotal();
+        }
+        [ObservableProperty]
+        private bool _clientNameLoading;
+        [ObservableProperty]
+        private ClientNameModel _selectedClientName = new ClientNameModel();
         [ObservableProperty]
         private DateTime _issueDate;
         [ObservableProperty]
@@ -39,30 +63,6 @@ namespace Invoice_GenUI.ViewModels
                 }
             }
         }
-
-        [ObservableProperty]
-        private INavigationService _navigation;
-        [ObservableProperty]
-        private bool _clientNameLoading;
-        [ObservableProperty]
-        private ClientNameModel _selectedClientName = new ClientNameModel();
-
-        private readonly IPassingService _passingService;
-        private readonly IInvoiceService _invoiceService;
-        private readonly IClientService _clientService;
-        public ObservableCollection<LineItemModel> LineItems => _passingService.StoredItems!;
-        public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
-
-        public InvoiceViewModel(INavigationService navService, IClientService clientService, IInvoiceService invoiceService, IPassingService passingService)
-        {
-            _dueDate = DateTime.Now.AddDays(1);
-            _issueDate = DateTime.Now;
-            _navigation = navService;
-            _clientService = clientService;
-            _invoiceService = invoiceService;
-            _passingService = passingService;
-            _total = CalculateTotal();
-        }
         public double CalculateTotal()
         {
             double total = 0;
@@ -80,17 +80,17 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            MessageBoxResult result = MessageBox.Show("Going back will delete all your progress", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-            if (result == MessageBoxResult.OK)
+            var result = _messageBoxService.Warning("All your progress will be cleared");
+            if(result == true)
             {
                 _passingService.StoredItems!.Clear();
-                Navigation.NavigateTo<HomeViewModel>();
+                _navigation.NavigateTo<HomeViewModel>();
             }
         }
         [RelayCommand]
         private void GoToLineItem()
         {
-            Navigation.NavigateTo<AddLineItemViewModel>();
+            _navigation.NavigateTo<AddLineItemViewModel>();
         }
         [RelayCommand]
         private async Task GetClientNames()
@@ -114,29 +114,28 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private async void CreateInvoice()
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to create this invoice?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
+            var result = _messageBoxService.Confirm("Are you sure you want to create this invoice?");
+            if (result == true)
             {
                 if (SelectedClientName.ClientID == 0 || SelectedClientName.ClientName == null)
                 {
-                    MessageBox.Show("A client has not been selected", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _messageBoxService.ValidationError("A client has not been selected");
                 }
                 else if (LineItems.Count == 0)
                 {
-                    MessageBox.Show("Must have at least one item", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _messageBoxService.ValidationError("Must have at least one item in the grid");
                 }
                 else if (IssueDate > DueDate)
                 {
-                    MessageBox.Show("The issue date must be before the due date\nThe due date must be after the issue date", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _messageBoxService.ValidationError("The issue date must be before the due date\nThe due date must be after the issue date");
                 }
                 else if (Total < 0)
                 {
-                    MessageBox.Show("The total must be over 0", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _messageBoxService.ValidationError("The total must be over 0");
                 }
                 else if (VatRate > 25 || VatRate < 0)
                 {
-                    MessageBox.Show("The VAT rate must be a positive integer no higher than 25", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _messageBoxService.ValidationError("The VAT rate must be a positive integer no higher than 25");
                 }
                 else
                 {
@@ -152,11 +151,11 @@ namespace Invoice_GenUI.ViewModels
                     bool isConnect = connected;
                     if (isConnect)
                     {
-                        MessageBox.Show("Invoice has been created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        _messageBoxService.Success("Invoice successfully created");
                     }
                     else
                     {
-                        MessageBox.Show("Invoice creation failed", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        _messageBoxService.Failed("Failed to create invoice");
                     }
                 }
             }

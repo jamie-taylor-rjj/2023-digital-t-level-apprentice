@@ -7,5 +7,7 @@ namespace Invoice_GenUI.Models.InternalServices
         bool Confirm(string message);
         MessageBoxResult Failed(string message);
         MessageBoxResult Success(string message);
+        MessageBoxResult ValidationError(string message);
+        bool Warning(string message);
     }
 }
