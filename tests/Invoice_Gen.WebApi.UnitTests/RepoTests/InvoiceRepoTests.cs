@@ -39,6 +39,27 @@ public class InvoiceRepoTests
     }
 
     [Fact]
+    public void GetAsQueryable_Returns_ListOfClientInstances_AsQueryable()
+    {
+        // arrange
+        var invoiceList = InvoiceHelpers.GenerateRandomListOfInvoices(100);
+        var invoiceSetList = DbSetHelpers.GetQueryableDbSet(invoiceList);
+
+        var mockedRepo = new Mock<IDbContext>();
+        mockedRepo.Setup(s => s.Invoices).Returns(invoiceSetList.Object);
+        var mockedLogger = new Mock<ILogger<InvoiceRepository>>();
+
+        var sut = new InvoiceRepository(mockedLogger.Object, mockedRepo.Object);
+
+        // act
+        var response = sut.GetAsQueryable();
+
+        // asset
+        Assert.NotNull(response);
+        Assert.IsAssignableFrom<IQueryable<Invoice>>(response);
+    }
+
+    [Fact]
     public async Task Add_AddsInstance_ToRepo()
     {
         // arrange

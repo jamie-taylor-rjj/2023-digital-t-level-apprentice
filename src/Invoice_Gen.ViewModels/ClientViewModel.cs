@@ -1,10 +1,10 @@
 ﻿namespace Invoice_Gen.ViewModels;
 
-public record ClientViewModel
+public record ClientViewModel : IPageable
 {
-    public int ClientId { get; set; }
-    public string ClientName { get; set; } = null!;
-    public string ClientAddress { get; set; } = null!;
-    public string ContactEmail { get; set; } = null!;
-    public string ContactName { get; set; } = null!;
+    public int ClientId { get; init; }
+    public string ClientName { get; init; } = null!;
+    public string ClientAddress { get; init; } = null!;
+    public string ContactEmail { get; init; } = null!;
+    public string ContactName { get; init; } = null!;
 }

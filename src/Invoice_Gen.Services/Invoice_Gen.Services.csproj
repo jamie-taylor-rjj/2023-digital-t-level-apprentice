@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>InvoiceGen.Services</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Invoice_Gen.Domain\Invoice_Gen.Domain.csproj" />
+      <ProjectReference Include="..\Invoice_Gen.Mappers\Invoice_Gen.Mappers.csproj" />
+      <ProjectReference Include="..\Invoice_Gen.ViewModels\Invoice_Gen.ViewModels.csproj" />
+    </ItemGroup>
+
+</Project>

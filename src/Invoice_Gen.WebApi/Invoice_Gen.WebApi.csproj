@@ -9,6 +9,10 @@
 	  <NoWarn>$(NoWarn);1591</NoWarn>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Version>0.0.0.9-beta</Version>
+    <Title>Invoice_Gen.WebApi</Title>
+    <Authors>Jamie Taylor</Authors>
+    <Copyright>RJJ Software</Copyright>
   </PropertyGroup>
   
   <ItemGroup>
@@ -30,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Invoice_Gen.Services\Invoice_Gen.Services.csproj" />
     <ProjectReference Include="..\Invoice_Gen.Domain\Invoice_Gen.Domain.csproj" />
     <ProjectReference Include="..\Invoice_Gen.Mappers\Invoice_Gen.Mappers.csproj" />
     <ProjectReference Include="..\Invoice_Gen.ViewModels\Invoice_Gen.ViewModels.csproj" />
@@ -39,6 +44,10 @@
     <None Update="invoiceDatabase.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
