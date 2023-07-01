@@ -98,15 +98,9 @@ namespace Invoice_GenUI.ViewModels
             ClientNameLoading = true;
 
             var tempClients = await _clientService.GetClientNames();
-
-            if (tempClients.Count != 0)
+            foreach (var clientName in tempClients)
             {
-                ClientNames.Clear();
-
-                foreach (var clientName in tempClients)
-                {
-                    ClientNames.Add(clientName);
-                }
+                ClientNames.Add(clientName);
             }
 
             ClientNameLoading = false;

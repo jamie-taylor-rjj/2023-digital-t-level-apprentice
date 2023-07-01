@@ -28,12 +28,9 @@ namespace Invoice_GenUI.ViewModels
         {
             var tempClients = await _clientService.GetClientDetails();
 
-            if (tempClients.Count != 0)
+            foreach (var clientName in tempClients)
             {
-                foreach (var clientName in tempClients)
-                {
-                    ShowClientDetails.Add(clientName);
-                }
+                ShowClientDetails.Add(clientName);
             }
         }
         [RelayCommand]

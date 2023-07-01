@@ -32,13 +32,7 @@
             </StackPanel>
             <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=DisplayInvoices}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="Invoice ID">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DataContext.DisplayedID, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Invoice ID" Width="auto" Binding="{Binding InvoiceId}"/>
                     <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Date Created" Width="auto" Binding="{Binding Path=IssueDate, StringFormat='{}{0:yyyy/MM/dd}'}"/>
                     <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Total Value" Width="auto" Binding="{Binding Total}"/>
                     <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="View Details">
