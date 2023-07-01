@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Invoice_Gen.Domain;
+﻿using Invoice_Gen.Domain;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;

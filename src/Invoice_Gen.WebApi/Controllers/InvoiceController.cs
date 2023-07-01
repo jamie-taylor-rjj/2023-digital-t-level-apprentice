@@ -147,7 +147,7 @@ public class InvoiceController : ControllerBase
     {
         using (_logger.BeginScope("Request to delete invoice {InvoiceId} received", invoiceId))
         {
-            if (invoiceId == default)
+            if (invoiceId <= (int)default!)
             {
                 _logger.LogInformation("Supplied InvoiceId was 0");
                 return new BadRequestResult();

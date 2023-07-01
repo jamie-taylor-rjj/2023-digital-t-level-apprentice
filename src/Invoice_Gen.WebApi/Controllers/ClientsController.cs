@@ -143,7 +143,7 @@ public class ClientsController : ControllerBase
     {
         using (_logger.BeginScope("Request to delete client {ClientId} received", clientId))
         {
-            if (clientId == default)
+            if (clientId <= (int)default!)
             {
                 _logger.LogInformation("Supplied ClientId was 0");
                 return new BadRequestResult();
