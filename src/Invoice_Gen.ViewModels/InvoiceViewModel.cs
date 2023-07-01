@@ -1,6 +1,6 @@
 ﻿namespace Invoice_Gen.ViewModels;
 
-public record InvoiceViewModel
+public record InvoiceViewModel : IPageable
 {
     public int InvoiceId { get; set; }
     public int ClientId { get; set; }

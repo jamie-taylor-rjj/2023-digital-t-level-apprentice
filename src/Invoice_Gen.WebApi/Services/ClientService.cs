@@ -46,19 +46,19 @@ public class ClientService : IClientService
     public PagedResponse<ClientViewModel> GetPage(int pageNumber, int pageSize = 10)
     {
         using (_logger.BeginScope(
-                   "{ClientService} creating paged response of {ClientViewModelName} with page number of {PageNumber} and page size of {PageSize}",
+                   "{NameOfService} creating paged response of {ViewModelName} with page number of {PageNumber} and page size of {PageSize}",
                    nameof(ClientService), nameof(ClientViewModel), pageNumber, pageSize))
         {
             var pageNumberToUse = pageNumber < 1
                 ? 1
                 : pageNumber;
             
-            var clients = _clientRepository.GetAsQueryable();
+            var records = _clientRepository.GetAsQueryable();
 
-            var totalCount = clients.Count();
+            var totalCount = records.Count();
             var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
-            var page = clients
+            var page = records
                 .OrderBy(c => c.ClientId)
                 .Skip((pageNumberToUse - 1) * pageSize)
                 .Take(pageSize);

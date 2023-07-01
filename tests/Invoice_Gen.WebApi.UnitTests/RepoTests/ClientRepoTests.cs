@@ -46,7 +46,7 @@ public class ClientRepoTests
 
         // asset
         Assert.NotNull(response);
-        Assert.IsAssignableFrom<IQueryable>(response);
+        Assert.IsAssignableFrom<IQueryable<Client>>(response);
     }
 
     [Fact]
