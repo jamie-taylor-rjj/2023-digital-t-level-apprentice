@@ -1,6 +1,10 @@
-﻿using Invoice_Gen.Domain.Models;
+﻿using Invoice_Gen.Domain;
+using Invoice_Gen.Domain.Models;
+using Invoice_Gen.Mappers;
+using Invoice_Gen.ViewModels;
+using Microsoft.Extensions.Logging;
 
-namespace Invoice_Gen.WebApi.Services;
+namespace InvoiceGen.Services;
 
 public class ClientService : IClientService
 {

@@ -2,6 +2,7 @@
 using System.Reflection;
 using ClacksMiddleware.Extensions;
 using Invoice_Gen.Domain.Models;
+using InvoiceGen.Services;
 using Microsoft.EntityFrameworkCore;
 using OwaspHeaders.Core.Extensions;
 using Serilog;

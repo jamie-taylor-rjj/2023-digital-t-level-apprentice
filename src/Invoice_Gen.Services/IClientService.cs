@@ -1,4 +1,6 @@
-﻿namespace Invoice_Gen.WebApi.Services;
+﻿using Invoice_Gen.ViewModels;
+
+namespace InvoiceGen.Services;
 
 public interface IClientService
 {
