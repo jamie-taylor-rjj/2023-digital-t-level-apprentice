@@ -10,7 +10,6 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class CreateClientViewModel : ViewModel
     {
-        private CreateClientModel newClient;
         private readonly IClientService _clientService;
 
         [ObservableProperty]
@@ -20,51 +19,25 @@ namespace Invoice_GenUI.ViewModels
         {
             _navigation = navService;
             _clientService = clientService;
-            newClient = new CreateClientModel();
         }
 
+        [ObservableProperty]
+        [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Field is required")]
-        public string? ClientName
-        {
-            get => newClient.ClientName;
-            set
-            {
-                newClient.ClientName = value;
-                OnPropertyChanged(nameof(ClientName));
-            }
-        }
+        private string? _clientName;
+        [ObservableProperty]
+        [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Field is required")]
-        public string? ContactName
-        {
-            get => newClient.ContactName;
-            set
-            {
-                newClient.ContactName = value;
-                OnPropertyChanged(nameof(ContactName));
-            }
-        }
+        private string? _contactName;
+        [ObservableProperty]
+        [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Field is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string? ContactEmail
-        {
-            get => newClient.ContactEmail;
-            set
-            {
-                newClient.ContactEmail = value;
-                OnPropertyChanged(nameof(ContactEmail));
-            }
-        }
+        private string? _contactEmail;
+        [ObservableProperty]
+        [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Field is required")]
-        public string? ClientAddress
-        {
-            get => newClient.ClientAddress;
-            set
-            {
-                newClient.ClientAddress = value;
-                OnPropertyChanged(nameof(ClientAddress));
-            }
-        }
-
+        private string? _clientAddress;
 
         [RelayCommand]
         private void GoBack()
@@ -74,24 +47,32 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private async Task CreateClient()
         {
-            var newClient = new CreateClientModel
+            MessageBoxResult confirm = MessageBox.Show("Do you want to create this client?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (confirm == MessageBoxResult.Yes)
             {
-                ClientName = ClientName
-            };
-            var connected = await _clientService.PutClient(newClient);
-            bool result = connected;
-            if (result)
-            {
-                MessageBox.Show("Client has been created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                var newClient = new CreateClientModel
+                {
+                    ClientName = ClientName,
+                    ContactEmail = ContactEmail,
+                    ClientAddress = ClientAddress,
+                    ContactName = ContactName
+                };
 
-                ClientName = string.Empty;
-                ContactEmail = string.Empty;
-                ClientAddress = string.Empty;
-                ContactName = string.Empty;
-            }
-            else
-            {
-                MessageBox.Show("Failed to create client", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var connected = await _clientService.PutClient(newClient);
+                bool result = connected;
+                if (result)
+                {
+                    MessageBox.Show("Client has been created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    ClientName = string.Empty;
+                    ContactEmail = string.Empty;
+                    ClientAddress = string.Empty;
+                    ContactName = string.Empty;
+                }
+                else
+                {
+                    MessageBox.Show("Failed to create client", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

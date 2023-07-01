@@ -1,74 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Invoice_GenUI.Models.Services
 {
-    public partial class ClientService : IClientService
+    public partial class ClientService : BaseService, IClientService
     {
         public async Task<List<ClientNameModel>> GetClientNames()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
-
-                var response = await client.GetAsync("clients");
-
-                response.EnsureSuccessStatusCode();
-
-                return await response.Content.ReadFromJsonAsync<List<ClientNameModel>>() ?? new();
-            }
+            return await SendHttpGetRequest<List<ClientNameModel>>("Clients") ?? new();
         }
         public async Task<List<CreateClientModel>> GetClientDetails()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
-
-                var response = await client.GetAsync("clients");
-
-                response.EnsureSuccessStatusCode();
-
-                return await response.Content.ReadFromJsonAsync<List<CreateClientModel>>() ?? new();
-            }
+            return await SendHttpGetRequest<List<CreateClientModel>>("Clients") ?? new();
         }
-        public async Task<CreateClientModel> GetSingleClientDetails(int index)
+        public async Task<CreateClientModel> GetSingleClientDetails(int id)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
-
-                var response = await client.GetAsync($"clients/{index}");
-
-                response.EnsureSuccessStatusCode();
-
-                return await response.Content.ReadFromJsonAsync<CreateClientModel>() ?? new();
-            }
+            return await SendHttpGetRequest<CreateClientModel>($"Clients/{id}") ?? new();
         }
         public async Task<bool> PutClient(CreateClientModel newClient)
         {
             bool result = false;
-            using (var client = new HttpClient())
+
+            var json = JsonSerializer.Serialize(newClient);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await CreateHttpClient().PutAsync("Clients/Client", content);
+
+            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
             {
-                client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
-
-                var json = JsonSerializer.Serialize(newClient);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-
-                var responseMessage = await client.PutAsync("Clients/Client", content);
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                    result = true;
-                }
-
-                return result;
+                result = true;
             }
+
+            return result;
+        }
+        public async Task<bool> DeleteClient(int id)
+        {
+            bool result = false;
+
+            var response = await CreateHttpClient().DeleteAsync($"Clients/{id}");
+            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+            {
+                result = true;
+            }
+
+            return result;
         }
     }
 }

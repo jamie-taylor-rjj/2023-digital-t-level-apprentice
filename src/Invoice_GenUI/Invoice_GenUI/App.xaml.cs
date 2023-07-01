@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.PassingValuesServices;
 using Invoice_GenUI.Models.Services;
 using Invoice_GenUI.ViewModels;
 using Invoice_GenUI.Views;
@@ -23,16 +24,16 @@ namespace Invoice_GenUI
             services.AddTransient<HomeViewModel>();
             services.AddTransient<InvoiceViewModel>();
             services.AddTransient<CreateClientViewModel>();
-            services.AddSingleton<AddLineItemViewModel>();
-            services.AddSingleton<ShowClientsViewModel>();
+            services.AddTransient<AddLineItemViewModel>();
+            services.AddTransient<ShowClientsViewModel>();
             services.AddTransient<ClientDetailsViewModel>();
-            services.AddSingleton<ShowInvoicesViewModel>();
+            services.AddTransient<ShowInvoicesViewModel>();
             services.AddTransient<InvoiceDetailsViewModel>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
             services.AddTransient<IInvoiceListService, InvoiceListService>();
 
-
+            services.AddSingleton<IPassingService, PassingService>();
             services.AddSingleton<INavigationService, NavigationService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => ofViewModelType

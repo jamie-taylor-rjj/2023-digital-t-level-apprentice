@@ -24,10 +24,5 @@ namespace Invoice_GenUI.Models.Services
             ViewModel viewmodel = _viewModelFactory.Invoke(typeof(TViewModels));
             CurrentView = viewmodel;
         }
-        public void ParameterNavigateTo<TViewModels>(object parameter) where TViewModels : ViewModel
-        {
-            ViewModel viewmodel = _viewModelFactory.Invoke(typeof(TViewModels));
-            CurrentView = viewmodel;
-        }
     }
 }
