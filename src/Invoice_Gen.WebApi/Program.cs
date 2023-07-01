@@ -16,20 +16,20 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     var connectionString = builder.Configuration.GetConnectionString("invoiceConnectionString");
-    
+
     // Add Mappers
     builder.Services
         .AddTransient<IMapper<ClientViewModel, Client>, ClientNameViewModelMapper>()
         .AddTransient<IMapper<InvoiceViewModel, Invoice>, InvoiceViewModelMapper>()
         .AddTransient<IMapper<InvoiceCreateModel, Invoice>, InvoiceCreateModelMapper>()
         .AddTransient<IMapper<LineItemViewModel, LineItem>, LineItemViewModelMapper>();
-        
+
     // Add repositories
     builder.Services
         .AddTransient<IClientRepository, ClientRepository>()
         .AddTransient<IInvoiceRepository, InvoiceRepository>()
         .AddTransient<ILineItemRepository, LineItemRepository>();
-    
+
     // Add DB Context
     builder.Services
         .AddTransient<IDbContext, InvoiceGenDbContext>()

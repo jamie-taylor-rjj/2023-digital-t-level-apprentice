@@ -8,5 +8,5 @@ public class BaseTestClass : IClassFixture<CustomWebApplicationFactory>
     {
         _client = factory.CreateClient();
     }
-    
+
 }

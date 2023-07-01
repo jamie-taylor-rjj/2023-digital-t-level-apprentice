@@ -16,12 +16,12 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             var descriptor = services.SingleOrDefault(
                 d => d.ServiceType ==
                      typeof(InvoiceGenDbContext));
-            
+
             if (descriptor != null)
             {
                 services.Remove(descriptor);
             }
-            
+
 
             services.AddDbContext<InvoiceGenDbContext>(options =>
             {
@@ -41,6 +41,6 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                     throw;
                 }
             }
-        });    
+        });
     }
 }
