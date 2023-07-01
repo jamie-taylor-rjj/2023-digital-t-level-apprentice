@@ -52,4 +52,55 @@ public class ClientControllerTests : BaseTestClass
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
+
+    [Fact]
+    public async Task GetPage_Given_ValidInput_Returns_PagedListOf_ClientModels()
+    {
+        // Arrange
+        const int pageNumber = 1;
+        const int pageSize = 25;
+        
+        // Act
+        var response = await _client.GetAsync($"Clients/Clients/page/{pageNumber}?pageSize={pageSize}");
+        
+        // Assert
+        response.EnsureSuccessStatusCode();
+        
+        var pagedList = await response.Content.ReadFromJsonAsync<PagedResponse<ClientViewModel>>();
+        Assert.NotNull(pagedList);
+        Assert.NotEmpty(pagedList.Data);
+        Assert.Equal(pageNumber, pagedList.PageNumber);
+    }
+    
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-32)]
+    [InlineData(int.MinValue)]
+    public async Task GetPage_Given_InvalidPageNumber_Returns_NotFound(int pageNumber)
+    {
+        // Arrange
+        const int pageSize = 25;
+        
+        // Act
+        var response = await _client.GetAsync($"Clients/Clients/page/{pageNumber}?pageSize={pageSize}");
+        
+        // Assert
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+    
+    [Theory]
+    [InlineData(4)]
+    [InlineData(84)]
+    [InlineData(int.MinValue)]
+    public async Task GetPage_Given_InvalidPageSize_Returns_BadRequest(int pageSize)
+    {
+        // Arrange
+        const int pageNumber = 1;
+        
+        // Act
+        var response = await _client.GetAsync($"Clients/Clients/page/{pageNumber}?pageSize={pageSize}");
+        
+        // Assert
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
 }
