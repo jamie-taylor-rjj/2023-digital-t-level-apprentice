@@ -7,13 +7,6 @@
              xmlns:local="clr-namespace:Invoice_GenUI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <Style x:Key="HeaderColour" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#FF353B43" />
-            <Setter Property="Foreground" Value="GhostWhite" />
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
-    </UserControl.Resources>
     <Border>
         <Border.Background>
             <SolidColorBrush Color="#FF353B43"/>
@@ -32,17 +25,17 @@
             </StackPanel>
             <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=DisplayInvoices}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Invoice ID" Width="auto" Binding="{Binding InvoiceId}"/>
-                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Date Created" Width="auto" Binding="{Binding Path=IssueDate, StringFormat='{}{0:yyyy/MM/dd}'}"/>
-                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Total Value" Width="auto" Binding="{Binding Total}"/>
-                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="View Details">
+                    <DataGridTextColumn Header="Invoice ID" Width="80" Binding="{Binding InvoiceId}"/>
+                    <DataGridTextColumn Header="Date Created" Width="120" Binding="{Binding Path=IssueDate, StringFormat='{}{0:yyyy/MM/dd}'}"/>
+                    <DataGridTextColumn Header="Total Value" Width="100" Binding="{Binding Total}"/>
+                    <DataGridTemplateColumn Header="View Details">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="View" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ViewInvoiceDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="Delete Invoice">
+                    <DataGridTemplateColumn Header="Delete Invoice">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="DELETE" FontWeight="Bold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.DeleteInvoiceDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
