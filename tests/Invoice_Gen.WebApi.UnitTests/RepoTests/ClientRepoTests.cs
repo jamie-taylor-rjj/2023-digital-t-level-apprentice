@@ -27,7 +27,7 @@ public class ClientRepoTests
         Assert.IsAssignableFrom<List<Client>>(response);
         Assert.NotEmpty(response);
     }
-    
+
     [Fact]
     public void GetAsQueryable_Returns_ListOfClientInstances_AsQueryable()
     {

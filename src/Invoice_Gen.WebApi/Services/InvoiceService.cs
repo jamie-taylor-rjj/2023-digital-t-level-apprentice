@@ -48,7 +48,7 @@ public class InvoiceService : IInvoiceService
             return invoice == null ? null : _invoiceViewModelMapper.Convert(invoice);
         }
     }
-    
+
     public PagedResponse<InvoiceViewModel> GetPage(int pageNumber, int pageSize = 10)
     {
         using (_logger.BeginScope(
@@ -58,7 +58,7 @@ public class InvoiceService : IInvoiceService
             var pageNumberToUse = pageNumber < 1
                 ? 1
                 : pageNumber;
-            
+
             var records = _invoiceRepository.GetAsQueryable();
 
             var totalCount = records.Count();

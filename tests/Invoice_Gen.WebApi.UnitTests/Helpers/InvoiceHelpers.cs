@@ -4,12 +4,12 @@
 public static class InvoiceHelpers
 {
     private static readonly Random Rng = new();
-    
+
     public static List<Invoice> GenerateRandomListOfInvoices(int length)
     {
         var retVal = new List<Invoice>();
         var count = 0;
-        while(count < length)
+        while (count < length)
         {
             retVal.Add(new Invoice
             {

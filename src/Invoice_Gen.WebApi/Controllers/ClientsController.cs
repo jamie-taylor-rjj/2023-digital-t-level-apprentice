@@ -59,7 +59,7 @@ public class ClientsController : ControllerBase
             return new OkObjectResult(client);
         }
     }
-    
+
     /// <summary>
     /// Used to get a PAGED list of <see cref="ClientViewModel"/> instances, using the <paramref name="pageNumber"/>
     /// and <paramref name="pageSize"/> parameters as filters for the paged list
@@ -73,8 +73,8 @@ public class ClientsController : ControllerBase
     [ProducesResponseType(typeof(PagedResponse<ClientViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpGet("[controller]/page/{pageNumber}", Name="GetPageOfClients")]
-    public IActionResult GetPage(int pageNumber, [FromQuery]int pageSize = 10)
+    [HttpGet("[controller]/page/{pageNumber}", Name = "GetPageOfClients")]
+    public IActionResult GetPage(int pageNumber, [FromQuery] int pageSize = 10)
     {
         using (_logger.BeginScope("Getting page {PageNumber} of Clients; requested {PageSize} per page",
                    pageNumber, pageSize))
@@ -95,7 +95,7 @@ public class ClientsController : ControllerBase
                     _logger.LogInformation("Bad value supplied for pageSize: {PageSize}", pageSize);
                     return new BadRequestResult();
             }
-            
+
             var pagedContent = _clientService.GetPage(pageNumber, pageSize);
             return new OkObjectResult(pagedContent);
         }

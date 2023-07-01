@@ -42,7 +42,7 @@ public class ClientService : IClientService
             return client == null ? null : _clientViewModelMapper.Convert(client);
         }
     }
-    
+
     public PagedResponse<ClientViewModel> GetPage(int pageNumber, int pageSize = 10)
     {
         using (_logger.BeginScope(
@@ -52,7 +52,7 @@ public class ClientService : IClientService
             var pageNumberToUse = pageNumber < 1
                 ? 1
                 : pageNumber;
-            
+
             var records = _clientRepository.GetAsQueryable();
 
             var totalCount = records.Count();

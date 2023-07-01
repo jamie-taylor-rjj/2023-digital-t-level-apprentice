@@ -122,7 +122,7 @@ public class InvoiceServiceTests
         Assert.Equal(_vatRate, result.VatRate);
         Assert.Empty(result.LineItems);
     }
-    
+
     [Fact]
     public void Given_ValidInput_GetPage_Returns_Valid_PagedResponseOfClientViewModel()
     {
@@ -143,7 +143,7 @@ public class InvoiceServiceTests
 
         // Act
         var result = sut.GetPage(pageNumber, pageSize);
-        
+
         // Assert
         Assert.IsAssignableFrom<PagedResponse<InvoiceViewModel>>(result);
         Assert.Equal(pageSize, result.Data.Count);
@@ -152,7 +152,7 @@ public class InvoiceServiceTests
         Assert.Equal(numberOfClients, result.TotalRecords);
         Assert.Equal(pageSize, result.PageSize);
     }
-    
+
     [Theory]
     [InlineData(-1)]
     [InlineData(0)]
@@ -175,7 +175,7 @@ public class InvoiceServiceTests
 
         // Act
         var result = sut.GetPage(pageNumber, pageSize);
-        
+
         // Assert
         Assert.IsAssignableFrom<PagedResponse<InvoiceViewModel>>(result);
         Assert.Equal(pageSize, result.Data.Count);

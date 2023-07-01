@@ -4,12 +4,12 @@
 public static class ClientHelpers
 {
     private static readonly Random Rng = new();
-    
+
     public static List<Client> GenerateRandomListOfClients(int length)
     {
         var retVal = new List<Client>();
         var count = 0;
-        while(count < length)
+        while (count < length)
         {
             retVal.Add(new Client
             {

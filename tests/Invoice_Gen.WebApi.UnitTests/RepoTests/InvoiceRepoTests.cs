@@ -37,7 +37,7 @@ public class InvoiceRepoTests
         Assert.IsAssignableFrom<List<Invoice>>(response);
         Assert.NotEmpty(response);
     }
-    
+
     [Fact]
     public void GetAsQueryable_Returns_ListOfClientInstances_AsQueryable()
     {

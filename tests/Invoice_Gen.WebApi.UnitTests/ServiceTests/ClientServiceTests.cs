@@ -27,7 +27,7 @@ public class ClientServiceTests
 
         _mockedClientNameViewModelMapper = new Mock<IMapper<ClientViewModel, Client>>();
     }
-    
+
     [Fact]
     public void Given_Atleast_One_Client_GetAll_Should_Return_At_Least_One_ClientViewModel()
     {
@@ -159,7 +159,7 @@ public class ClientServiceTests
 
         // Act
         var result = sut.GetPage(pageNumber, pageSize);
-        
+
         // Assert
         Assert.IsAssignableFrom<PagedResponse<ClientViewModel>>(result);
         Assert.Equal(pageSize, result.Data.Count);
@@ -168,7 +168,7 @@ public class ClientServiceTests
         Assert.Equal(numberOfClients, result.TotalRecords);
         Assert.Equal(pageSize, result.PageSize);
     }
-    
+
     [Theory]
     [InlineData(-1)]
     [InlineData(0)]
@@ -191,7 +191,7 @@ public class ClientServiceTests
 
         // Act
         var result = sut.GetPage(pageNumber, pageSize);
-        
+
         // Assert
         Assert.IsAssignableFrom<PagedResponse<ClientViewModel>>(result);
         Assert.Equal(pageSize, result.Data.Count);

@@ -22,7 +22,7 @@ public class InvoiceRepository : IInvoiceRepository
             return _dbContext.Invoices.ToList();
         }
     }
-    
+
     public IQueryable<Invoice> GetAsQueryable()
     {
         using (_logger.BeginScope("{RepositoryName} - getting IQueryable of {RecordName}",

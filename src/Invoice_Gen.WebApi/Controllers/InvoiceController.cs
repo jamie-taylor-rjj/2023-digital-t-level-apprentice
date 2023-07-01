@@ -61,7 +61,7 @@ public class InvoiceController : ControllerBase
             return new OkObjectResult(invoice);
         }
     }
-    
+
     /// <summary>
     /// Used to get a PAGED list of <see cref="InvoiceViewModel"/> instances, using the <paramref name="pageNumber"/>
     /// and <paramref name="pageSize"/> parameters as filters for the paged list
@@ -75,8 +75,8 @@ public class InvoiceController : ControllerBase
     [ProducesResponseType(typeof(PagedResponse<InvoiceViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpGet("[controller]/page/{pageNumber}", Name="GetPageOfInvoices")]
-    public IActionResult GetPage(int pageNumber, [FromQuery]int pageSize = 10)
+    [HttpGet("[controller]/page/{pageNumber}", Name = "GetPageOfInvoices")]
+    public IActionResult GetPage(int pageNumber, [FromQuery] int pageSize = 10)
     {
         using (_logger.BeginScope("Getting page {PageNumber} of Invoices; requested {PageSize} per page",
                    pageNumber, pageSize))
@@ -97,7 +97,7 @@ public class InvoiceController : ControllerBase
                     _logger.LogInformation("Bad value supplied for pageSize: {PageSize}", pageSize);
                     return new BadRequestResult();
             }
-            
+
             var pagedContent = _invoiceService.GetPage(pageNumber, pageSize);
             return new OkObjectResult(pagedContent);
         }
