@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.InternalServices;
 using Invoice_GenUI.Models.PassingValuesServices;
 using Invoice_GenUI.Models.Services;
 
@@ -11,14 +11,15 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class AddLineItemViewModel : ViewModel
     {
-        [ObservableProperty]
-        private INavigationService _navigation;
+        private readonly INavigationService _navigation;
         private readonly IPassingService _passingService;
+        private readonly IMessageBoxService _messageBoxService;
 
         public ObservableCollection<LineItemModel> newLineItems { get; } = new ObservableCollection<LineItemModel>();
 
-        public AddLineItemViewModel(INavigationService navService, IPassingService passingService)
+        public AddLineItemViewModel(INavigationService navService, IPassingService passingService, IMessageBoxService messageBoxService)
         {
+            _messageBoxService = messageBoxService;
             _passingService = passingService;
             _navigation = navService;
         }
@@ -26,25 +27,21 @@ namespace Invoice_GenUI.ViewModels
         [ObservableProperty]
         [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Field is required")]
-        private string _description;
-        private double _total;
-        private double _cost;
+        private string? _description;
+        
         private int _quantity;
-        public int ItemId;
-
-        [Required(ErrorMessage = "Field is required")]
-        [Range(1, int.MaxValue, ErrorMessage = "Please enter valid integer number")]
+        [Required]
+        [Range(1, int.MaxValue)]
         public int Quantity
         {
             get => _quantity;
             set
             {
-                _quantity = value;
-                OnPropertyChanged(nameof(Quantity));
-
+                SetProperty(ref _quantity, value);
                 Total = TotalResult();
             }
         }
+        private double _cost;
         [Required(ErrorMessage = "Field is required")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Please enter valid integer number")]
         public double Cost
@@ -52,40 +49,27 @@ namespace Invoice_GenUI.ViewModels
             get => _cost;
             set
             {
-                _cost = value;
-                OnPropertyChanged(nameof(Cost));
-
+                SetProperty(ref _cost, value);
                 Total = TotalResult();
             }
         }
+        private double _total;
         public double Total
         {
             get => _total;
-            set
-            {
-                _total = value;
-                OnPropertyChanged(nameof(Total));
-            }
+            set => SetProperty(ref _total, value);
         }
 
         public double TotalResult()
         {
-            if (Cost == 0 || Quantity == 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return Cost * Quantity;
-            }
+            return Cost * Quantity;
         }
 
         [RelayCommand]
         private void CancelLineItem()
         {
-            MessageBoxResult result = MessageBox.Show("Are you sure", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.OK)
+            var result = _messageBoxService.Confirm("Are you sure?");
+            if(result == true)
             {
                 Description = string.Empty;
                 Quantity = 0;
@@ -93,12 +77,12 @@ namespace Invoice_GenUI.ViewModels
                 Total = 0;
             }
         }
+        public int ItemId;
         [RelayCommand]
         private void AddLineItem()
         {
-            MessageBoxResult result = MessageBox.Show("Are you sure", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.OK)
+            var result = _messageBoxService.Confirm("Do you want to add this line item?");
+            if(result == true)
             {
                 ItemId = newLineItems.Count + 1;
                 var newLineItem = new LineItemModel
@@ -122,9 +106,9 @@ namespace Invoice_GenUI.ViewModels
         {
             foreach (var item in newLineItems)
             {
-                _passingService.StoredItems.Add(item);
+                _passingService.StoredItems!.Add(item);
             }
-            Navigation.NavigateTo<InvoiceViewModel>();
+            _navigation.NavigateTo<InvoiceViewModel>();
         }
     }
 }
