@@ -10,48 +10,44 @@ namespace Invoice_GenUI.Models.Services
     {
         public async Task<List<ClientNameModel>> GetClientNames()
         {
-            return await SendHttpRequest<List<ClientNameModel>>("Clients") ?? new();
+            return await SendHttpGetRequest<List<ClientNameModel>>("Clients") ?? new();
         }
         public async Task<List<CreateClientModel>> GetClientDetails()
         {
-            return await SendHttpRequest<List<CreateClientModel>>("Clients") ?? new();
+            return await SendHttpGetRequest<List<CreateClientModel>>("Clients") ?? new();
         }
         public async Task<CreateClientModel> GetSingleClientDetails(int id)
         {
-            return await SendHttpRequest<CreateClientModel>($"Clients/{id}") ?? new();
+            return await SendHttpGetRequest<CreateClientModel>($"Clients/{id}") ?? new();
         }
         public async Task<bool> PutClient(CreateClientModel newClient)
         {
             bool result = false;
 
-            using (var client = CreateHttpClient())
+            var json = JsonSerializer.Serialize(newClient);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await CreateHttpClient().PutAsync("Clients/Client", content);
+
+            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
             {
-                var json = JsonSerializer.Serialize(newClient);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var response = await client.PutAsync("Clients/Client", content);
-
-                response.EnsureSuccessStatusCode();
-                if (response.IsSuccessStatusCode)
-                {
-                    result = true;
-                }
+                result = true;
             }
+
             return result;
         }
         public async Task<bool> DeleteClient(int id)
         {
             bool result = false;
 
-            using (var client = CreateHttpClient())
+            var response = await CreateHttpClient().DeleteAsync($"Clients/{id}");
+            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
             {
-                var response = await client.DeleteAsync($"Clients/{id}");
-                response.EnsureSuccessStatusCode();
-                if (response.IsSuccessStatusCode)
-                {
-                    result = true;
-                }
+                result = true;
             }
+
             return result;
         }
     }

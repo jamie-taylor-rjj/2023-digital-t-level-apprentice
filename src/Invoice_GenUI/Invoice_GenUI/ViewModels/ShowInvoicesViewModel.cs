@@ -20,7 +20,7 @@ namespace Invoice_GenUI.ViewModels
         private readonly IPassingService _passingService;
 
         public ObservableCollection<InvoiceModel> DisplayInvoices { get; } = new ObservableCollection<InvoiceModel>();
-        public int DisplayedID { get; set; }
+        public int DisplayedId { get; set; }
         public ShowInvoicesViewModel(INavigationService navService, IInvoiceListService invoiceListService, IPassingService passingService)
         {
             _passingService = passingService;
@@ -35,7 +35,7 @@ namespace Invoice_GenUI.ViewModels
             int idCounter = 1;
             foreach (var item in DisplayInvoices)
             {
-                DisplayedID = idCounter;
+                DisplayedId = idCounter;
                 idCounter++;
             }
             idCounter = 0;
@@ -74,7 +74,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         public void ViewInvoiceDetails(InvoiceModel parameter)
         {
-            _passingService.InvoiceID = parameter.InvoiceId;
+            _passingService.InvoiceId = parameter.InvoiceId;
             Navigation.NavigateTo<InvoiceDetailsViewModel>();
         }
         [RelayCommand]

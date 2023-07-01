@@ -13,7 +13,7 @@ namespace Invoice_GenUI.Models.Services
             client.BaseAddress = new Uri("https://2023-invoice-gen.azurewebsites.net/");
             return client;
         }
-        public async Task<T?> SendHttpRequest<T>(string url) // T can be nullable
+        public async Task<T?> SendHttpGetRequest<T>(string url) // T can be nullable
         {
             using (var client = CreateHttpClient())
             {

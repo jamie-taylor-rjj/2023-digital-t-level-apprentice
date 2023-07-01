@@ -36,7 +36,7 @@ namespace Invoice_GenUI.ViewModels
         public DateTime DueDate { get; set; }
         private async Task GetInvoiceID()
         {
-            var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(_passingService.InvoiceID);
+            var singleInvoice = await _invoiceService.GetSingleInvoiceDetails(_passingService.InvoiceId);
 
             VatRate = singleInvoice.VatRate;
             IssueDate = singleInvoice.IssueDate.Date;
