@@ -10,17 +10,7 @@ public class ClientRepoTests
     public void GetAll_Returns_ListOfClientInstances()
     {
         // arrange
-        var clientList = new List<Client>
-        {
-            new()
-            {
-                ClientId = 1,
-                ClientName = "Testy McTestFace",
-                ContactName = "Tester McContactFace",
-                ClientAddress = "Boaty McBoatFace",
-                ContactEmail = "mctestface.testy@testl.library"
-            }
-        };
+        var clientList = ClientHelpers.GenerateRandomListOfClients(100);
         var clientListSet = DbSetHelpers.GetQueryableDbSet(clientList);
 
         var mockedRepo = new Mock<IDbContext>();
@@ -36,6 +26,27 @@ public class ClientRepoTests
         Assert.NotNull(response);
         Assert.IsAssignableFrom<List<Client>>(response);
         Assert.NotEmpty(response);
+    }
+    
+    [Fact]
+    public void GetAsQueryable_Returns_ListOfClientInstances_AsQueryable()
+    {
+        // arrange
+        var clientList = ClientHelpers.GenerateRandomListOfClients(100);
+        var clientListSet = DbSetHelpers.GetQueryableDbSet(clientList);
+
+        var mockedRepo = new Mock<IDbContext>();
+        mockedRepo.Setup(s => s.Clients).Returns(clientListSet.Object);
+        var mockedLogger = new Mock<ILogger<ClientRepository>>();
+
+        var sut = new ClientRepository(mockedRepo.Object, mockedLogger.Object);
+
+        // act
+        var response = sut.GetAsQueryable();
+
+        // asset
+        Assert.NotNull(response);
+        Assert.IsAssignableFrom<IQueryable>(response);
     }
 
     [Fact]

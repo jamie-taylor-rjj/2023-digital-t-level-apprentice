@@ -36,10 +36,41 @@ public class ClientService : IClientService
     {
         using (_logger.BeginScope("{ClientService} getting client record for {ID}", nameof(ClientService), id))
         {
-            var client = _clientRepository.GetAll().FirstOrDefault(f => f.ClientId == id);
+            var client = _clientRepository.GetAsQueryable().FirstOrDefault(f => f.ClientId == id);
 
             _logger.LogInformation("Returning {ClientNameViewModel} for {ID}", nameof(ClientViewModel), id);
             return client == null ? null : _clientViewModelMapper.Convert(client);
+        }
+    }
+    
+    public PagedResponse<ClientViewModel> GetPage(int pageNumber, int pageSize = 10)
+    {
+        using (_logger.BeginScope(
+                   "{ClientService} creating paged response of {ClientViewModelName} with page number of {PageNumber} and page size of {PageSize}",
+                   nameof(ClientService), nameof(ClientViewModel), pageNumber, pageSize))
+        {
+            var pageNumberToUse = pageNumber < 1
+                ? 1
+                : pageNumber;
+            
+            var clients = _clientRepository.GetAsQueryable();
+
+            var totalCount = clients.Count();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            var page = clients
+                .OrderBy(c => c.ClientId)
+                .Skip((pageNumberToUse - 1) * pageSize)
+                .Take(pageSize);
+
+            return new PagedResponse<ClientViewModel>
+            {
+                Data = page.AsEnumerable().Select(_clientViewModelMapper.Convert).ToList(),
+                PageNumber = pageNumberToUse,
+                PageSize = page.Count(),
+                TotalPages = totalPages,
+                TotalRecords = totalCount
+            };
         }
     }
 
