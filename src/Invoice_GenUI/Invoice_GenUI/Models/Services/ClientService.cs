@@ -22,33 +22,11 @@ namespace Invoice_GenUI.Models.Services
         }
         public async Task<bool> PutClient(CreateClientModel newClient)
         {
-            bool result = false;
-
-            var json = JsonSerializer.Serialize(newClient);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await CreateHttpClient().PutAsync("Clients/Client", content);
-
-            response.EnsureSuccessStatusCode();
-            if (response.IsSuccessStatusCode)
-            {
-                result = true;
-            }
-
-            return result;
+            return await SendHttpPutRequest("Clients/Client", newClient);
         }
         public async Task<bool> DeleteClient(int id)
         {
-            bool result = false;
-
-            var response = await CreateHttpClient().DeleteAsync($"Clients/{id}");
-            response.EnsureSuccessStatusCode();
-            if (response.IsSuccessStatusCode)
-            {
-                result = true;
-            }
-
-            return result;
+            return await SendHttpDeleteRequest($"Clients/{id}");
         }
     }
 }
