@@ -61,8 +61,8 @@ public class ClientsController : ControllerBase
     }
     
     /// <summary>
-    /// Used to get a PAGED list of ClientViewModel instances, using the pageNumber and pageSize parameters
-    /// as filters for the paged list
+    /// Used to get a PAGED list of <see cref="ClientViewModel"/> instances, using the <paramref name="pageNumber"/>
+    /// and <paramref name="pageSize"/> parameters as filters for the paged list
     /// </summary>
     /// <param name="pageNumber" example="1">The page number requested; MUST be a positive integer</param>
     /// <param name="pageSize" example="10">The number of items to return per page. MUST be either 10, 25, or 50</param>
