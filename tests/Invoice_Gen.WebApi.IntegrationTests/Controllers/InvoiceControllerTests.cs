@@ -14,7 +14,7 @@ public class InvoiceControllerTests : BaseTestClass
         // Arrange
 
         // Act
-        var response = await _client.GetAsync("/Invoice");
+        var response = await _client.GetAsync("/Invoices");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -31,7 +31,7 @@ public class InvoiceControllerTests : BaseTestClass
         const int invoiceId = 1;
 
         // Act
-        var response = await _client.GetAsync($"/Invoice/{invoiceId}");
+        var response = await _client.GetAsync($"/Invoices/{invoiceId}");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -50,7 +50,7 @@ public class InvoiceControllerTests : BaseTestClass
         // Arrange
 
         // Act
-        var response = await _client.GetAsync($"/Invoice/{invoiceId}");
+        var response = await _client.GetAsync($"/Invoices/{invoiceId}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
@@ -64,7 +64,7 @@ public class InvoiceControllerTests : BaseTestClass
         const int pageSize = 25;
 
         // Act
-        var response = await _client.GetAsync($"Invoice/page/{pageNumber}?pageSize={pageSize}");
+        var response = await _client.GetAsync($"/Invoices/page/{pageNumber}?pageSize={pageSize}");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -85,7 +85,7 @@ public class InvoiceControllerTests : BaseTestClass
         const int pageSize = 25;
 
         // Act
-        var response = await _client.GetAsync($"Invoice/page/{pageNumber}?pageSize={pageSize}");
+        var response = await _client.GetAsync($"/Invoices/page/{pageNumber}?pageSize={pageSize}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
@@ -101,7 +101,7 @@ public class InvoiceControllerTests : BaseTestClass
         const int pageNumber = 1;
 
         // Act
-        var response = await _client.GetAsync($"Invoice/page/{pageNumber}?pageSize={pageSize}");
+        var response = await _client.GetAsync($"/Invoices/page/{pageNumber}?pageSize={pageSize}");
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -124,7 +124,7 @@ public class InvoiceControllerTests : BaseTestClass
         var content = new StringContent(json, Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
 
         // Act
-        var response = await _client.PutAsync("/Invoice", content);
+        var response = await _client.PutAsync("/Invoices", content);
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -141,7 +141,7 @@ public class InvoiceControllerTests : BaseTestClass
         // issue for this app
 
         // Act
-        var response = await _client.DeleteAsync($"/Invoice/{invoiceId}");
+        var response = await _client.DeleteAsync($"/Invoices/{invoiceId}");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -156,7 +156,7 @@ public class InvoiceControllerTests : BaseTestClass
         // Arrange
 
         // Act
-        var response = await _client.DeleteAsync($"/Invoice/{invoiceId}");
+        var response = await _client.DeleteAsync($"/Invoices/{invoiceId}");
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
