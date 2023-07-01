@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using ClacksMiddleware.Extensions;
 using Invoice_Gen.Domain.Models;
 using InvoiceGen.Services;
@@ -15,15 +16,22 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     var connectionString = builder.Configuration.GetConnectionString("invoiceConnectionString");
-
+    
+    // Add Mappers
     builder.Services
         .AddTransient<IMapper<ClientViewModel, Client>, ClientNameViewModelMapper>()
         .AddTransient<IMapper<InvoiceViewModel, Invoice>, InvoiceViewModelMapper>()
         .AddTransient<IMapper<InvoiceCreateModel, Invoice>, InvoiceCreateModelMapper>()
-        .AddTransient<IMapper<LineItemViewModel, LineItem>, LineItemViewModelMapper>()
-        .AddTransient(typeof(IClientRepository), typeof(ClientRepository))
+        .AddTransient<IMapper<LineItemViewModel, LineItem>, LineItemViewModelMapper>();
+        
+    // Add repositories
+    builder.Services
+        .AddTransient<IClientRepository, ClientRepository>()
         .AddTransient<IInvoiceRepository, InvoiceRepository>()
-        .AddTransient<ILineItemRepository, LineItemRepository>()
+        .AddTransient<ILineItemRepository, LineItemRepository>();
+    
+    // Add DB Context
+    builder.Services
         .AddTransient<IDbContext, InvoiceGenDbContext>()
         .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
 
@@ -74,3 +82,6 @@ finally
     Log.CloseAndFlush();
 }
 
+[ExcludeFromCodeCoverage]
+// Needed for integration tests
+public partial class Program { }
