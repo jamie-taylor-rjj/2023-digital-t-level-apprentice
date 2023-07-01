@@ -61,6 +61,47 @@ public class InvoiceController : ControllerBase
             return new OkObjectResult(invoice);
         }
     }
+    
+    /// <summary>
+    /// Used to get a PAGED list of <see cref="InvoiceViewModel"/> instances, using the <paramref name="pageNumber"/>
+    /// and <paramref name="pageSize"/> parameters as filters for the paged list
+    /// </summary>
+    /// <param name="pageNumber" example="1">The page number requested; MUST be a positive integer</param>
+    /// <param name="pageSize" example="10">The number of items to return per page. MUST be either 10, 25, or 50</param>
+    /// <returns>
+    /// A new instance of the <see cref="PagedResponse{T}"/> where T is a <see cref="InvoiceViewModel" />
+    /// with the requested number of items (if available) and data about how many pages are available
+    /// </returns>
+    [ProducesResponseType(typeof(PagedResponse<InvoiceViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("[controller]/page/{pageNumber}", Name="GetPageOfInvoices")]
+    public IActionResult GetPage(int pageNumber, [FromQuery]int pageSize = 10)
+    {
+        using (_logger.BeginScope("Getting page {PageNumber} of Invoices; requested {PageSize} per page",
+                   pageNumber, pageSize))
+        {
+            if (pageNumber <= 0)
+            {
+                _logger.LogInformation("Bad value supplied for page number: {PageNumber}", pageNumber);
+                return new NotFoundResult();
+            }
+
+            switch (pageSize)
+            {
+                case 10:
+                case 25:
+                case 50:
+                    break;
+                default:
+                    _logger.LogInformation("Bad value supplied for pageSize: {PageSize}", pageSize);
+                    return new BadRequestResult();
+            }
+            
+            var pagedContent = _invoiceService.GetPage(pageNumber, pageSize);
+            return new OkObjectResult(pagedContent);
+        }
+    }
 
     /// <summary>
     /// Allows API consumers to create new Invoice records in the database using the values of the
