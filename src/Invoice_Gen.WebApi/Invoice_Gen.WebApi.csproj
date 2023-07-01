@@ -9,6 +9,10 @@
 	  <NoWarn>$(NoWarn);1591</NoWarn>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Version>0.0.0.9-beta</Version>
+    <Title>Invoice_Gen.WebApi</Title>
+    <Authors>Jamie Taylor</Authors>
+    <Copyright>RJJ Software</Copyright>
   </PropertyGroup>
   
   <ItemGroup>
