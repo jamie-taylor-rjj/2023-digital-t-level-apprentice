@@ -2,6 +2,10 @@
 
 Welcome to the main branch of this repo.
 
+| Test coverage | Build status |
+|---------|---------|
+| ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-98%25-green?style=flat) | [![(WebApi) Build and deploy ASP.Net Core app to Azure](https://github.com/jamie-taylor-rjj/2023-digital-t-level-apprentice/actions/workflows/main_2023-invoice-gen.yml/badge.svg?branch=main)](https://github.com/jamie-taylor-rjj/2023-digital-t-level-apprentice/actions/workflows/main_2023-invoice-gen.yml) |
+
 Please see the [Glossary](./GLOSSARY.MD) for descriptions of some keywords we'll be using. Also please see the [Common commands](/COMMON-COMMANDS.MD) for some common git commands.
 
 You may need to get permission to install the [git command line application for Windows](https://git-scm.com/download/win) before you can perform a lot of these actions. If you would prefer, you can install the [GitHub Desktop application](https://desktop.github.com/) - this will wrap all of the git CLI commands in a UI.
