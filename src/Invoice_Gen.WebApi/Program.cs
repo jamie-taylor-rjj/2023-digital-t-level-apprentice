@@ -1,11 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using ClacksMiddleware.Extensions;
-using Invoice_Gen.Domain.Models;
-using InvoiceGen.Services;
-using InvoiceGen.Services.ClientServices;
-using InvoiceGen.Services.InvoiceServices;
-using Microsoft.EntityFrameworkCore;
+using Invoice_Gen.WebApi.Extensions;
 using OwaspHeaders.Core.Extensions;
 using Serilog;
 
@@ -16,40 +12,21 @@ try
     Log.Information("Starting app - registering services");
 
     var builder = WebApplication.CreateBuilder(args);
-
-    var connectionString = builder.Configuration.GetConnectionString("invoiceConnectionString");
-
-    // Add Mappers
+    
+    builder.Services.AddMappers();
+    
+    builder.Services.AddRepos();
+    
     builder.Services
-        .AddTransient<IMapper<ClientViewModel, Client>, ClientNameViewModelMapper>()
-        .AddTransient<IMapper<InvoiceViewModel, Invoice>, InvoiceViewModelMapper>()
-        .AddTransient<IMapper<InvoiceCreateModel, Invoice>, InvoiceCreateModelMapper>()
-        .AddTransient<IMapper<LineItemViewModel, LineItem>, LineItemViewModelMapper>();
-
-    // Add repositories
-    builder.Services
-        .AddTransient<IClientRepository, ClientRepository>()
-        .AddTransient<IInvoiceRepository, InvoiceRepository>()
-        .AddTransient<ILineItemRepository, LineItemRepository>();
-
-    // Add DB Context
-    builder.Services
-        .AddTransient<IDbContext, InvoiceGenDbContext>()
-        .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
+        .AddDbContext(builder.Configuration.GetConnectionString("invoiceConnectionString")!);
 
     builder.Services
-        .AddTransient<IGetClients, ClientGetter>()
-        .AddTransient<ICreateClients, ClientCreator>()
-        .AddTransient<IDeleteClients, ClientDeleter>()
-        .AddTransient<IPageClients, ClientPager>()
-        .AddTransient<IGetInvoices, InvoiceGetter>()
-        .AddTransient<ICreateInvoices, InvoiceCreator>()
-        .AddTransient<IDeleteInvoices, InvoiceDeleter>()
-        .AddTransient<IPageInvoices, InvoicePager>()
-        .AddTransient<IGetLineItems, LineItemGetter>();
+        .AddClientServices()
+        .AddInvoiceServices()
+        .AddLineItemServices();
 
     builder.Services.AddControllers();
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(o =>
     {
