@@ -84,7 +84,7 @@ public class ClientControllerTests : BaseTestClass
         const int pageSize = 25;
 
         // Act
-        var response = await _client.GetAsync($"Clients/Clients/page/{pageNumber}?pageSize={pageSize}");
+        var response = await _client.GetAsync($"/Clients/page/{pageNumber}?pageSize={pageSize}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
