@@ -1,5 +1,4 @@
-﻿using InvoiceGen.Services;
-using InvoiceGen.Services.ClientServices;
+﻿using InvoiceGen.Services.ClientServices;
 using Microsoft.Extensions.Logging;
 
 namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;
