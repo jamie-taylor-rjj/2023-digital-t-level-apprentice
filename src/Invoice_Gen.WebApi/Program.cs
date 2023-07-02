@@ -3,6 +3,8 @@ using System.Reflection;
 using ClacksMiddleware.Extensions;
 using Invoice_Gen.Domain.Models;
 using InvoiceGen.Services;
+using InvoiceGen.Services.ClientServices;
+using InvoiceGen.Services.InvoiceServices;
 using Microsoft.EntityFrameworkCore;
 using OwaspHeaders.Core.Extensions;
 using Serilog;
@@ -36,9 +38,15 @@ try
         .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
 
     builder.Services
-        .AddTransient<IClientService, ClientService>()
-        .AddTransient<IInvoiceService, InvoiceService>()
-        .AddTransient<ILineItemService, LineItemService>();
+        .AddTransient<IGetClients, ClientGetter>()
+        .AddTransient<ICreateClients, ClientCreator>()
+        .AddTransient<IDeleteClients, ClientDeleter>()
+        .AddTransient<IPageClients, ClientPager>()
+        .AddTransient<IGetInvoices, InvoiceGetter>()
+        .AddTransient<ICreateInvoices, InvoiceCreator>()
+        .AddTransient<IDeleteInvoices, InvoiceDeleter>()
+        .AddTransient<IPageInvoices, InvoicePager>()
+        .AddTransient<IGetLineItems, LineItemGetter>();
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

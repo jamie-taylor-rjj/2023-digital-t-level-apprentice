@@ -1,6 +1,5 @@
 ﻿namespace Invoice_Gen.WebApi.UnitTests.Helpers;
 
-[ExcludeFromCodeCoverage]
 public static class InvoiceHelpers
 {
     private static readonly Random Rng = new();

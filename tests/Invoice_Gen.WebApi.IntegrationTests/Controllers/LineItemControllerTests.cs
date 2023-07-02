@@ -1,6 +1,5 @@
 ﻿namespace Invoice_Gen.WebApi.IntegrationTests.Controllers;
 
-[ExcludeFromCodeCoverage]
 public class LineItemControllerTests : BaseTestClass
 {
     public LineItemControllerTests(CustomWebApplicationFactory factory) : base(factory) { }

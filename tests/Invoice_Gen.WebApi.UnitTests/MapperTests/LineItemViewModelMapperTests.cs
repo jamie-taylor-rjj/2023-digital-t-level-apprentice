@@ -1,6 +1,5 @@
 ﻿namespace Invoice_Gen.WebApi.UnitTests.MapperTests;
 
-[ExcludeFromCodeCoverage]
 public class LineItemViewModelMapperTests
 {
     private readonly IMapper<LineItemViewModel, LineItem> _mapper;

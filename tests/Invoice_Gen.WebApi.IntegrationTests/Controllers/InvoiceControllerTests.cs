@@ -3,7 +3,6 @@ using System.Text.Json;
 
 namespace Invoice_Gen.WebApi.IntegrationTests.Controllers;
 
-[ExcludeFromCodeCoverage]
 public class InvoiceControllerTests : BaseTestClass
 {
     public InvoiceControllerTests(CustomWebApplicationFactory factory) : base(factory) { }
