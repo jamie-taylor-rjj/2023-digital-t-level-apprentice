@@ -23,7 +23,7 @@ public class InvoiceGetterTests
 
         _mockedInvoiceViewModelMapper = new Mock<IMapper<InvoiceViewModel, Invoice>>();
     }
-    
+
     [Fact]
     public void Given_AtLeast_One_Invoice_GetAll_Should_Return_At_Least_One_InvoiceViewModel()
     {

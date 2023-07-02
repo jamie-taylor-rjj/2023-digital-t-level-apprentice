@@ -125,10 +125,6 @@ public class ClientsController : ControllerBase
         using (_logger.BeginScope("Request to create new client {ClientName} received", inputClient.ClientName))
         {
             var response = await _clientCreator.CreateNewClient(inputClient);
-            if (response == default)
-            {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-            }
 
             return new CreatedResult(nameof(GetClientById), new { clientId = response });
         }

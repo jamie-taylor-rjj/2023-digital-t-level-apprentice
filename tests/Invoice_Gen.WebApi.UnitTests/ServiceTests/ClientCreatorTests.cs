@@ -20,7 +20,7 @@ public class ClientCreatorTests
         _contactName = Guid.NewGuid().ToString();
         _contactEmail = Guid.NewGuid().ToString();
     }
-    
+
     [Fact]
     public async Task Given_Valid_ClientCreationModel_CreateClient_Returns_IdOfNewClient()
     {

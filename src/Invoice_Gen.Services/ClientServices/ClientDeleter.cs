@@ -10,7 +10,7 @@ public class ClientDeleter : IDeleteClients
         _logger = logger;
         _clientRepository = clientRepository;
     }
-    
+
     public async Task DeleteClient(int clientId)
     {
         _logger.LogInformation("Deleting client with ID of {ClientId}", clientId);

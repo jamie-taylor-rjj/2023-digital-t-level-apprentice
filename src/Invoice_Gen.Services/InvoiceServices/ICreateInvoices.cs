@@ -3,5 +3,4 @@
 public interface ICreateInvoices
 {
     Task<int> CreateNewInvoice(InvoiceCreateModel newInvoice);
-
 }

@@ -25,7 +25,7 @@ public class InvoiceCreatorTests
 
         _mockedInvoiceCreateModelMapper = new Mock<IMapper<InvoiceCreateModel, Invoice>>();
     }
-    
+
     [Fact]
     public async Task Given_Valid_InvoiceCreationModel_CreateInvoice_Returns_IdOfNewInvoice()
     {

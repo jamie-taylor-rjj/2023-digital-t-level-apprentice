@@ -2,5 +2,5 @@
 
 public interface IPageInvoices
 {
-    PagedResponse<InvoiceViewModel> GetPage(int pageNumber, int pageSize = 10); 
+    PagedResponse<InvoiceViewModel> GetPage(int pageNumber, int pageSize = 10);
 }

@@ -25,7 +25,7 @@ public class ClientGetterTests
 
         _mockedClientNameViewModelMapper = new Mock<IMapper<ClientViewModel, Client>>();
     }
-    
+
     [Fact]
     public void Given_AtLeast_One_Client_GetAll_Should_Return_At_Least_One_ClientViewModel()
     {
@@ -110,7 +110,7 @@ public class ClientGetterTests
         Assert.Equal(_clientId, result.ClientId);
         Assert.Equal(_clientName, result.ClientName);
     }
-    
+
     [Fact]
     public void Given_An_Invalid_ClientId_GetById_Should_Return_Null()
     {

@@ -122,18 +122,12 @@ public class InvoiceController : ControllerBase
     /// </returns>
     [HttpPut]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateInvoice(InvoiceCreateModel newInvoice)
     {
         using (_logger.BeginScope("Request to create new client Invoice for client {ClientId} received",
                    newInvoice.ClientId))
         {
             var response = await _invoiceCreator.CreateNewInvoice(newInvoice);
-            if (response == default)
-            {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-            }
-
             return new CreatedResult(nameof(GetInvoiceById), new { invoiceId = response });
         }
     }

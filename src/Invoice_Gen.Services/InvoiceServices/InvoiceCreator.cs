@@ -14,7 +14,7 @@ public class InvoiceCreator : ICreateInvoices
         _invoiceRepository = invoiceRepository;
         _invoiceCreateModelMapper = invoiceCreateModelMapper;
     }
-    
+
     public async Task<int> CreateNewInvoice(InvoiceCreateModel newInvoice)
     {
         using (_logger.BeginScope("{InvoiceService} creating new invoice record for clientId {ClientId}",

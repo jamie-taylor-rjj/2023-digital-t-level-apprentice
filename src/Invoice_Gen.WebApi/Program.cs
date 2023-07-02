@@ -12,11 +12,11 @@ try
     Log.Information("Starting app - registering services");
 
     var builder = WebApplication.CreateBuilder(args);
-    
+
     builder.Services.AddMappers();
-    
+
     builder.Services.AddRepos();
-    
+
     builder.Services
         .AddDbContext(builder.Configuration.GetConnectionString("invoiceConnectionString")!);
 
@@ -26,7 +26,7 @@ try
         .AddLineItemServices();
 
     builder.Services.AddControllers();
-    
+
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(o =>
     {

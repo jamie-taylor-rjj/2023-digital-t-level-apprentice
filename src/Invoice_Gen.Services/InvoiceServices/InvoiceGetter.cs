@@ -14,7 +14,7 @@ public class InvoiceGetter : IGetInvoices
         _invoiceRepository = invoiceRepository;
         _invoiceViewModelMapper = invoiceViewModelMapper;
     }
-    
+
     public List<InvoiceViewModel> GetInvoices()
     {
         using (_logger.BeginScope("{InvoiceService} getting all clients", nameof(InvoicePager)))
