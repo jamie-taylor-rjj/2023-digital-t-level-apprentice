@@ -16,23 +16,90 @@ namespace Invoice_GenUI.ViewModels
         private readonly IPassingService _passingService;
         private readonly IMessageBoxService _messageBoxService;
 
-        public ObservableCollection<InvoiceModel> DisplayInvoices { get; } = new ObservableCollection<InvoiceModel>();
+        public ObservableCollection<int> PageSizeOptions { get; } = new ObservableCollection<int> { 10, 25, 50 };
+
         public ShowInvoicesViewModel(INavigationService navService, IInvoiceListService invoiceListService, IPassingService passingService, IMessageBoxService messageBoxService)
         {
             _passingService = passingService;
             _navigation = navService;
             _invoiceListService = invoiceListService;
             _messageBoxService = messageBoxService;
-            Task.Run(() => GetInvoiceDetails()).Wait();
+            Task.Run(() => LoadInvoices()).Wait();
             AssignTotal();
         }
-
+        [ObservableProperty]
+        private int _currentPage = 1;
+        [ObservableProperty]
+        private int _numberOfPages;
+        private int clientAmnt = 10;
+        [ObservableProperty]
+        private ObservableCollection<InvoiceModel>? _displayInvoices;
+        private int _selectedPageSize;
+        public int SelectedPageSize
+        {
+            get => _selectedPageSize;
+            set
+            {
+                SetProperty(ref _selectedPageSize, value);
+                clientAmnt = _selectedPageSize;
+                Task.Run(() => LoadInvoices()).Wait();
+                AssignTotal();
+            }
+        }
+        public async Task LoadInvoices()
+        {
+            int pageNumber = CurrentPage;
+            int pageSize = clientAmnt;
+            var pagedInvoices = await _invoiceListService.GetInvoicePages(pageNumber, pageSize);
+            DisplayInvoices = pagedInvoices.Data;
+            NumberOfPages = pagedInvoices.TotalPages;
+        }
+        [RelayCommand]
+        private async void NextPage()
+        {
+            if (CurrentPage < NumberOfPages)
+            {
+                CurrentPage++;
+                await LoadInvoices();
+                AssignTotal();
+            }
+        }
+        [RelayCommand]
+        private async void PrevPage()
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                await LoadInvoices();
+                AssignTotal();
+            }
+        }
+        [RelayCommand]
+        private async void FirstPage()
+        {
+            if (CurrentPage != 1)
+            {
+                CurrentPage = 1;
+                await LoadInvoices();
+                AssignTotal();
+            }
+        }
+        [RelayCommand]
+        private async void LastPage()
+        {
+            if (CurrentPage != NumberOfPages)
+            {
+                CurrentPage = NumberOfPages;
+                await LoadInvoices();
+                AssignTotal();
+            }
+        }
         [ObservableProperty]
         private double _total;
         public void AssignTotal()
         {
             double total = 0;
-            foreach (var item in DisplayInvoices)
+            foreach (var item in DisplayInvoices!)
             {
                 foreach (var lineItem in item.LineItems!)
                 {
@@ -41,15 +108,6 @@ namespace Invoice_GenUI.ViewModels
                     item.Total = total + vatTotal;
                 }
                 total = 0;
-            }
-        }
-        public async Task GetInvoiceDetails()
-        {
-            var tempInvoices = await _invoiceListService.GetInvoices();
-
-            foreach (var invoice in tempInvoices)
-            {
-                DisplayInvoices.Add(invoice);
             }
         }
         [RelayCommand]
