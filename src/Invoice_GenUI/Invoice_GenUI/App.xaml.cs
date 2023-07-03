@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.InternalServices;
 using Invoice_GenUI.Models.PassingValuesServices;
 using Invoice_GenUI.Models.Services;
 using Invoice_GenUI.ViewModels;
@@ -32,6 +33,7 @@ namespace Invoice_GenUI
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
             services.AddTransient<IInvoiceListService, InvoiceListService>();
+            services.AddTransient<IMessageBoxService, MessageBoxService>();
 
             services.AddSingleton<IPassingService, PassingService>();
             services.AddSingleton<INavigationService, NavigationService>();

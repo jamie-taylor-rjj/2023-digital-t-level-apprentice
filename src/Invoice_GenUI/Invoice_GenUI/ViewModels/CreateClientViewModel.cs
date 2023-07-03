@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
+using Invoice_GenUI.Models.InternalServices;
 using Invoice_GenUI.Models.Services;
 
 namespace Invoice_GenUI.ViewModels
@@ -11,14 +11,14 @@ namespace Invoice_GenUI.ViewModels
     public partial class CreateClientViewModel : ViewModel
     {
         private readonly IClientService _clientService;
+        private readonly INavigationService _navigation;
+        private readonly IMessageBoxService _messageBoxService;
 
-        [ObservableProperty]
-        private INavigationService _navigation;
-
-        public CreateClientViewModel(INavigationService navService, IClientService clientService)
+        public CreateClientViewModel(INavigationService navService, IClientService clientService, IMessageBoxService messageBoxService)
         {
             _navigation = navService;
             _clientService = clientService;
+            _messageBoxService = messageBoxService;
         }
 
         [ObservableProperty]
@@ -42,13 +42,13 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            Navigation.NavigateTo<HomeViewModel>();
+            _navigation.NavigateTo<HomeViewModel>();
         }
         [RelayCommand]
         private async Task CreateClient()
         {
-            MessageBoxResult confirm = MessageBox.Show("Do you want to create this client?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (confirm == MessageBoxResult.Yes)
+            var confirm = _messageBoxService.Confirm("Do you want to create this client?");
+            if (confirm)
             {
                 var newClient = new CreateClientModel
                 {
@@ -62,7 +62,7 @@ namespace Invoice_GenUI.ViewModels
                 bool result = connected;
                 if (result)
                 {
-                    MessageBox.Show("Client has been created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _messageBoxService.Success("Client has been created");
 
                     ClientName = string.Empty;
                     ContactEmail = string.Empty;
@@ -71,7 +71,7 @@ namespace Invoice_GenUI.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Failed to create client", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _messageBoxService.Failed("Failed to create client");
                 }
             }
         }

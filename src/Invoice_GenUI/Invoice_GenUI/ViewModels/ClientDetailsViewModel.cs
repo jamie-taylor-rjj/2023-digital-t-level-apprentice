@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
 using Invoice_GenUI.Models.PassingValuesServices;
@@ -9,8 +8,7 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class ClientDetailsViewModel : ViewModel
     {
-        [ObservableProperty]
-        private INavigationService _navigation;
+        private readonly INavigationService _navigation;
         private readonly IClientService _clientService;
         private readonly IPassingService _passingService;
 
@@ -21,10 +19,10 @@ namespace Invoice_GenUI.ViewModels
             _passingService = passingService;
             Task.Run(() => GetClientID()).Wait();
         }
-        public string Name { get; set; }
-        public string Contact { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
+        public string? Name { get; set; }
+        public string? Contact { get; set; }
+        public string? Email { get; set; }
+        public string? Address { get; set; }
 
         private async Task GetClientID()
         {
@@ -39,7 +37,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private void GoBack()
         {
-            Navigation.NavigateTo<ShowClientsViewModel>();
+            _navigation.NavigateTo<ShowClientsViewModel>();
         }
     }
 }
