@@ -15,30 +15,29 @@ namespace Invoice_GenUI.ViewModels
         private readonly IClientService _clientService;
         private readonly IPassingService _passingService;
         private readonly IMessageBoxService _messageBoxService;
-        public ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
-
+        public ObservableCollection<CreateClientModel>? ShowClientDetails { get; set; }
         public ShowClientsViewModel(INavigationService navService, IClientService clientService, IPassingService passingService, IMessageBoxService messageBoxService)
         {
             _navigation = navService;
             _clientService = clientService;
             _passingService = passingService;
             _messageBoxService = messageBoxService;
-            Task.Run(() => GetClientDetails()).Wait();
+            Task.Run(() => LoadClients()).Wait();
+
         }
         [ObservableProperty]
-        private int? _currentPage;
+        private int _currentPage;
         [ObservableProperty]
-        private int? _numberOfPages;
+        private int _numberOfPages;
         [ObservableProperty]
-        private int? _clientAmnt;
-        public async Task GetClientDetails()
+        private int _clientAmnt=10;
+        public async Task LoadClients()
         {
-            var tempClients = await _clientService.GetClientDetails();
-
-            foreach (var clientName in tempClients)
-            {
-                ShowClientDetails.Add(clientName);
-            }
+            int pageNumber = CurrentPage + 1;
+            int pageSize = ClientAmnt;
+            var pagedClients = await _clientService.GetClientPages(pageNumber, pageSize);
+            ShowClientDetails = pagedClients.Data;
+            NumberOfPages = pagedClients.TotalPages;
         }
         [RelayCommand]
         private void GoBack()

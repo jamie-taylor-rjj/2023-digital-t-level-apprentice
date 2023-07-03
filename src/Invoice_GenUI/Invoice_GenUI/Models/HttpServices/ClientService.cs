@@ -25,9 +25,9 @@ namespace Invoice_GenUI.Models.Services
         {
             return await SendHttpDeleteRequest($"Clients/{id}");
         }
-        public async Task<List<CreateClientModel>> GetClientPages(int pageNumber, int pageSize)
+        public async Task<ClientPageModel> GetClientPages(int pageNumber, int pageSize)
         {
-            return await SendHttpGetRequest<List<CreateClientModel>>($"Clients/page/{pageNumber}?pageSize={pageSize}") ?? new();
+            return await SendHttpGetRequest<ClientPageModel>($"Clients/page/{pageNumber}?pageSize={pageSize}") ?? new();
         }
     }
 }

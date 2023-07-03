@@ -10,6 +10,6 @@ namespace Invoice_GenUI.Models.Services
         Task<CreateClientModel> GetSingleClientDetails(int id);
         Task<bool> PutClient(CreateClientModel newClient);
         Task<bool> DeleteClient(int id);
-        Task<List<CreateClientModel>> GetClientPages(int pageNumber, int pageSize);
+        Task<ClientPageModel> GetClientPages(int pageNumber, int pageSize);
     }
 }
