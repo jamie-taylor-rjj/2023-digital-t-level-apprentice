@@ -15,7 +15,6 @@ namespace Invoice_GenUI.ViewModels
         private readonly IClientService _clientService;
         private readonly IPassingService _passingService;
         private readonly IMessageBoxService _messageBoxService;
-        public ObservableCollection<CreateClientModel>? ShowClientDetails { get; set; }
         public ShowClientsViewModel(INavigationService navService, IClientService clientService, IPassingService passingService, IMessageBoxService messageBoxService)
         {
             _navigation = navService;
@@ -26,18 +25,29 @@ namespace Invoice_GenUI.ViewModels
 
         }
         [ObservableProperty]
-        private int _currentPage;
+        private int _currentPage=1;
         [ObservableProperty]
         private int _numberOfPages;
         [ObservableProperty]
         private int _clientAmnt=10;
+        [ObservableProperty]
+        private ObservableCollection<CreateClientModel>? _showClientDetails;
         public async Task LoadClients()
         {
-            int pageNumber = CurrentPage + 1;
+            int pageNumber = CurrentPage;
             int pageSize = ClientAmnt;
             var pagedClients = await _clientService.GetClientPages(pageNumber, pageSize);
             ShowClientDetails = pagedClients.Data;
             NumberOfPages = pagedClients.TotalPages;
+        }
+        [RelayCommand]
+        private async void NextPage()
+        {
+            if(CurrentPage < NumberOfPages)
+            {
+                CurrentPage++;
+            }
+            Task.Run(() => LoadClients()).Wait();
         }
         [RelayCommand]
         private void GoBack()

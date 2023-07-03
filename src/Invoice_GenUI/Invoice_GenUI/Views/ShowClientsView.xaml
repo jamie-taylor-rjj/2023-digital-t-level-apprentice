@@ -23,7 +23,7 @@
                 <TextBlock Text="View" Foreground="GhostWhite" FontWeight="SemiBold" FontSize="24" Margin="20 20 0 0"/>
                 <TextBlock Text="Clients" Foreground="#FF7CACFC" FontWeight="SemiBold" FontSize="24" Margin="5 20 0 0"/>
             </StackPanel>
-            <DataGrid x:Name="dg_clients" Width="700" Height="310" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=ShowClientDetails}" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White">
+            <DataGrid x:Name="dg_clients" Width="700" Height="310" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=ShowClientDetails, Mode=TwoWay}" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Client Name" Width="220" Binding="{Binding ClientName}"/>
                     <DataGridTextColumn Header="Client Contact" Width="220" Binding="{Binding ContactName}"/>
@@ -54,7 +54,7 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-                <Button Content="Next" Width="50" Height="30" Margin="5" Background="#FF7CACFC"/>
+                <Button Content="Next" Width="50" Height="30" Margin="5" Background="#FF7CACFC" Command="{Binding NextPageCommand}"/>
                 <Button Content="Last" Width="50" Height="30" Background="#FF7CACFC"/>
                 <ComboBox Width="50" Height="30" SelectedValue="{Binding ClientAmnt}" Margin="20 0 0 0">
                     <ComboBoxItem Content="10"/>
