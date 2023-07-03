@@ -52,9 +52,27 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private async void PrevPage()
         {
-            if (CurrentPage > 0)
+            if (CurrentPage > 1)
             {
                 CurrentPage--;
+                await LoadClients();
+            }
+        }
+        [RelayCommand]
+        private async void FirstPage()
+        {
+            if(CurrentPage != 1)
+            {
+                CurrentPage = 1;
+                await LoadClients();
+            }
+        }
+        [RelayCommand]
+        private async void LastPage()
+        {
+            if(CurrentPage != NumberOfPages)
+            {
+                CurrentPage = NumberOfPages;
                 await LoadClients();
             }
         }
