@@ -42,6 +42,7 @@ namespace Invoice_GenUI.ViewModels
             {
                 SetProperty(ref _selectedPageSize, value);
                 clientAmnt = _selectedPageSize;
+                CurrentPage = 1;
                 Task.Run(() => LoadInvoices()).Wait();
                 AssignTotal();
             }
