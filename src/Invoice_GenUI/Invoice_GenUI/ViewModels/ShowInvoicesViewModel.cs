@@ -34,7 +34,7 @@ namespace Invoice_GenUI.ViewModels
             double total = 0;
             foreach (var item in DisplayInvoices)
             {
-                foreach (var lineItem in item.LineItems)
+                foreach (var lineItem in item.LineItems!)
                 {
                     total += lineItem.Cost * lineItem.Quantity;
                     double vatTotal = total * (item.VatRate / 100);
