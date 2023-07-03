@@ -48,7 +48,7 @@ namespace Invoice_GenUI.ViewModels
         private async void DeleteClientDetails(CreateClientModel parameter)
         {
             var result = _messageBoxService.Confirm("Are you sure you want to delete this client?");
-            if (result == true)
+            if (result)
             {
                 bool confirm = await _clientService.DeleteClient(parameter.ClientId);
                 if (confirm)

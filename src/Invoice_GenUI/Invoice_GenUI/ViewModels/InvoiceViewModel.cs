@@ -81,7 +81,7 @@ namespace Invoice_GenUI.ViewModels
         private void GoBack()
         {
             var result = _messageBoxService.Warning("All your progress will be cleared");
-            if (result == true)
+            if (result)
             {
                 _passingService.StoredItems!.Clear();
                 _navigation.NavigateTo<HomeViewModel>();
@@ -109,7 +109,7 @@ namespace Invoice_GenUI.ViewModels
         private async void CreateInvoice()
         {
             var result = _messageBoxService.Confirm("Are you sure you want to create this invoice?");
-            if (result == true)
+            if (result)
             {
                 if (SelectedClientName.ClientID == 0 || SelectedClientName.ClientName == null)
                 {

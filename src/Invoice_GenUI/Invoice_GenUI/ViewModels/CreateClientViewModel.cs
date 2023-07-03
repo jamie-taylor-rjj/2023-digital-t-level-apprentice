@@ -48,7 +48,7 @@ namespace Invoice_GenUI.ViewModels
         private async Task CreateClient()
         {
             var confirm = _messageBoxService.Confirm("Do you want to create this client?");
-            if (confirm == true)
+            if (confirm)
             {
                 var newClient = new CreateClientModel
                 {

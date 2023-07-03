@@ -69,7 +69,7 @@ namespace Invoice_GenUI.ViewModels
         private void CancelLineItem()
         {
             var result = _messageBoxService.Confirm("Are you sure?");
-            if (result == true)
+            if (result)
             {
                 Description = string.Empty;
                 Quantity = 0;
@@ -82,7 +82,7 @@ namespace Invoice_GenUI.ViewModels
         private void AddLineItem()
         {
             var result = _messageBoxService.Confirm("Do you want to add this line item?");
-            if (result == true)
+            if (result)
             {
                 ItemId = newLineItems.Count + 1;
                 var newLineItem = new LineItemModel

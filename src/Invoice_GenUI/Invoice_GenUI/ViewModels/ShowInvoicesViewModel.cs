@@ -67,7 +67,7 @@ namespace Invoice_GenUI.ViewModels
         public async void DeleteInvoiceDetails(InvoiceModel parameter)
         {
             var result = _messageBoxService.Confirm("Are you sure you want to delete this invoice?");
-            if (result == true)
+            if (result)
             {
                 bool confirm = await _invoiceListService.DeleteInvoice(parameter.InvoiceId);
                 if (confirm)
