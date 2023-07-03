@@ -8,7 +8,7 @@ namespace Invoice_GenUI.Models.InternalServices
         {
             bool confirm = false;
             var result = MessageBox.Show(message, "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 confirm = true;
             }
@@ -26,7 +26,7 @@ namespace Invoice_GenUI.Models.InternalServices
         {
             return MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-        public bool Warning(string message) 
+        public bool Warning(string message)
         {
             bool confirm = false;
             var result = MessageBox.Show(message, "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Warning);

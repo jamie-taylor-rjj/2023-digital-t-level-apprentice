@@ -28,7 +28,7 @@ namespace Invoice_GenUI.ViewModels
         [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Field is required")]
         private string? _description;
-        
+
         private int _quantity;
         [Required]
         [Range(1, int.MaxValue)]
@@ -69,7 +69,7 @@ namespace Invoice_GenUI.ViewModels
         private void CancelLineItem()
         {
             var result = _messageBoxService.Confirm("Are you sure?");
-            if(result == true)
+            if (result == true)
             {
                 Description = string.Empty;
                 Quantity = 0;
@@ -82,7 +82,7 @@ namespace Invoice_GenUI.ViewModels
         private void AddLineItem()
         {
             var result = _messageBoxService.Confirm("Do you want to add this line item?");
-            if(result == true)
+            if (result == true)
             {
                 ItemId = newLineItems.Count + 1;
                 var newLineItem = new LineItemModel

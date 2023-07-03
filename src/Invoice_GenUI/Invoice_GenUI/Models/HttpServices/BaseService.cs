@@ -2,8 +2,8 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Invoice_GenUI.Models.Services
 {
@@ -17,16 +17,16 @@ namespace Invoice_GenUI.Models.Services
         }
         public async Task<T?> SendHttpGetRequest<T>(string url)
         {
-                var response = await CreateHttpClient().GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromJsonAsync<T>();
+            var response = await CreateHttpClient().GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<T>();
         }
         public async Task<bool> SendHttpDeleteRequest(string url)
         {
             bool result = false;
             var response = await CreateHttpClient().DeleteAsync(url);
             response.EnsureSuccessStatusCode();
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 result = true;
             }
@@ -39,7 +39,7 @@ namespace Invoice_GenUI.Models.Services
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await CreateHttpClient().PutAsync(url, content);
             response.EnsureSuccessStatusCode();
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 result = true;
             }

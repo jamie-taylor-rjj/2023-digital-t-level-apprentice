@@ -81,7 +81,7 @@ namespace Invoice_GenUI.ViewModels
         private void GoBack()
         {
             var result = _messageBoxService.Warning("All your progress will be cleared");
-            if(result == true)
+            if (result == true)
             {
                 _passingService.StoredItems!.Clear();
                 _navigation.NavigateTo<HomeViewModel>();
