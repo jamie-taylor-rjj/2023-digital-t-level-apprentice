@@ -28,14 +28,24 @@ namespace Invoice_GenUI.ViewModels
         private int _currentPage=1;
         [ObservableProperty]
         private int _numberOfPages;
-        [ObservableProperty]
-        private int _clientAmnt=10;
+        private int clientAmnt = 10;
         [ObservableProperty]
         private ObservableCollection<CreateClientModel>? _showClientDetails;
+        private int _selectedPageSize;
+        public int SelectedPageSize
+        {
+            get => _selectedPageSize;
+            set
+            {
+                SetProperty(ref _selectedPageSize, value);
+                clientAmnt = _selectedPageSize; 
+                Task.Run(() => LoadClients()).Wait();
+            }
+        }
         public async Task LoadClients()
         {
             int pageNumber = CurrentPage;
-            int pageSize = ClientAmnt;
+            int pageSize = clientAmnt;
             var pagedClients = await _clientService.GetClientPages(pageNumber, pageSize);
             ShowClientDetails = pagedClients.Data;
             NumberOfPages = pagedClients.TotalPages;
