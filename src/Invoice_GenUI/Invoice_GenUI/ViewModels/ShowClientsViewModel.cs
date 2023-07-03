@@ -27,7 +27,7 @@ namespace Invoice_GenUI.ViewModels
 
         }
         [ObservableProperty]
-        private int _currentPage=1;
+        private int _currentPage = 1;
         [ObservableProperty]
         private int _numberOfPages;
         private int clientAmnt = 10;
@@ -40,7 +40,7 @@ namespace Invoice_GenUI.ViewModels
             set
             {
                 SetProperty(ref _selectedPageSize, value);
-                clientAmnt = _selectedPageSize; 
+                clientAmnt = _selectedPageSize;
                 Task.Run(() => LoadClients()).Wait();
             }
         }
@@ -55,7 +55,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private async void NextPage()
         {
-            if(CurrentPage < NumberOfPages)
+            if (CurrentPage < NumberOfPages)
             {
                 CurrentPage++;
                 await LoadClients();
@@ -73,7 +73,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private async void FirstPage()
         {
-            if(CurrentPage != 1)
+            if (CurrentPage != 1)
             {
                 CurrentPage = 1;
                 await LoadClients();
@@ -82,7 +82,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         private async void LastPage()
         {
-            if(CurrentPage != NumberOfPages)
+            if (CurrentPage != NumberOfPages)
             {
                 CurrentPage = NumberOfPages;
                 await LoadClients();
