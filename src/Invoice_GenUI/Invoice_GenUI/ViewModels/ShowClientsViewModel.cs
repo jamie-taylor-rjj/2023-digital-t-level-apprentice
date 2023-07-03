@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
 using Invoice_GenUI.Models.InternalServices;
@@ -24,6 +25,12 @@ namespace Invoice_GenUI.ViewModels
             _messageBoxService = messageBoxService;
             Task.Run(() => GetClientDetails()).Wait();
         }
+        [ObservableProperty]
+        private int? _currentPage;
+        [ObservableProperty]
+        private int? _numberOfPages;
+        [ObservableProperty]
+        private int? _clientAmnt;
         public async Task GetClientDetails()
         {
             var tempClients = await _clientService.GetClientDetails();
