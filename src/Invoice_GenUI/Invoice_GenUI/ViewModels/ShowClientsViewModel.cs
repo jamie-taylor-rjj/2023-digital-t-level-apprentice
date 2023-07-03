@@ -15,6 +15,8 @@ namespace Invoice_GenUI.ViewModels
         private readonly IClientService _clientService;
         private readonly IPassingService _passingService;
         private readonly IMessageBoxService _messageBoxService;
+
+        public ObservableCollection<int> PageSizeOptions { get; } = new ObservableCollection<int> { 10, 25, 50 };
         public ShowClientsViewModel(INavigationService navService, IClientService clientService, IPassingService passingService, IMessageBoxService messageBoxService)
         {
             _navigation = navService;
