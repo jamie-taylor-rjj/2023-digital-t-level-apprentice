@@ -45,7 +45,7 @@
             </DataGrid>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5 0 0">
                 <Button Content="First" Width="50" Height="30" Background="#FF7CACFC"/>
-                <Button Content="Prev" Width="50" Height="30" Margin="5" Background="#FF7CACFC"/>
+                <Button Content="Prev" Width="50" Height="30" Margin="5" Background="#FF7CACFC" Command="{Binding PrevPageCommand}"/>
                 <TextBlock Width="auto" Height="auto" FontSize="15" Foreground="GhostWhite" TextAlignment="Center" VerticalAlignment="Center">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{} Page {0} of {1}">

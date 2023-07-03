@@ -46,8 +46,17 @@ namespace Invoice_GenUI.ViewModels
             if(CurrentPage < NumberOfPages)
             {
                 CurrentPage++;
+                await LoadClients();
             }
-            Task.Run(() => LoadClients()).Wait();
+        }
+        [RelayCommand]
+        private async void PrevPage()
+        {
+            if (CurrentPage > 0)
+            {
+                CurrentPage--;
+                await LoadClients();
+            }
         }
         [RelayCommand]
         private void GoBack()
