@@ -23,6 +23,15 @@ public class InvoiceRepository : IInvoiceRepository
         }
     }
 
+    public IQueryable<Invoice> GetAsQueryable()
+    {
+        using (_logger.BeginScope("{RepositoryName} - getting IQueryable of {RecordName}",
+                   nameof(InvoiceRepository), nameof(Invoice)))
+        {
+            return _dbContext.Invoices.AsQueryable();
+        }
+    }
+
     public async Task<Invoice> Add(Invoice invoice)
     {
         using (_logger.BeginScope("{RepositoryName} - adding new {RecordName}",

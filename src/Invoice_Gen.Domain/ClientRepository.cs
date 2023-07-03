@@ -23,6 +23,15 @@ public class ClientRepository : IClientRepository
         }
     }
 
+    public IQueryable<Client> GetAsQueryable()
+    {
+        using (_logger.BeginScope("{RepositoryName} - getting IQueryable of {RecordName}",
+                   nameof(ClientRepository), nameof(Client)))
+        {
+            return _dbContext.Clients.AsQueryable();
+        }
+    }
+
     public async Task<Client> Add(Client client)
     {
         using (_logger.BeginScope("{RepositoryName} - adding new {RecordName}",

@@ -1,8 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Invoice_Gen.WebApi.Helpers;
-[ExcludeFromCodeCoverage]
 public static class CommonHelpers
 {
     public static string GetVersionNumber()

@@ -1,6 +1,10 @@
-﻿using Invoice_Gen.Domain.Models;
+﻿using Invoice_Gen.Domain;
+using Invoice_Gen.Domain.Models;
+using Invoice_Gen.Mappers;
+using Invoice_Gen.ViewModels;
+using Microsoft.Extensions.Logging;
 
-namespace Invoice_Gen.WebApi.Services;
+namespace InvoiceGen.Services;
 
 public class ClientService : IClientService
 {
@@ -36,10 +40,41 @@ public class ClientService : IClientService
     {
         using (_logger.BeginScope("{ClientService} getting client record for {ID}", nameof(ClientService), id))
         {
-            var client = _clientRepository.GetAll().FirstOrDefault(f => f.ClientId == id);
+            var client = _clientRepository.GetAsQueryable().FirstOrDefault(f => f.ClientId == id);
 
             _logger.LogInformation("Returning {ClientNameViewModel} for {ID}", nameof(ClientViewModel), id);
             return client == null ? null : _clientViewModelMapper.Convert(client);
+        }
+    }
+
+    public PagedResponse<ClientViewModel> GetPage(int pageNumber, int pageSize = 10)
+    {
+        using (_logger.BeginScope(
+                   "{NameOfService} creating paged response of {ViewModelName} with page number of {PageNumber} and page size of {PageSize}",
+                   nameof(ClientService), nameof(ClientViewModel), pageNumber, pageSize))
+        {
+            var pageNumberToUse = pageNumber < 1
+                ? 1
+                : pageNumber;
+
+            var records = _clientRepository.GetAsQueryable();
+
+            var totalCount = records.Count();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            var page = records
+                .OrderBy(c => c.ClientId)
+                .Skip((pageNumberToUse - 1) * pageSize)
+                .Take(pageSize);
+
+            return new PagedResponse<ClientViewModel>
+            {
+                Data = page.AsEnumerable().Select(_clientViewModelMapper.Convert).ToList(),
+                PageNumber = pageNumberToUse,
+                PageSize = page.Count(),
+                TotalPages = totalPages,
+                TotalRecords = totalCount
+            };
         }
     }
 

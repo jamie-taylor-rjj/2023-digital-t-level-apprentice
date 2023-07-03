@@ -1,6 +1,10 @@
-﻿using Invoice_Gen.Domain.Models;
+﻿using Invoice_Gen.Domain;
+using Invoice_Gen.Domain.Models;
+using Invoice_Gen.Mappers;
+using Invoice_Gen.ViewModels;
+using Microsoft.Extensions.Logging;
 
-namespace Invoice_Gen.WebApi.Services;
+namespace InvoiceGen.Services;
 
 public class InvoiceService : IInvoiceService
 {
@@ -42,12 +46,44 @@ public class InvoiceService : IInvoiceService
     {
         using (_logger.BeginScope("{InvoiceService} getting invoice record for {ID}", nameof(InvoiceService), id))
         {
-            var invoice = _invoiceRepository.GetAll().FirstOrDefault(f => f.InvoiceId == id);
+            var invoice = _invoiceRepository.GetAsQueryable().FirstOrDefault(f => f.InvoiceId == id);
 
             _logger.LogInformation("Returning {InvoiceViewModel} for {ID}", nameof(InvoiceViewModel), id);
             return invoice == null ? null : _invoiceViewModelMapper.Convert(invoice);
         }
     }
+
+    public PagedResponse<InvoiceViewModel> GetPage(int pageNumber, int pageSize = 10)
+    {
+        using (_logger.BeginScope(
+                   "{NameOfService} creating paged response of {ViewModelName} with page number of {PageNumber} and page size of {PageSize}",
+                   nameof(InvoiceService), nameof(InvoiceViewModel), pageNumber, pageSize))
+        {
+            var pageNumberToUse = pageNumber < 1
+                ? 1
+                : pageNumber;
+
+            var records = _invoiceRepository.GetAsQueryable();
+
+            var totalCount = records.Count();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            var page = records
+                .OrderBy(c => c.ClientId)
+                .Skip((pageNumberToUse - 1) * pageSize)
+                .Take(pageSize);
+
+            return new PagedResponse<InvoiceViewModel>
+            {
+                Data = page.AsEnumerable().Select(_invoiceViewModelMapper.Convert).ToList(),
+                PageNumber = pageNumberToUse,
+                PageSize = page.Count(),
+                TotalPages = totalPages,
+                TotalRecords = totalCount
+            };
+        }
+    }
+
 
     public async Task<int> CreateNewInvoice(InvoiceCreateModel newInvoice)
     {
