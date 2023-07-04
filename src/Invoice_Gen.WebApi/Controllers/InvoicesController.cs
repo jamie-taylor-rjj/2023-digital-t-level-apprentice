@@ -7,15 +7,15 @@ namespace Invoice_Gen.WebApi.Controllers;
 [ApiController]
 [Route("[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
-public class InvoiceController : ControllerBase
+public class InvoicesController : ControllerBase
 {
     private readonly IGetInvoices _invoiceGetter;
     private readonly ICreateInvoices _invoiceCreator;
     private readonly IDeleteInvoices _invoiceDeleter;
     private readonly IPageInvoices _pageInvoices;
-    private readonly ILogger<InvoiceController> _logger;
+    private readonly ILogger<InvoicesController> _logger;
 
-    public InvoiceController(ILogger<InvoiceController> logger, IPageInvoices pageInvoices,
+    public InvoicesController(ILogger<InvoicesController> logger, IPageInvoices pageInvoices,
         IGetInvoices invoiceGetter, ICreateInvoices invoiceCreator, IDeleteInvoices invoiceDeleter)
     {
         _logger = logger;
