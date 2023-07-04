@@ -106,7 +106,7 @@ namespace Invoice_GenUI.ViewModels
         {
             foreach (var item in newLineItems)
             {
-                _passingService.StoredItems!.Add(item);
+                _passingService.StoredItems.Add(item);
             }
             _navigation.NavigateTo<InvoiceViewModel>();
         }

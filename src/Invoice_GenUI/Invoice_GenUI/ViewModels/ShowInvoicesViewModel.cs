@@ -33,7 +33,7 @@ namespace Invoice_GenUI.ViewModels
         private int _numberOfPages;
         private int clientAmnt = 10;
         [ObservableProperty]
-        private ObservableCollection<InvoiceModel>? _displayInvoices;
+        private ObservableCollection<InvoiceModel> _displayInvoices = new ObservableCollection<InvoiceModel>();
         private int _selectedPageSize;
         public int SelectedPageSize
         {
@@ -52,7 +52,7 @@ namespace Invoice_GenUI.ViewModels
             int pageNumber = CurrentPage;
             int pageSize = clientAmnt;
             var pagedInvoices = await _invoiceListService.GetInvoicePages(pageNumber, pageSize);
-            DisplayInvoices = pagedInvoices.Data;
+            DisplayInvoices = pagedInvoices.Data ?? new ObservableCollection<InvoiceModel>();
             NumberOfPages = pagedInvoices.TotalPages;
         }
         [RelayCommand]
@@ -100,9 +100,9 @@ namespace Invoice_GenUI.ViewModels
         public void AssignTotal()
         {
             double total = 0;
-            foreach (var item in DisplayInvoices!)
+            foreach (var item in DisplayInvoices)
             {
-                foreach (var lineItem in item.LineItems!)
+                foreach (var lineItem in item.LineItems)
                 {
                     total += lineItem.Cost * lineItem.Quantity;
                     double vatTotal = total * (item.VatRate / 100);

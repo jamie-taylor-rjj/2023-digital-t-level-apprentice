@@ -19,7 +19,7 @@ namespace Invoice_GenUI.ViewModels
         private readonly IClientService _clientService;
         private readonly IMessageBoxService _messageBoxService;
 
-        public ObservableCollection<LineItemModel> LineItems => _passingService.StoredItems!;
+        public ObservableCollection<LineItemModel> LineItems => _passingService.StoredItems;
         public ObservableCollection<ClientNameModel> ClientNames { get; } = new ObservableCollection<ClientNameModel>();
 
         public InvoiceViewModel(INavigationService navService, IClientService clientService, IInvoiceService invoiceService, IPassingService passingService, IMessageBoxService messageBoxService)
@@ -83,7 +83,7 @@ namespace Invoice_GenUI.ViewModels
             var result = _messageBoxService.Warning("All your progress will be cleared");
             if (result)
             {
-                _passingService.StoredItems!.Clear();
+                _passingService.StoredItems.Clear();
                 _navigation.NavigateTo<HomeViewModel>();
             }
         }
