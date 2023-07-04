@@ -11,16 +11,11 @@ namespace Invoice_GenUI.Models.Services
         }
         public async Task<bool> DeleteInvoice(int id)
         {
-            bool result = false;
-
-            var response = await CreateHttpClient().DeleteAsync($"Invoice/{id}");
-            response.EnsureSuccessStatusCode();
-            if (response.IsSuccessStatusCode)
-            {
-                result = true;
-            }
-
-            return result;
+            return await SendHttpDeleteRequest($"Invoice/{id}");
+        }
+        public async Task<InvoicePageModel> GetInvoicePages(int pageNumber, int pageSize)
+        {
+            return await SendHttpGetRequest<InvoicePageModel>($"Invoice/page/{pageNumber}?pageSize={pageSize}") ?? new();
         }
     }
 }

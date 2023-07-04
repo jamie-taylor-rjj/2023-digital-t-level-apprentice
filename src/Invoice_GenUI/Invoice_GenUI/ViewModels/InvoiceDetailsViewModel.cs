@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
 using Invoice_GenUI.Models.PassingValuesServices;
@@ -11,13 +10,12 @@ namespace Invoice_GenUI.ViewModels
 {
     public partial class InvoiceDetailsViewModel : ViewModel
     {
-        [ObservableProperty]
-        private INavigationService _navigation;
+        private readonly INavigationService _navigation;
         private readonly IInvoiceService _invoiceService;
         private readonly IClientService _clientService;
         private readonly IPassingService _passingService;
 
-        public ObservableCollection<LineItemModel> LineItemDetails { get; set; }
+        public ObservableCollection<LineItemModel>? LineItemDetails { get; set; }
 
         public InvoiceDetailsViewModel(INavigationService navService, IInvoiceService invoiceService, IClientService clientService, IPassingService passingService)
         {
@@ -57,7 +55,7 @@ namespace Invoice_GenUI.ViewModels
         }
         public void AssignTotal()
         {
-            foreach (var lineItems in LineItemDetails)
+            foreach (var lineItems in LineItemDetails!)
             {
                 lineItems.Total = lineItems.Quantity * lineItems.Cost;
             }
@@ -66,7 +64,7 @@ namespace Invoice_GenUI.ViewModels
         [RelayCommand]
         public void GoBack()
         {
-            Navigation.NavigateTo<ShowInvoicesViewModel>();
+            _navigation.NavigateTo<ShowInvoicesViewModel>();
         }
     }
 }

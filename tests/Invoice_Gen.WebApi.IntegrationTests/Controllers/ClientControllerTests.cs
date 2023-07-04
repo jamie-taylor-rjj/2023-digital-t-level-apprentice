@@ -122,7 +122,7 @@ public class ClientControllerTests : BaseTestClass
         var content = new StringContent(json, Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
 
         // Act
-        var response = await _client.PutAsync("/Clients/Client", content);
+        var response = await _client.PutAsync("/Clients", content);
 
         // Assert
         response.EnsureSuccessStatusCode();

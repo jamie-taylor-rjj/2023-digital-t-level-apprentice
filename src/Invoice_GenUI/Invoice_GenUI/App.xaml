@@ -31,5 +31,17 @@
             <view:InvoiceDetailsView/>
         </DataTemplate>
 
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#FF353B43" />
+            <Setter Property="Foreground" Value="GhostWhite" />
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
     </Application.Resources>
 </Application>

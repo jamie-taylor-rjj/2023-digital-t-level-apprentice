@@ -118,7 +118,7 @@ public class ClientsController : ControllerBase
     /// OK (i.e. 200) if the new record could be created
     /// Internal Server Error (i.e. 500) if the record could not be created
     /// </returns>
-    [HttpPut("Client")]
+    [HttpPut]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateClient(ClientCreationModel inputClient)
     {

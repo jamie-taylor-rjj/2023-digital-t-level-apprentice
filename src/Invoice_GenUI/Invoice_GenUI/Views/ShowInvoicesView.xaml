@@ -7,13 +7,6 @@
              xmlns:local="clr-namespace:Invoice_GenUI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <Style x:Key="HeaderColour" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#FF353B43" />
-            <Setter Property="Foreground" Value="GhostWhite" />
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
-    </UserControl.Resources>
     <Border>
         <Border.Background>
             <SolidColorBrush Color="#FF353B43"/>
@@ -30,25 +23,19 @@
                 <TextBlock Text="View" Foreground="GhostWhite" FontWeight="SemiBold" FontSize="24" Margin="20 20 0 0"/>
                 <TextBlock Text="Invoices" Foreground="#FF7CACFC" FontWeight="SemiBold" FontSize="24" Margin="5 20 0 0"/>
             </StackPanel>
-            <DataGrid x:Name="dg_clients" Width="700" Height="325" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=DisplayInvoices}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White" IsReadOnly="True" CanUserAddRows="False">
+            <DataGrid x:Name="dg_clients" Width="700" Height="310" Grid.Row="1" Margin="0 20 0 0" ItemsSource="{Binding Path=DisplayInvoices, Mode=TwoWay}" AutoGenerateColumns="False" Background="GhostWhite" RowBackground="White" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="Invoice ID">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DataContext.DisplayedID, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Date Created" Width="auto" Binding="{Binding Path=IssueDate, StringFormat='{}{0:yyyy/MM/dd}'}"/>
-                    <DataGridTextColumn HeaderStyle="{StaticResource HeaderColour}" Header="Total Value" Width="auto" Binding="{Binding Total}"/>
-                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="View Details">
+                    <DataGridTextColumn Header="Invoice ID" Width="80" Binding="{Binding InvoiceId}"/>
+                    <DataGridTextColumn Header="Date Created" Width="120" Binding="{Binding Path=IssueDate, StringFormat='{}{0:yyyy/MM/dd}'}"/>
+                    <DataGridTextColumn Header="Total Value" Width="100" Binding="{Binding Total}"/>
+                    <DataGridTemplateColumn Header="View Details">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="View" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.ViewInvoiceDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderColour}" Header="Delete Invoice">
+                    <DataGridTemplateColumn Header="Delete Invoice">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="DELETE" FontWeight="Bold" Background="#FF7CACFC" Width="100" Padding="10" Margin="5" Command="{Binding DataContext.DeleteInvoiceDetailsCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
@@ -57,7 +44,22 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Grid.Row="2" Content="Go Back" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" HorizontalAlignment="Left" Margin="10 10 0 0" Height="30" Command="{Binding GoBackCommand}"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5 0 0">
+                <Button Content="First" Width="50" Height="30" Background="#FF7CACFC" Command="{Binding FirstPageCommand}"/>
+                <Button Content="Prev" Width="50" Height="30" Margin="5" Background="#FF7CACFC" Command="{Binding PrevPageCommand}"/>
+                <TextBlock Width="auto" Height="auto" FontSize="15" Foreground="GhostWhite" TextAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Page {0} of {1}">
+                            <Binding Path="CurrentPage"/>
+                            <Binding Path="NumberOfPages"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button Content="Next" Width="50" Height="30" Margin="5" Background="#FF7CACFC" Command="{Binding NextPageCommand}"/>
+                <Button Content="Last" Width="50" Height="30" Background="#FF7CACFC" Command="{Binding LastPageCommand}"/>
+                <ComboBox Width="50" Height="30" ItemsSource="{Binding PageSizeOptions}" SelectedItem="{Binding SelectedPageSize}" Margin="20 0 0 0"/>
+            </StackPanel>
+            <Button Grid.Row="2" Content="Go Back" FontWeight="SemiBold" Background="#FF7CACFC" Width="100" HorizontalAlignment="Left" Margin="50 5 0 0" Height="30" Command="{Binding GoBackCommand}"/>
             <Rectangle Grid.Row="1" HorizontalAlignment="Left" Height="2" Margin="238,5,0,0" VerticalAlignment="Top" Width="332" Fill="#FF505861"/>
             <Rectangle Grid.Row="1" HorizontalAlignment="Left" Height="6" VerticalAlignment="Top" Width="46" Fill="#FF7CACFC" Margin="381,3,0,0"/>
         </Grid>

@@ -63,7 +63,7 @@ public class InvoiceControllerTests : BaseTestClass
         const int pageSize = 25;
 
         // Act
-        var response = await _client.GetAsync($"Invoice/page/{pageNumber}?pageSize={pageSize}");
+        var response = await _client.GetAsync($"/Invoice/page/{pageNumber}?pageSize={pageSize}");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -84,7 +84,7 @@ public class InvoiceControllerTests : BaseTestClass
         const int pageSize = 25;
 
         // Act
-        var response = await _client.GetAsync($"Invoice/page/{pageNumber}?pageSize={pageSize}");
+        var response = await _client.GetAsync($"/Invoice/page/{pageNumber}?pageSize={pageSize}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
@@ -100,7 +100,7 @@ public class InvoiceControllerTests : BaseTestClass
         const int pageNumber = 1;
 
         // Act
-        var response = await _client.GetAsync($"Invoice/page/{pageNumber}?pageSize={pageSize}");
+        var response = await _client.GetAsync($"/Invoice/page/{pageNumber}?pageSize={pageSize}");
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
