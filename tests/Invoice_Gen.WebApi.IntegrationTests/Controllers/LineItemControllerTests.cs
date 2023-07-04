@@ -11,7 +11,7 @@ public class LineItemControllerTests : BaseTestClass
         const int lineItemId = 1;
 
         // Act
-        var response = await _client.GetAsync($"/LineItem/{lineItemId}");
+        var response = await _client.GetAsync($"/LineItems/{lineItemId}");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -30,7 +30,7 @@ public class LineItemControllerTests : BaseTestClass
         // Arrange
 
         // Act
-        var response = await _client.GetAsync($"/LineItem/{invoiceId}");
+        var response = await _client.GetAsync($"/LineItems/{invoiceId}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
