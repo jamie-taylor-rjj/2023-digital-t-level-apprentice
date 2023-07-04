@@ -1,5 +1,5 @@
 ﻿using System.Net.Mime;
-using InvoiceGen.Services;
+using InvoiceGen.Services.InvoiceServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_Gen.WebApi.Controllers;
@@ -9,13 +9,20 @@ namespace Invoice_Gen.WebApi.Controllers;
 [Produces(MediaTypeNames.Application.Json)]
 public class InvoicesController : ControllerBase
 {
-    private readonly IInvoiceService _invoiceService;
+    private readonly IGetInvoices _invoiceGetter;
+    private readonly ICreateInvoices _invoiceCreator;
+    private readonly IDeleteInvoices _invoiceDeleter;
+    private readonly IPageInvoices _pageInvoices;
     private readonly ILogger<InvoicesController> _logger;
 
-    public InvoicesController(ILogger<InvoicesController> logger, IInvoiceService invoiceService)
+    public InvoicesController(ILogger<InvoicesController> logger, IPageInvoices pageInvoices,
+        IGetInvoices invoiceGetter, ICreateInvoices invoiceCreator, IDeleteInvoices invoiceDeleter)
     {
         _logger = logger;
-        _invoiceService = invoiceService;
+        _pageInvoices = pageInvoices;
+        _invoiceGetter = invoiceGetter;
+        _invoiceCreator = invoiceCreator;
+        _invoiceDeleter = invoiceDeleter;
     }
 
     /// <summary>
@@ -30,7 +37,7 @@ public class InvoicesController : ControllerBase
     {
         using (_logger.BeginScope("Getting all invoices"))
         {
-            var invoices = _invoiceService.GetInvoices();
+            var invoices = _invoiceGetter.GetInvoices();
 
             _logger.LogInformation("Returning list of {InvoiceViewModel}", typeof(InvoiceViewModel));
             return new OkObjectResult(invoices);
@@ -51,7 +58,7 @@ public class InvoicesController : ControllerBase
     {
         using (_logger.BeginScope("Getting invoice data for {ID}", invoiceId))
         {
-            var invoice = _invoiceService.GetById(invoiceId);
+            var invoice = _invoiceGetter.GetById(invoiceId);
             if (invoice == null)
             {
                 _logger.LogInformation("Unable to find invoice record");
@@ -99,7 +106,7 @@ public class InvoicesController : ControllerBase
                     return new BadRequestResult();
             }
 
-            var pagedContent = _invoiceService.GetPage(pageNumber, pageSize);
+            var pagedContent = _pageInvoices.GetPage(pageNumber, pageSize);
             return new OkObjectResult(pagedContent);
         }
     }
@@ -115,18 +122,12 @@ public class InvoicesController : ControllerBase
     /// </returns>
     [HttpPut]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateInvoice(InvoiceCreateModel newInvoice)
     {
         using (_logger.BeginScope("Request to create new client Invoice for client {ClientId} received",
                    newInvoice.ClientId))
         {
-            var response = await _invoiceService.CreateNewInvoice(newInvoice);
-            if (response == default)
-            {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-            }
-
+            var response = await _invoiceCreator.CreateNewInvoice(newInvoice);
             return new CreatedResult(nameof(GetInvoiceById), new { invoiceId = response });
         }
     }
@@ -153,7 +154,7 @@ public class InvoicesController : ControllerBase
                 return new BadRequestResult();
             }
 
-            await _invoiceService.DeleteInvoice(invoiceId);
+            await _invoiceDeleter.DeleteInvoice(invoiceId);
 
             return new OkResult();
         }

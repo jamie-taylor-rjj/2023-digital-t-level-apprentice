@@ -2,9 +2,11 @@
 
 Welcome to the main branch of this repo.
 
+## WebAPI Badges
+
 | Test coverage | Build status |
 |---------|---------|
-| ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-98%25-green?style=flat) | [![(WebApi) Build and deploy ASP.Net Core app to Azure](https://github.com/jamie-taylor-rjj/2023-digital-t-level-apprentice/actions/workflows/main_2023-invoice-gen.yml/badge.svg?branch=main)](https://github.com/jamie-taylor-rjj/2023-digital-t-level-apprentice/actions/workflows/main_2023-invoice-gen.yml) |
+| ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-100%25-green?style=flat) | [![(WebApi) Build and deploy ASP.Net Core app to Azure](https://github.com/jamie-taylor-rjj/2023-digital-t-level-apprentice/actions/workflows/main_2023-invoice-gen.yml/badge.svg?branch=main)](https://github.com/jamie-taylor-rjj/2023-digital-t-level-apprentice/actions/workflows/main_2023-invoice-gen.yml) |
 
 Please see the [Glossary](./GLOSSARY.MD) for descriptions of some keywords we'll be using. Also please see the [Common commands](/COMMON-COMMANDS.MD) for some common git commands.
 

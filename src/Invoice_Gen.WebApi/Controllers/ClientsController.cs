@@ -1,5 +1,5 @@
 ﻿using System.Net.Mime;
-using InvoiceGen.Services;
+using InvoiceGen.Services.ClientServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_Gen.WebApi.Controllers;
@@ -10,12 +10,19 @@ namespace Invoice_Gen.WebApi.Controllers;
 public class ClientsController : ControllerBase
 {
     private readonly ILogger<ClientsController> _logger;
-    private readonly IClientService _clientService;
+    private readonly IGetClients _clientGetter;
+    private readonly ICreateClients _clientCreator;
+    private readonly IDeleteClients _clientDeleter;
+    private readonly IPageClients _pageClients;
 
-    public ClientsController(ILogger<ClientsController> logger, IClientService clientService)
+    public ClientsController(ILogger<ClientsController> logger, IGetClients clientGetter, IPageClients pageClients,
+        ICreateClients clientCreator, IDeleteClients clientDeleter)
     {
         _logger = logger;
-        _clientService = clientService;
+        _clientGetter = clientGetter;
+        _pageClients = pageClients;
+        _clientCreator = clientCreator;
+        _clientDeleter = clientDeleter;
     }
 
     /// <summary>
@@ -30,7 +37,7 @@ public class ClientsController : ControllerBase
     {
         using (_logger.BeginScope("Getting all clients"))
         {
-            var clients = _clientService.GetClients();
+            var clients = _clientGetter.GetClients();
 
             _logger.LogInformation("Returning list of {ClientNameViewModel}", typeof(ClientViewModel));
             return new OkObjectResult(clients);
@@ -49,7 +56,7 @@ public class ClientsController : ControllerBase
     {
         using (_logger.BeginScope("Getting client data for {ID}", clientId))
         {
-            var client = _clientService.GetById(clientId);
+            var client = _clientGetter.GetById(clientId);
             if (client == null)
             {
                 _logger.LogInformation("Unable to find client record");
@@ -97,7 +104,7 @@ public class ClientsController : ControllerBase
                     return new BadRequestResult();
             }
 
-            var pagedContent = _clientService.GetPage(pageNumber, pageSize);
+            var pagedContent = _pageClients.GetPage(pageNumber, pageSize);
             return new OkObjectResult(pagedContent);
         }
     }
@@ -111,17 +118,13 @@ public class ClientsController : ControllerBase
     /// OK (i.e. 200) if the new record could be created
     /// Internal Server Error (i.e. 500) if the record could not be created
     /// </returns>
-    [HttpPut("Client")]
+    [HttpPut]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateClient(ClientCreationModel inputClient)
     {
         using (_logger.BeginScope("Request to create new client {ClientName} received", inputClient.ClientName))
         {
-            var response = await _clientService.CreateNewClient(inputClient);
-            if (response == default)
-            {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-            }
+            var response = await _clientCreator.CreateNewClient(inputClient);
 
             return new CreatedResult(nameof(GetClientById), new { clientId = response });
         }
@@ -149,7 +152,7 @@ public class ClientsController : ControllerBase
                 return new BadRequestResult();
             }
 
-            await _clientService.DeleteClient(clientId);
+            await _clientDeleter.DeleteClient(clientId);
 
             return new OkResult();
         }

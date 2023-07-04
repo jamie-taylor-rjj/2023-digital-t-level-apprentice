@@ -1,6 +1,5 @@
 ﻿namespace Invoice_Gen.WebApi.IntegrationTests.Controllers;
 
-[ExcludeFromCodeCoverage]
 public class LineItemControllerTests : BaseTestClass
 {
     public LineItemControllerTests(CustomWebApplicationFactory factory) : base(factory) { }
@@ -12,7 +11,7 @@ public class LineItemControllerTests : BaseTestClass
         const int lineItemId = 1;
 
         // Act
-        var response = await _client.GetAsync($"/LineItems/{lineItemId}");
+        var response = await _client.GetAsync($"/LineItem/{lineItemId}");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -31,7 +30,7 @@ public class LineItemControllerTests : BaseTestClass
         // Arrange
 
         // Act
-        var response = await _client.GetAsync($"/LineItems/{invoiceId}");
+        var response = await _client.GetAsync($"/LineItem/{invoiceId}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);

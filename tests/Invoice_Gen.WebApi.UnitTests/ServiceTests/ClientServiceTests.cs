@@ -1,10 +1,9 @@
 ﻿using Invoice_Gen.WebApi.UnitTests.Helpers;
-using InvoiceGen.Services;
+using InvoiceGen.Services.ClientServices;
 using Microsoft.Extensions.Logging;
 
 namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;
 
-[ExcludeFromCodeCoverage]
 public class ClientServiceTests
 {
     private readonly Random _rng;
@@ -29,117 +28,6 @@ public class ClientServiceTests
     }
 
     [Fact]
-    public void Given_Atleast_One_Client_GetAll_Should_Return_At_Least_One_ClientViewModel()
-    {
-        // Arrange
-        var client = new Client
-        {
-            ClientId = _clientId,
-            ClientName = _clientName,
-            ClientAddress = _clientAddress,
-            ContactName = _contactName,
-            ContactEmail = _contactEmail
-        };
-        var clientsForMock = new List<Client> { client };
-
-        var mockedRepository = new Mock<IClientRepository>();
-        mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
-        var mockedLogger = new Mock<ILogger<ClientService>>();
-
-        var expectedOutput = new ClientViewModel
-        {
-            ClientId = _clientId,
-            ClientName = _clientName,
-            ClientAddress = _clientAddress,
-            ContactName = _contactName,
-            ContactEmail = _contactEmail
-        };
-
-        _mockedClientNameViewModelMapper.Setup(x => x.Convert(client)).Returns(expectedOutput);
-
-        var sut = new ClientService(_mockedClientNameViewModelMapper.Object,
-            mockedRepository.Object, mockedLogger.Object);
-
-        // Act
-        var result = sut.GetClients();
-
-        // Assert
-        Assert.NotNull(result);
-        Assert.IsAssignableFrom<List<ClientViewModel>>(result);
-
-        Assert.Equal(_clientId, result.FirstOrDefault()?.ClientId);
-        Assert.Equal(_clientName, result.FirstOrDefault()?.ClientName);
-        Assert.Equal(_clientAddress, result.FirstOrDefault()?.ClientAddress);
-        Assert.Equal(_contactName, result.FirstOrDefault()?.ContactName);
-        Assert.Equal(_contactEmail, result.FirstOrDefault()?.ContactEmail);
-    }
-
-    [Fact]
-    public void Given_A_Valid_ClientId_GetById_Should_Return_The_Matching_ClientViewModel()
-    {
-        // Arrange
-        var client = new Client
-        {
-            ClientId = _clientId,
-            ClientName = _clientName,
-            ClientAddress = _clientAddress,
-            ContactName = _contactName,
-            ContactEmail = _contactEmail
-        };
-        var clientsForMock = new List<Client> { client };
-        var mockedRepository = new Mock<IClientRepository>();
-        mockedRepository.Setup(x => x.GetAsQueryable()).Returns(clientsForMock.AsQueryable());
-        var mockedLogger = new Mock<ILogger<ClientService>>();
-
-        var expectedOutput = new ClientViewModel
-        {
-            ClientId = _clientId,
-            ClientName = _clientName,
-        };
-
-        _mockedClientNameViewModelMapper.Setup(x => x.Convert(client)).Returns(expectedOutput);
-
-        var sut = new ClientService(_mockedClientNameViewModelMapper.Object,
-            mockedRepository.Object, mockedLogger.Object);
-
-        // Act
-        var result = sut.GetById(_clientId);
-
-        // Assert
-        Assert.NotNull(result);
-        Assert.IsAssignableFrom<ClientViewModel>(result);
-
-        Assert.Equal(_clientId, result.ClientId);
-        Assert.Equal(_clientName, result.ClientName);
-    }
-
-    [Fact]
-    public void Given_An_Invalid_ClientId_GetById_Should_Return_Null()
-    {
-        // Arrange
-        var client = new Client
-        {
-            ClientId = _clientId,
-            ClientName = _clientName,
-            ClientAddress = _clientAddress,
-            ContactName = _contactName,
-            ContactEmail = _contactEmail
-        };
-        var clientsForMock = new List<Client> { client };
-        var mockedRepository = new Mock<IClientRepository>();
-        mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
-        var mockedLogger = new Mock<ILogger<ClientService>>();
-
-        var sut = new ClientService(_mockedClientNameViewModelMapper.Object, mockedRepository.Object, mockedLogger.Object);
-
-        // Act
-        var result = sut.GetById(_rng.Next(200, 300));
-
-        // Assert
-        Assert.Null(result);
-    }
-
-    [Fact]
     public void Given_ValidInput_GetPage_Returns_Valid_PagedResponseOfClientViewModel()
     {
         // Arrange
@@ -149,12 +37,12 @@ public class ClientServiceTests
         var clientsForMock = ClientHelpers.GenerateRandomListOfClients(200);
         var mockedRepository = new Mock<IClientRepository>();
         mockedRepository.Setup(x => x.GetAsQueryable()).Returns(clientsForMock.AsQueryable());
-        var mockedLogger = new Mock<ILogger<ClientService>>();
+        var mockedLogger = new Mock<ILogger<ClientPager>>();
 
         _mockedClientNameViewModelMapper.Setup(x =>
             x.Convert(It.IsAny<Client>())).Returns(It.IsAny<ClientViewModel>());
 
-        var sut = new ClientService(_mockedClientNameViewModelMapper.Object,
+        var sut = new ClientPager(_mockedClientNameViewModelMapper.Object,
             mockedRepository.Object, mockedLogger.Object);
 
         // Act
@@ -181,12 +69,12 @@ public class ClientServiceTests
         var clientsForMock = ClientHelpers.GenerateRandomListOfClients(200);
         var mockedRepository = new Mock<IClientRepository>();
         mockedRepository.Setup(x => x.GetAsQueryable()).Returns(clientsForMock.AsQueryable());
-        var mockedLogger = new Mock<ILogger<ClientService>>();
+        var mockedLogger = new Mock<ILogger<ClientPager>>();
 
         _mockedClientNameViewModelMapper.Setup(x =>
             x.Convert(It.IsAny<Client>())).Returns(It.IsAny<ClientViewModel>());
 
-        var sut = new ClientService(_mockedClientNameViewModelMapper.Object,
+        var sut = new ClientPager(_mockedClientNameViewModelMapper.Object,
             mockedRepository.Object, mockedLogger.Object);
 
         // Act
@@ -198,48 +86,6 @@ public class ClientServiceTests
         Assert.Equal(1, result.PageNumber);
         Assert.Equal(numberOfClients / pageSize, result.TotalPages);
         Assert.Equal(pageSize, result.PageSize);
-    }
-
-    [Fact]
-    public async Task Given_Valid_ClientCreationModel_CreateClient_Returns_IdOfNewClient()
-    {
-        // Arrange
-        var client = new Client
-        {
-            ClientId = _clientId,
-            ClientName = _clientName,
-            ClientAddress = _clientAddress,
-            ContactName = _contactName,
-            ContactEmail = _contactEmail
-        };
-
-        var clientToAdd = new Client
-        {
-            ClientAddress = Guid.NewGuid().ToString(),
-            ContactName = Guid.NewGuid().ToString(),
-            ContactEmail = Guid.NewGuid().ToString(),
-            ClientName = Guid.NewGuid().ToString(),
-            ClientId = 7
-        };
-        var clientsForMock = new List<Client> { client };
-        var mockedRepository = new Mock<IClientRepository>();
-        mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
-        mockedRepository.Setup(x => x.Add(It.IsAny<Client>())).Returns(Task.FromResult(clientToAdd));
-        var mockedLogger = new Mock<ILogger<ClientService>>();
-
-        var sut = new ClientService(_mockedClientNameViewModelMapper.Object, mockedRepository.Object, mockedLogger.Object);
-
-        // act
-        var response = await sut.CreateNewClient(new ClientCreationModel
-        {
-            ClientAddress = Guid.NewGuid().ToString(),
-            ContactName = Guid.NewGuid().ToString(),
-            ContactEmail = Guid.NewGuid().ToString(),
-            ClientName = Guid.NewGuid().ToString(),
-        });
-
-        // Assert
-        Assert.NotEqual(0, response);
     }
 
     [Fact]
@@ -258,9 +104,9 @@ public class ClientServiceTests
         var mockedRepository = new Mock<IClientRepository>();
         mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
         mockedRepository.Setup(x => x.Delete(It.IsAny<int>()));
-        var mockedLogger = new Mock<ILogger<ClientService>>();
+        var mockedLogger = new Mock<ILogger<ClientPager>>();
 
-        var sut = new ClientService(_mockedClientNameViewModelMapper.Object, mockedRepository.Object, mockedLogger.Object);
+        var sut = new ClientPager(_mockedClientNameViewModelMapper.Object, mockedRepository.Object, mockedLogger.Object);
 
         // act
         var exception = await Record.ExceptionAsync(() => sut.DeleteClient(1));

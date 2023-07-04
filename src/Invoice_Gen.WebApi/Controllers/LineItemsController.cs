@@ -9,12 +9,12 @@ namespace Invoice_Gen.WebApi.Controllers;
 [Produces(MediaTypeNames.Application.Json)]
 public class LineItemsController : ControllerBase
 {
-    private readonly ILineItemService _lineItemService;
+    private readonly IGetLineItems _getLineItems;
     private readonly ILogger<LineItemsController> _logger;
 
-    public LineItemsController(ILineItemService lineItemService, ILogger<LineItemsController> logger)
+    public LineItemsController(IGetLineItems getLineItems, ILogger<LineItemsController> logger)
     {
-        _lineItemService = lineItemService;
+        _getLineItems = getLineItems;
         _logger = logger;
     }
 
@@ -32,7 +32,7 @@ public class LineItemsController : ControllerBase
     {
         using (_logger.BeginScope("Getting line item data for {ID}", lineItemId))
         {
-            var client = _lineItemService.GetById(lineItemId);
+            var client = _getLineItems.GetById(lineItemId);
             if (client == null)
             {
                 _logger.LogInformation("Unable to find line item record");

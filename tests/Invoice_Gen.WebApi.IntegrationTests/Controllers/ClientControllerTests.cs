@@ -3,7 +3,6 @@ using System.Text.Json;
 
 namespace Invoice_Gen.WebApi.IntegrationTests.Controllers;
 
-[ExcludeFromCodeCoverage]
 public class ClientControllerTests : BaseTestClass
 {
     public ClientControllerTests(CustomWebApplicationFactory factory) : base(factory) { }
@@ -85,7 +84,7 @@ public class ClientControllerTests : BaseTestClass
         const int pageSize = 25;
 
         // Act
-        var response = await _client.GetAsync($"Clients/Clients/page/{pageNumber}?pageSize={pageSize}");
+        var response = await _client.GetAsync($"/Clients/page/{pageNumber}?pageSize={pageSize}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
@@ -123,7 +122,7 @@ public class ClientControllerTests : BaseTestClass
         var content = new StringContent(json, Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
 
         // Act
-        var response = await _client.PutAsync("/Clients/Client", content);
+        var response = await _client.PutAsync("/Clients", content);
 
         // Assert
         response.EnsureSuccessStatusCode();
