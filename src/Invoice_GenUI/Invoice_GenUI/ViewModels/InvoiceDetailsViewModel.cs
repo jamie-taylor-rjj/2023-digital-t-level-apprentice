@@ -41,7 +41,7 @@ namespace Invoice_GenUI.ViewModels
             DueDate = singleInvoice.DueDate.Date;
             LineItemDetails = singleInvoice.LineItems;
 
-            foreach (var item in singleInvoice.LineItems)
+            foreach (var item in singleInvoice.LineItems!)
             {
                 Total += item.Cost * item.Quantity;
                 var vatTotal = Total * (singleInvoice.VatRate / 100);

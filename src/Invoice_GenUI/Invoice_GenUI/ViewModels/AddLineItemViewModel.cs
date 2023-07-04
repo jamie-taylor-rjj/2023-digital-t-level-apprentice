@@ -16,6 +16,7 @@ namespace Invoice_GenUI.ViewModels
         private readonly IMessageBoxService _messageBoxService;
 
         public ObservableCollection<LineItemModel> newLineItems { get; } = new ObservableCollection<LineItemModel>();
+        public ObservableCollection<InvoiceModel>? tempInvoicesCollection;
 
         public AddLineItemViewModel(INavigationService navService, IPassingService passingService, IMessageBoxService messageBoxService)
         {
@@ -60,11 +61,10 @@ namespace Invoice_GenUI.ViewModels
             set => SetProperty(ref _total, value);
         }
 
-        public double TotalResult()
+        private double TotalResult()
         {
             return Cost * Quantity;
         }
-
         [RelayCommand]
         private void CancelLineItem()
         {
@@ -79,7 +79,7 @@ namespace Invoice_GenUI.ViewModels
         }
         public int ItemId;
         [RelayCommand]
-        private void AddLineItem()
+        private async void AddLineItem()
         {
             var result = _messageBoxService.Confirm("Do you want to add this line item?");
             if (result)
