@@ -1,9 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using ClacksMiddleware.Extensions;
-using Invoice_Gen.Domain.Models;
-using InvoiceGen.Services;
-using Microsoft.EntityFrameworkCore;
+using Invoice_Gen.WebApi.Extensions;
 using OwaspHeaders.Core.Extensions;
 using Serilog;
 
@@ -15,33 +13,20 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
-    var connectionString = builder.Configuration.GetConnectionString("invoiceConnectionString");
+    builder.Services.AddMappers();
 
-    // Add Mappers
-    builder.Services
-        .AddTransient<IMapper<ClientViewModel, Client>, ClientNameViewModelMapper>()
-        .AddTransient<IMapper<InvoiceViewModel, Invoice>, InvoiceViewModelMapper>()
-        .AddTransient<IMapper<InvoiceCreateModel, Invoice>, InvoiceCreateModelMapper>()
-        .AddTransient<IMapper<LineItemViewModel, LineItem>, LineItemViewModelMapper>();
-
-    // Add repositories
-    builder.Services
-        .AddTransient<IClientRepository, ClientRepository>()
-        .AddTransient<IInvoiceRepository, InvoiceRepository>()
-        .AddTransient<ILineItemRepository, LineItemRepository>();
-
-    // Add DB Context
-    builder.Services
-        .AddTransient<IDbContext, InvoiceGenDbContext>()
-        .AddDbContext<InvoiceGenDbContext>(opt => opt.UseSqlite(connectionString));
+    builder.Services.AddRepos();
 
     builder.Services
-        .AddTransient<IClientService, ClientService>()
-        .AddTransient<IInvoiceService, InvoiceService>()
-        .AddTransient<ILineItemService, LineItemService>();
+        .AddDbContext(builder.Configuration.GetConnectionString("invoiceConnectionString")!);
+
+    builder.Services
+        .AddClientServices()
+        .AddInvoiceServices()
+        .AddLineItemServices();
 
     builder.Services.AddControllers();
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(o =>
     {

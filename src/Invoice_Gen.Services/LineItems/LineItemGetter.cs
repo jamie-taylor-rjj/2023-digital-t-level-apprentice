@@ -1,18 +1,12 @@
-﻿using Invoice_Gen.Domain;
-using Invoice_Gen.Domain.Models;
-using Invoice_Gen.Mappers;
-using Invoice_Gen.ViewModels;
-using Microsoft.Extensions.Logging;
+﻿namespace InvoiceGen.Services;
 
-namespace InvoiceGen.Services;
-
-public class LineItemService : ILineItemService
+public class LineItemGetter : IGetLineItems
 {
     private readonly IMapper<LineItemViewModel, LineItem> _lineItemViewModelMapper;
     private readonly ILineItemRepository _lineItemRepository;
-    private readonly ILogger<LineItemService> _logger;
+    private readonly ILogger<LineItemGetter> _logger;
 
-    public LineItemService(ILogger<LineItemService> logger, ILineItemRepository lineItemRepository,
+    public LineItemGetter(ILogger<LineItemGetter> logger, ILineItemRepository lineItemRepository,
         IMapper<LineItemViewModel, LineItem> lineItemViewModelMapper)
     {
         _logger = logger;
@@ -22,7 +16,7 @@ public class LineItemService : ILineItemService
 
     public LineItemViewModel? GetById(int id)
     {
-        using (_logger.BeginScope("{InvoiceService} getting line item record for {ID}", nameof(LineItemService), id))
+        using (_logger.BeginScope("{InvoiceService} getting line item record for {ID}", nameof(LineItemGetter), id))
         {
             var lineItem = _lineItemRepository.GetAll().FirstOrDefault(f => f.LineItemId == id);
 

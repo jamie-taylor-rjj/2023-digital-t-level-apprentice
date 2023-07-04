@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;
 
-[ExcludeFromCodeCoverage]
 public class LineItemServiceTests
 {
     private readonly Random _rng;
@@ -43,7 +42,7 @@ public class LineItemServiceTests
 
         var mockedRepository = new Mock<ILineItemRepository>();
         mockedRepository.Setup(x => x.GetAll()).Returns(lineItemsForMock);
-        var mockedLogger = new Mock<ILogger<LineItemService>>();
+        var mockedLogger = new Mock<ILogger<LineItemGetter>>();
 
         var expectedOutput = new LineItemViewModel
         {
@@ -56,7 +55,7 @@ public class LineItemServiceTests
 
         _mockedLineItemViewModelMapper.Setup(x => x.Convert(entity)).Returns(expectedOutput);
 
-        var sut = new LineItemService(mockedLogger.Object, mockedRepository.Object, _mockedLineItemViewModelMapper.Object);
+        var sut = new LineItemGetter(mockedLogger.Object, mockedRepository.Object, _mockedLineItemViewModelMapper.Object);
 
         // Act
         var result = sut.GetById(_lineItemId);

@@ -2,7 +2,6 @@
 
 namespace Invoice_Gen.WebApi.UnitTests.Helpers;
 
-[ExcludeFromCodeCoverage]
 public static class DbSetHelpers
 {
     public static Mock<DbSet<T>> GetQueryableDbSet<T>(List<T> sourceList) where T : class

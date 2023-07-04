@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Invoice_Gen.WebApi.UnitTests.RepoTests;
 
-[ExcludeFromCodeCoverage]
 public class ClientRepoTests
 {
     [Fact]
