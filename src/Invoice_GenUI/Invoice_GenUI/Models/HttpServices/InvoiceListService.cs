@@ -7,15 +7,15 @@ namespace Invoice_GenUI.Models.Services
     {
         public async Task<List<InvoiceModel>> GetInvoices()
         {
-            return await SendHttpGetRequest<List<InvoiceModel>>("Invoice") ?? new();
+            return await SendHttpGetRequest<List<InvoiceModel>>("Invoices") ?? new();
         }
         public async Task<bool> DeleteInvoice(int id)
         {
-            return await SendHttpDeleteRequest($"Invoice/{id}");
+            return await SendHttpDeleteRequest($"Invoices/{id}");
         }
         public async Task<InvoicePageModel> GetInvoicePages(int pageNumber, int pageSize)
         {
-            return await SendHttpGetRequest<InvoicePageModel>($"Invoice/page/{pageNumber}?pageSize={pageSize}") ?? new();
+            return await SendHttpGetRequest<InvoicePageModel>($"Invoices/page/{pageNumber}?pageSize={pageSize}") ?? new();
         }
     }
 }
