@@ -13,5 +13,9 @@ namespace Invoice_GenUI.Models.Services
         {
             return await SendHttpDeleteRequest($"Invoice/{id}");
         }
+        public async Task<InvoicePageModel> GetInvoicePages(int pageNumber, int pageSize)
+        {
+            return await SendHttpGetRequest<InvoicePageModel>($"Invoice/page/{pageNumber}?pageSize={pageSize}") ?? new();
+        }
     }
 }

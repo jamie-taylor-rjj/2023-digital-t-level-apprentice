@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Invoice_GenUI.Models;
 using Invoice_GenUI.Models.InternalServices;
@@ -14,23 +15,78 @@ namespace Invoice_GenUI.ViewModels
         private readonly IClientService _clientService;
         private readonly IPassingService _passingService;
         private readonly IMessageBoxService _messageBoxService;
-        public ObservableCollection<CreateClientModel> ShowClientDetails { get; } = new ObservableCollection<CreateClientModel>();
 
+        public ObservableCollection<int> PageSizeOptions { get; } = new ObservableCollection<int> { 10, 25, 50 };
         public ShowClientsViewModel(INavigationService navService, IClientService clientService, IPassingService passingService, IMessageBoxService messageBoxService)
         {
             _navigation = navService;
             _clientService = clientService;
             _passingService = passingService;
             _messageBoxService = messageBoxService;
-            Task.Run(() => GetClientDetails()).Wait();
-        }
-        public async Task GetClientDetails()
-        {
-            var tempClients = await _clientService.GetClientDetails();
+            Task.Run(() => LoadClients()).Wait();
 
-            foreach (var clientName in tempClients)
+        }
+        [ObservableProperty]
+        private int _currentPage = 1;
+        [ObservableProperty]
+        private int _numberOfPages;
+        private int clientAmnt = 10;
+        [ObservableProperty]
+        private ObservableCollection<CreateClientModel>? _showClientDetails;
+        private int _selectedPageSize;
+        public int SelectedPageSize
+        {
+            get => _selectedPageSize;
+            set
             {
-                ShowClientDetails.Add(clientName);
+                SetProperty(ref _selectedPageSize, value);
+                clientAmnt = _selectedPageSize;
+                CurrentPage = 1;
+                Task.Run(() => LoadClients()).Wait();
+            }
+        }
+        public async Task LoadClients()
+        {
+            int pageNumber = CurrentPage;
+            int pageSize = clientAmnt;
+            var pagedClients = await _clientService.GetClientPages(pageNumber, pageSize);
+            ShowClientDetails = pagedClients.Data;
+            NumberOfPages = pagedClients.TotalPages;
+        }
+        [RelayCommand]
+        private async void NextPage()
+        {
+            if (CurrentPage < NumberOfPages)
+            {
+                CurrentPage++;
+                await LoadClients();
+            }
+        }
+        [RelayCommand]
+        private async void PrevPage()
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                await LoadClients();
+            }
+        }
+        [RelayCommand]
+        private async void FirstPage()
+        {
+            if (CurrentPage != 1)
+            {
+                CurrentPage = 1;
+                await LoadClients();
+            }
+        }
+        [RelayCommand]
+        private async void LastPage()
+        {
+            if (CurrentPage != NumberOfPages)
+            {
+                CurrentPage = NumberOfPages;
+                await LoadClients();
             }
         }
         [RelayCommand]
