@@ -87,7 +87,7 @@ namespace Invoice_GenUI.ViewModels
                 ItemId = newLineItems.Count + 1;
                 var newLineItem = new LineItemModel
                 {
-                    ItemId = ItemId,
+                    LineItemId = ItemId,
                     Description = Description,
                     Quantity = Quantity,
                     Cost = Cost,
