@@ -15,7 +15,7 @@ namespace Invoice_GenUI.ViewModels
         private readonly IClientService _clientService;
         private readonly IPassingService _passingService;
 
-        public ObservableCollection<LineItemModel>? LineItemDetails { get; set; }
+        public ObservableCollection<LineItemModel> LineItemDetails { get; set; } = new ObservableCollection<LineItemModel>();
 
         public InvoiceDetailsViewModel(INavigationService navService, IInvoiceService invoiceService, IClientService clientService, IPassingService passingService)
         {
@@ -55,7 +55,7 @@ namespace Invoice_GenUI.ViewModels
         }
         public void AssignTotal()
         {
-            foreach (var lineItems in LineItemDetails!)
+            foreach (var lineItems in LineItemDetails)
             {
                 lineItems.Total = lineItems.Quantity * lineItems.Cost;
             }

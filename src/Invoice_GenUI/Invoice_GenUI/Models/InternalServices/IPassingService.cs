@@ -6,6 +6,6 @@ namespace Invoice_GenUI.Models.PassingValuesServices
     {
         int InvoiceId { get; set; }
         int ClientID { get; set; }
-        ObservableCollection<LineItemModel>? StoredItems { get; set; }
+        ObservableCollection<LineItemModel> StoredItems { get; set; }
     }
 }

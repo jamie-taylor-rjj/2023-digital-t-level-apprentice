@@ -87,7 +87,7 @@ namespace Invoice_GenUI.ViewModels
                 ItemId = newLineItems.Count + 1;
                 var newLineItem = new LineItemModel
                 {
-                    ItemId = ItemId,
+                    LineItemId = ItemId,
                     Description = Description,
                     Quantity = Quantity,
                     Cost = Cost,
@@ -106,7 +106,7 @@ namespace Invoice_GenUI.ViewModels
         {
             foreach (var item in newLineItems)
             {
-                _passingService.StoredItems!.Add(item);
+                _passingService.StoredItems.Add(item);
             }
             _navigation.NavigateTo<InvoiceViewModel>();
         }

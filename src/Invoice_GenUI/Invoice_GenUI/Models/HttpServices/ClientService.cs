@@ -19,7 +19,7 @@ namespace Invoice_GenUI.Models.Services
         }
         public async Task<bool> PutClient(CreateClientModel newClient)
         {
-            return await SendHttpPutRequest("Clients/Client", newClient);
+            return await SendHttpPutRequest("Clients", newClient);
         }
         public async Task<bool> DeleteClient(int id)
         {
