@@ -2,14 +2,8 @@
 
 public class ClientNameViewModelMapperTests
 {
-    private readonly IMapper<ClientViewModel, Client> _mapper;
-    private readonly Random _rng;
-
-    public ClientNameViewModelMapperTests()
-    {
-        _rng = new Random();
-        _mapper = new ClientNameViewModelMapper();
-    }
+    private readonly IMapper<ClientViewModel, Client> _mapper = new ClientNameViewModelMapper();
+    private readonly Random _rng = new();
 
     [Fact]
     public void Given_Client_Can_MapTo_ClientNameViewModel()

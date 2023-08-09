@@ -8,10 +8,10 @@ public class InvoiceRepository : IInvoiceRepository
     private readonly IDbContext _dbContext;
     private readonly ILogger<InvoiceRepository> _logger;
 
-    public InvoiceRepository(ILogger<InvoiceRepository> logger, IDbContext dbContext)
+    public InvoiceRepository(IDbContext dbContext, ILogger<InvoiceRepository> logger)
     {
-        _logger = logger;
         _dbContext = dbContext;
+        _logger = logger;
     }
 
     public List<Invoice> GetAll()

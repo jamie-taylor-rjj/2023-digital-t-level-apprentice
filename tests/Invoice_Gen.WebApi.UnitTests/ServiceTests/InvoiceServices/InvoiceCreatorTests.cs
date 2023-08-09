@@ -1,7 +1,4 @@
-﻿using InvoiceGen.Services.InvoiceServices;
-using Microsoft.Extensions.Logging;
-
-namespace Invoice_Gen.WebApi.UnitTests.ServiceTests.InvoiceServices;
+﻿namespace Invoice_Gen.WebApi.UnitTests.ServiceTests.InvoiceServices;
 
 public class InvoiceCreatorTests
 {
@@ -12,7 +9,7 @@ public class InvoiceCreatorTests
     private readonly DateTime _issueDate;
     private readonly int _vatRate;
 
-    private readonly Mock<IMapper<InvoiceCreateModel, Invoice>> _mockedInvoiceCreateModelMapper;
+    private readonly IMapper<InvoiceCreateModel, Invoice> _mockedInvoiceCreateModelMapper;
 
     public InvoiceCreatorTests()
     {
@@ -23,7 +20,7 @@ public class InvoiceCreatorTests
         _issueDate = new DateTime();
         _vatRate = _rng.Next(10, 25);
 
-        _mockedInvoiceCreateModelMapper = new Mock<IMapper<InvoiceCreateModel, Invoice>>();
+        _mockedInvoiceCreateModelMapper = Substitute.For<IMapper<InvoiceCreateModel, Invoice>>();
     }
 
     [Fact]
@@ -57,15 +54,15 @@ public class InvoiceCreatorTests
             }
         };
         var invoicesForMock = new List<Invoice> { entity };
-        var mockedRepository = new Mock<IInvoiceRepository>();
-        mockedRepository.Setup(x => x.GetAll()).Returns(invoicesForMock);
-        mockedRepository.Setup(x => x.Add(It.IsAny<Invoice>())).Returns(Task.FromResult(invoiceToAdd));
+        var mockedRepository = Substitute.For<IInvoiceRepository>();
+        mockedRepository.GetAll().Returns(invoicesForMock);
+        mockedRepository.Add(new Invoice()).ReturnsForAnyArgs(Task.FromResult(invoiceToAdd));
 
-        _mockedInvoiceCreateModelMapper.Setup(x => x.Convert(It.IsAny<InvoiceCreateModel>())).Returns(invoiceToAdd);
-        var mockedLogger = new Mock<ILogger<InvoiceCreator>>();
+        _mockedInvoiceCreateModelMapper.Convert(new InvoiceCreateModel()).ReturnsForAnyArgs(invoiceToAdd);
+        var mockedLogger = Substitute.For<ILogger<InvoiceCreator>>();
 
-        var sut = new InvoiceCreator(mockedLogger.Object, mockedRepository.Object,
-            _mockedInvoiceCreateModelMapper.Object);
+        var sut = new InvoiceCreator(mockedLogger, mockedRepository,
+            _mockedInvoiceCreateModelMapper);
 
         // act
         var response = await sut.CreateNewInvoice(new InvoiceCreateModel

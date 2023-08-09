@@ -1,7 +1,4 @@
-﻿using InvoiceGen.Services.InvoiceServices;
-using Microsoft.Extensions.Logging;
-
-namespace Invoice_Gen.WebApi.UnitTests.ServiceTests.InvoiceServices;
+﻿namespace Invoice_Gen.WebApi.UnitTests.ServiceTests.InvoiceServices;
 
 public class InvoiceDeleterTests
 {
@@ -20,12 +17,12 @@ public class InvoiceDeleterTests
 
         };
         var invoicesForMock = new List<Invoice> { invoice };
-        var mockedRepository = new Mock<IInvoiceRepository>();
-        mockedRepository.Setup(x => x.GetAll()).Returns(invoicesForMock);
-        mockedRepository.Setup(x => x.Delete(It.IsAny<int>()));
-        var mockedLogger = new Mock<ILogger<InvoiceDeleter>>();
+        var mockedRepository = Substitute.For<IInvoiceRepository>();
+        mockedRepository.GetAll().ReturnsForAnyArgs(invoicesForMock);
+        mockedRepository.Delete(0).ReturnsForAnyArgs(Task.FromResult(0));
+        var mockedLogger = Substitute.For<ILogger<InvoiceDeleter>>();
 
-        var sut = new InvoiceDeleter(mockedLogger.Object, mockedRepository.Object);
+        var sut = new InvoiceDeleter(mockedLogger, mockedRepository);
 
         // act
         var exception = await Record.ExceptionAsync(() => sut.DeleteInvoice(1));

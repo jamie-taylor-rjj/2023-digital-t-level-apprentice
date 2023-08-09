@@ -1,12 +1,19 @@
-﻿using Invoice_Gen.WebApi.UnitTests.Helpers;
-using Microsoft.Extensions.Logging;
-
-namespace Invoice_Gen.WebApi.UnitTests.RepoTests;
+﻿namespace Invoice_Gen.WebApi.UnitTests.RepoTests;
 
 public class InvoiceRepoTests
 {
+    private readonly DbContextOptions<InvoiceGenDbContext> _contextOptions;
+
+    public InvoiceRepoTests()
+    {
+        _contextOptions = new DbContextOptionsBuilder<InvoiceGenDbContext>()
+            .UseInMemoryDatabase("Invoice_Gen.WebApi.UnitTests.RepoTests.InvoiceRepoTests.InMemoryContext")
+            .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+            .Options;
+    }
+    
     [Fact]
-    public void GetAll_Returns_ListOfInvoiceInstances()
+    public async Task GetAll_Returns_ListOfInvoiceInstances()
     {
         // arrange
         var invoiceList = new List<Invoice>
@@ -20,13 +27,14 @@ public class InvoiceRepoTests
                 VatRate = 10
             }
         };
-        var invoiceListSet = DbSetHelpers.GetQueryableDbSet(invoiceList);
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Invoices.AddRangeAsync(invoiceList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Invoices).Returns(invoiceListSet.Object);
-        var mockedLogger = new Mock<ILogger<InvoiceRepository>>();
-
-        var sut = new InvoiceRepository(mockedLogger.Object, mockedRepo.Object);
+        var sut = new InvoiceRepository(mockedLogger, context);
 
         // act
         var response = sut.GetAll();
@@ -38,17 +46,19 @@ public class InvoiceRepoTests
     }
 
     [Fact]
-    public void GetAsQueryable_Returns_ListOfClientInstances_AsQueryable()
+    public async Task GetAsQueryable_Returns_ListOfClientInstances_AsQueryable()
     {
         // arrange
         var invoiceList = InvoiceHelpers.GenerateRandomListOfInvoices(100);
-        var invoiceSetList = DbSetHelpers.GetQueryableDbSet(invoiceList);
+        
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Invoices.AddRangeAsync(invoiceList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Invoices).Returns(invoiceSetList.Object);
-        var mockedLogger = new Mock<ILogger<InvoiceRepository>>();
-
-        var sut = new InvoiceRepository(mockedLogger.Object, mockedRepo.Object);
+        var sut = new InvoiceRepository(mockedLogger, context);
 
         // act
         var response = sut.GetAsQueryable();
@@ -70,13 +80,14 @@ public class InvoiceRepoTests
                 ClientId = 1,
             }
         };
-        var invoiceListSet = DbSetHelpers.GetQueryableDbSet(invoiceList);
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Invoices.AddRangeAsync(invoiceList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Invoices).Returns(invoiceListSet.Object);
-        var mockedLogger = new Mock<ILogger<InvoiceRepository>>();
-
-        var sut = new InvoiceRepository(mockedLogger.Object, mockedRepo.Object);
+        var sut = new InvoiceRepository(mockedLogger, context);
 
         var invoiceToAdd = new Invoice
         {
@@ -125,13 +136,14 @@ public class InvoiceRepoTests
 
             },
         };
-        var invoiceListSet = DbSetHelpers.GetQueryableDbSet(invoiceList);
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Invoices.AddRangeAsync(invoiceList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Invoices).Returns(invoiceListSet.Object);
-        var mockedLogger = new Mock<ILogger<InvoiceRepository>>();
-
-        var sut = new InvoiceRepository(mockedLogger.Object, mockedRepo.Object);
+        var sut = new InvoiceRepository(mockedLogger, context);
 
         // act
         await sut.Delete(2);
@@ -174,13 +186,14 @@ public class InvoiceRepoTests
 
             },
         };
-        var invoiceListSet = DbSetHelpers.GetQueryableDbSet(invoiceList);
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Invoices.AddRangeAsync(invoiceList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Invoices).Returns(invoiceListSet.Object);
-        var mockedLogger = new Mock<ILogger<InvoiceRepository>>();
-
-        var sut = new InvoiceRepository(mockedLogger.Object, mockedRepo.Object);
+        var sut = new InvoiceRepository(mockedLogger, context);
 
         // act
         await sut.Delete(targetClientId);
@@ -190,5 +203,15 @@ public class InvoiceRepoTests
         Assert.NotNull(listAfterDelete);
         Assert.IsAssignableFrom<List<Invoice>>(listAfterDelete);
         Assert.False(listAfterDelete.Count == 1);
+    }
+    
+    private async Task DeleteAll(InvoiceGenDbContext context)
+    {
+        foreach (var invoice in context.Invoices)
+        {
+            context.Invoices.Remove(invoice);
+        }
+
+        await context.SaveChangesAsync();
     }
 }

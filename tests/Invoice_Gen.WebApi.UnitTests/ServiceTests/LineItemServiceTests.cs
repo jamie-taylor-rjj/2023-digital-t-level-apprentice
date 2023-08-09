@@ -1,7 +1,4 @@
-﻿using InvoiceGen.Services;
-using Microsoft.Extensions.Logging;
-
-namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;
+﻿namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;
 
 public class LineItemServiceTests
 {
@@ -12,7 +9,7 @@ public class LineItemServiceTests
     private readonly string _description;
     private readonly int _quantity;
 
-    private readonly Mock<IMapper<LineItemViewModel, LineItem>> _mockedLineItemViewModelMapper;
+    private readonly IMapper<LineItemViewModel, LineItem> _mockedLineItemViewModelMapper;
 
     public LineItemServiceTests()
     {
@@ -23,7 +20,7 @@ public class LineItemServiceTests
         _description = Guid.NewGuid().ToString();
         _quantity = _rng.Next(1, 25);
 
-        _mockedLineItemViewModelMapper = new Mock<IMapper<LineItemViewModel, LineItem>>();
+        _mockedLineItemViewModelMapper = Substitute.For<IMapper<LineItemViewModel, LineItem>>();
     }
 
     [Fact]
@@ -40,9 +37,9 @@ public class LineItemServiceTests
         };
         var lineItemsForMock = new List<LineItem> { entity };
 
-        var mockedRepository = new Mock<ILineItemRepository>();
-        mockedRepository.Setup(x => x.GetAll()).Returns(lineItemsForMock);
-        var mockedLogger = new Mock<ILogger<LineItemGetter>>();
+        var mockedRepository = Substitute.For<ILineItemRepository>();
+        mockedRepository.GetAll().ReturnsForAnyArgs(lineItemsForMock);
+        var mockedLogger = Substitute.For<ILogger<LineItemGetter>>();
 
         var expectedOutput = new LineItemViewModel
         {
@@ -53,9 +50,9 @@ public class LineItemServiceTests
             Quantity = _quantity
         };
 
-        _mockedLineItemViewModelMapper.Setup(x => x.Convert(entity)).Returns(expectedOutput);
+        _mockedLineItemViewModelMapper.Convert(entity).ReturnsForAnyArgs(expectedOutput);
 
-        var sut = new LineItemGetter(mockedLogger.Object, mockedRepository.Object, _mockedLineItemViewModelMapper.Object);
+        var sut = new LineItemGetter(mockedLogger, mockedRepository, _mockedLineItemViewModelMapper);
 
         // Act
         var result = sut.GetById(_lineItemId);

@@ -1,22 +1,31 @@
-﻿using Invoice_Gen.WebApi.UnitTests.Helpers;
-using Microsoft.Extensions.Logging;
-
-namespace Invoice_Gen.WebApi.UnitTests.RepoTests;
+﻿namespace Invoice_Gen.WebApi.UnitTests.RepoTests;
 
 public class ClientRepoTests
 {
+    private readonly DbContextOptions<InvoiceGenDbContext> _contextOptions;
+
+    public ClientRepoTests()
+    {
+        _contextOptions = new DbContextOptionsBuilder<InvoiceGenDbContext>()
+            .UseInMemoryDatabase("Invoice_Gen.WebApi.UnitTests.RepoTests.ClientRepoTests.InMemoryContext")
+            .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+            .Options;
+    }
+
     [Fact]
-    public void GetAll_Returns_ListOfClientInstances()
+    public async Task GetAll_Returns_ListOfClientInstances()
     {
         // arrange
         var clientList = ClientHelpers.GenerateRandomListOfClients(100);
-        var clientListSet = DbSetHelpers.GetQueryableDbSet(clientList);
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Clients).Returns(clientListSet.Object);
-        var mockedLogger = new Mock<ILogger<ClientRepository>>();
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Clients.AddRangeAsync(clientList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
-        var sut = new ClientRepository(mockedRepo.Object, mockedLogger.Object);
+        var sut = new ClientRepository(context, mockedLogger);
 
         // act
         var response = sut.GetAll();
@@ -28,17 +37,19 @@ public class ClientRepoTests
     }
 
     [Fact]
-    public void GetAsQueryable_Returns_ListOfClientInstances_AsQueryable()
+    public async Task GetAsQueryable_Returns_ListOfClientInstances_AsQueryable()
     {
         // arrange
         var clientList = ClientHelpers.GenerateRandomListOfClients(100);
-        var clientListSet = DbSetHelpers.GetQueryableDbSet(clientList);
+        
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Clients.AddRangeAsync(clientList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Clients).Returns(clientListSet.Object);
-        var mockedLogger = new Mock<ILogger<ClientRepository>>();
-
-        var sut = new ClientRepository(mockedRepo.Object, mockedLogger.Object);
+        var sut = new ClientRepository(context, mockedLogger);
 
         // act
         var response = sut.GetAsQueryable();
@@ -56,20 +67,20 @@ public class ClientRepoTests
         {
             new()
             {
-                ClientId = 1,
                 ClientName = "Testy McTestFace",
                 ContactName = "Tester McContactFace",
                 ClientAddress = "Boaty McBoatFace",
                 ContactEmail = "mctestface.testy@testl.library"
             }
         };
-        var clientListSet = DbSetHelpers.GetQueryableDbSet(clientList);
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Clients.AddRangeAsync(clientList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Clients).Returns(clientListSet.Object);
-        var mockedLogger = new Mock<ILogger<ClientRepository>>();
-
-        var sut = new ClientRepository(mockedRepo.Object, mockedLogger.Object);
+        var sut = new ClientRepository(context, mockedLogger);
 
         var clientToAdd = new Client
         {
@@ -115,13 +126,14 @@ public class ClientRepoTests
                 ContactEmail = "mctestface.testy@testl.library"
             },
         };
-        var clientListSet = DbSetHelpers.GetQueryableDbSet(clientList);
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Clients.AddRangeAsync(clientList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Clients).Returns(clientListSet.Object);
-        var mockedLogger = new Mock<ILogger<ClientRepository>>();
-
-        var sut = new ClientRepository(mockedRepo.Object, mockedLogger.Object);
+        var sut = new ClientRepository(context, mockedLogger);
 
         // act
         await sut.Delete(2);
@@ -161,13 +173,14 @@ public class ClientRepoTests
                 ContactEmail = "mctestface.testy@testl.library"
             },
         };
-        var clientListSet = DbSetHelpers.GetQueryableDbSet(clientList);
+        await using var context = new InvoiceGenDbContext(_contextOptions);
+        await DeleteAll(context);
+        await context.Clients.AddRangeAsync(clientList);
+        await context.SaveChangesAsync();
+        
+        var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
-        var mockedRepo = new Mock<IDbContext>();
-        mockedRepo.Setup(s => s.Clients).Returns(clientListSet.Object);
-        var mockedLogger = new Mock<ILogger<ClientRepository>>();
-
-        var sut = new ClientRepository(mockedRepo.Object, mockedLogger.Object);
+        var sut = new ClientRepository(context, mockedLogger);
 
         // act
         await sut.Delete(targetClientId);
@@ -177,5 +190,15 @@ public class ClientRepoTests
         Assert.NotNull(listAfterDelete);
         Assert.IsAssignableFrom<List<Client>>(listAfterDelete);
         Assert.False(listAfterDelete.Count == 1);
+    }
+
+    private async Task DeleteAll(InvoiceGenDbContext context)
+    {
+        foreach (var client in context.Clients)
+        {
+            context.Clients.Remove(client);
+        }
+
+        await context.SaveChangesAsync();
     }
 }

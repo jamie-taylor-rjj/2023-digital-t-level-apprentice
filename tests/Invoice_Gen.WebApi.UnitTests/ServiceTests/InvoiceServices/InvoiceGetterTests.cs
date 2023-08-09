@@ -1,7 +1,4 @@
-﻿using InvoiceGen.Services.InvoiceServices;
-using Microsoft.Extensions.Logging;
-
-namespace Invoice_Gen.WebApi.UnitTests.ServiceTests.InvoiceServices;
+﻿namespace Invoice_Gen.WebApi.UnitTests.ServiceTests.InvoiceServices;
 
 public class InvoiceGetterTests
 {
@@ -10,7 +7,7 @@ public class InvoiceGetterTests
     private readonly DateTime _dueDate;
     private readonly DateTime _issueDate;
     private readonly int _vatRate;
-    private readonly Mock<IMapper<InvoiceViewModel, Invoice>> _mockedInvoiceViewModelMapper;
+    private readonly IMapper<InvoiceViewModel, Invoice> _mockedInvoiceViewModelMapper;
 
     public InvoiceGetterTests()
     {
@@ -21,7 +18,7 @@ public class InvoiceGetterTests
         _issueDate = new DateTime();
         _vatRate = rng.Next(10, 25);
 
-        _mockedInvoiceViewModelMapper = new Mock<IMapper<InvoiceViewModel, Invoice>>();
+        _mockedInvoiceViewModelMapper = Substitute.For<IMapper<InvoiceViewModel, Invoice>>();
     }
 
     [Fact]
@@ -38,9 +35,9 @@ public class InvoiceGetterTests
         };
         var invoicesForMock = new List<Invoice> { entity };
 
-        var mockedRepository = new Mock<IInvoiceRepository>();
-        mockedRepository.Setup(x => x.GetAll()).Returns(invoicesForMock);
-        var mockedLogger = new Mock<ILogger<InvoiceGetter>>();
+        var mockedRepository = Substitute.For<IInvoiceRepository>();
+        mockedRepository.GetAll().ReturnsForAnyArgs(invoicesForMock);
+        var mockedLogger = Substitute.For<ILogger<InvoiceGetter>>();
 
         var expectedOutput = new InvoiceViewModel
         {
@@ -51,9 +48,9 @@ public class InvoiceGetterTests
             VatRate = _vatRate
         };
 
-        _mockedInvoiceViewModelMapper.Setup(x => x.Convert(entity)).Returns(expectedOutput);
+        _mockedInvoiceViewModelMapper.Convert(entity).ReturnsForAnyArgs(expectedOutput);
 
-        var sut = new InvoiceGetter(mockedLogger.Object, mockedRepository.Object, _mockedInvoiceViewModelMapper.Object);
+        var sut = new InvoiceGetter(mockedLogger, mockedRepository, _mockedInvoiceViewModelMapper);
 
         // Act
         var result = sut.GetInvoices();
@@ -83,9 +80,9 @@ public class InvoiceGetterTests
         };
         var invoicesForMock = new List<Invoice> { entity };
 
-        var mockedRepository = new Mock<IInvoiceRepository>();
-        mockedRepository.Setup(x => x.GetAsQueryable()).Returns(invoicesForMock.AsQueryable);
-        var mockedLogger = new Mock<ILogger<InvoiceGetter>>();
+        var mockedRepository = Substitute.For<IInvoiceRepository>();
+        mockedRepository.GetAsQueryable().ReturnsForAnyArgs(invoicesForMock.AsQueryable());
+        var mockedLogger = Substitute.For<ILogger<InvoiceGetter>>();
 
         var expectedOutput = new InvoiceViewModel
         {
@@ -96,9 +93,9 @@ public class InvoiceGetterTests
             VatRate = _vatRate
         };
 
-        _mockedInvoiceViewModelMapper.Setup(x => x.Convert(entity)).Returns(expectedOutput);
+        _mockedInvoiceViewModelMapper.Convert(entity).ReturnsForAnyArgs(expectedOutput);
 
-        var sut = new InvoiceGetter(mockedLogger.Object, mockedRepository.Object, _mockedInvoiceViewModelMapper.Object);
+        var sut = new InvoiceGetter(mockedLogger, mockedRepository, _mockedInvoiceViewModelMapper);
 
         // Act
         var result = sut.GetById(_invoiceId);

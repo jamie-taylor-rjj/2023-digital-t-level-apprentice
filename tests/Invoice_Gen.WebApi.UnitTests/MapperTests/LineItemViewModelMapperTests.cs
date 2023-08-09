@@ -2,14 +2,8 @@
 
 public class LineItemViewModelMapperTests
 {
-    private readonly IMapper<LineItemViewModel, LineItem> _mapper;
-    private readonly Random _rng;
-
-    public LineItemViewModelMapperTests()
-    {
-        _rng = new Random();
-        _mapper = new LineItemViewModelMapper();
-    }
+    private readonly IMapper<LineItemViewModel, LineItem> _mapper = new LineItemViewModelMapper();
+    private readonly Random _rng = new();
 
     [Fact]
     public void Given_LineItem_Can_MapTo_LineItemViewModel()

@@ -1,7 +1,4 @@
-﻿using InvoiceGen.Services.ClientServices;
-using Microsoft.Extensions.Logging;
-
-namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;
+﻿namespace Invoice_Gen.WebApi.UnitTests.ServiceTests;
 
 public class ClientCreatorTests
 {
@@ -43,12 +40,12 @@ public class ClientCreatorTests
             ClientId = 7
         };
         var clientsForMock = new List<Client> { client };
-        var mockedRepository = new Mock<IClientRepository>();
-        mockedRepository.Setup(x => x.GetAll()).Returns(clientsForMock);
-        mockedRepository.Setup(x => x.Add(It.IsAny<Client>())).Returns(Task.FromResult(clientToAdd));
-        var mockedLogger = new Mock<ILogger<ClientCreator>>();
+        var mockedRepository = Substitute.For<IClientRepository>();
+        mockedRepository.GetAll().ReturnsForAnyArgs(clientsForMock);
+        mockedRepository.Add(new Client()).ReturnsForAnyArgs(Task.FromResult(clientToAdd));
+        var mockedLogger = Substitute.For<ILogger<ClientCreator>>();
 
-        var sut = new ClientCreator(mockedLogger.Object, mockedRepository.Object);
+        var sut = new ClientCreator(mockedLogger, mockedRepository);
 
         // act
         var response = await sut.CreateNewClient(new ClientCreationModel

@@ -2,14 +2,8 @@
 
 public class InvoiceCreateViewModelMapperTests
 {
-    private readonly IMapper<InvoiceCreateModel, Invoice> _mapper;
-    private readonly Random _rng;
-
-    public InvoiceCreateViewModelMapperTests()
-    {
-        _rng = new Random();
-        _mapper = new InvoiceCreateModelMapper();
-    }
+    private readonly IMapper<InvoiceCreateModel, Invoice> _mapper = new InvoiceCreateModelMapper();
+    private readonly Random _rng = new();
 
     [Fact]
     public void Given_InvoiceCreateViewModel_Can_MapTo_InvoiceModel()

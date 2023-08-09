@@ -12,7 +12,6 @@ public static class ClientHelpers
         {
             retVal.Add(new Client
             {
-                ClientId = Rng.Next(1, 200),
                 ClientName = Guid.NewGuid().ToString(),
                 ClientAddress = Guid.NewGuid().ToString(),
                 ContactName = Guid.NewGuid().ToString(),

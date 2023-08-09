@@ -1,17 +1,9 @@
-﻿using Invoice_Gen.WebApi.UnitTests.Helpers;
-using InvoiceGen.Services.InvoiceServices;
-using Microsoft.Extensions.Logging;
-
-namespace Invoice_Gen.WebApi.UnitTests.ServiceTests.InvoiceServices;
+﻿namespace Invoice_Gen.WebApi.UnitTests.ServiceTests.InvoiceServices;
 
 public class InvoicePagerTests
 {
-    private readonly Mock<IMapper<InvoiceViewModel, Invoice>> _mockedInvoiceViewModelMapper;
-
-    public InvoicePagerTests()
-    {
-        _mockedInvoiceViewModelMapper = new Mock<IMapper<InvoiceViewModel, Invoice>>();
-    }
+    private readonly IMapper<InvoiceViewModel, Invoice> _mockedInvoiceViewModelMapper =
+        Substitute.For<IMapper<InvoiceViewModel, Invoice>>();
 
     [Fact]
     public void Given_ValidInput_GetPage_Returns_Valid_PagedResponseOfClientViewModel()
@@ -21,15 +13,14 @@ public class InvoicePagerTests
         const int pageNumber = 1;
         const int pageSize = 10;
         var invoicesForMock = InvoiceHelpers.GenerateRandomListOfInvoices(200);
-        var mockedRepository = new Mock<IInvoiceRepository>();
-        mockedRepository.Setup(x => x.GetAsQueryable()).Returns(invoicesForMock.AsQueryable());
-        var mockedLogger = new Mock<ILogger<InvoicePager>>();
+        var mockedRepository = Substitute.For<IInvoiceRepository>();
+        mockedRepository.GetAsQueryable().ReturnsForAnyArgs(invoicesForMock.AsQueryable());
+        var mockedLogger = Substitute.For<ILogger<InvoicePager>>();
 
-        _mockedInvoiceViewModelMapper.Setup(x =>
-            x.Convert(It.IsAny<Invoice>())).Returns(It.IsAny<InvoiceViewModel>());
+        _mockedInvoiceViewModelMapper.Convert(new Invoice()).ReturnsForAnyArgs(new InvoiceViewModel());
 
-        var sut = new InvoicePager(mockedLogger.Object, mockedRepository.Object,
-            _mockedInvoiceViewModelMapper.Object);
+        var sut = new InvoicePager(mockedLogger, mockedRepository,
+            _mockedInvoiceViewModelMapper);
 
         // Act
         var result = sut.GetPage(pageNumber, pageSize);
@@ -53,15 +44,14 @@ public class InvoicePagerTests
         const int numberOfClients = 200;
         const int pageSize = 10;
         var invoicesForMock = InvoiceHelpers.GenerateRandomListOfInvoices(200);
-        var mockedRepository = new Mock<IInvoiceRepository>();
-        mockedRepository.Setup(x => x.GetAsQueryable()).Returns(invoicesForMock.AsQueryable());
-        var mockedLogger = new Mock<ILogger<InvoicePager>>();
+        var mockedRepository = Substitute.For<IInvoiceRepository>();
+        mockedRepository.GetAsQueryable().ReturnsForAnyArgs(invoicesForMock.AsQueryable());
+        var mockedLogger = Substitute.For<ILogger<InvoicePager>>();
 
-        _mockedInvoiceViewModelMapper.Setup(x =>
-            x.Convert(It.IsAny<Invoice>())).Returns(It.IsAny<InvoiceViewModel>());
+        _mockedInvoiceViewModelMapper.Convert(new Invoice()).ReturnsForAnyArgs(new InvoiceViewModel());
 
-        var sut = new InvoicePager(mockedLogger.Object, mockedRepository.Object,
-            _mockedInvoiceViewModelMapper.Object);
+        var sut = new InvoicePager(mockedLogger, mockedRepository,
+            _mockedInvoiceViewModelMapper);
 
         // Act
         var result = sut.GetPage(pageNumber, pageSize);

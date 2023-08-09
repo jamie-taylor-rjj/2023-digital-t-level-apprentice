@@ -12,8 +12,6 @@ public static class InvoiceHelpers
         {
             retVal.Add(new Invoice
             {
-                InvoiceId = Rng.Next(1,
-                    200),
                 ClientId = Rng.Next(1,
                     200),
                 IssueDate = default,

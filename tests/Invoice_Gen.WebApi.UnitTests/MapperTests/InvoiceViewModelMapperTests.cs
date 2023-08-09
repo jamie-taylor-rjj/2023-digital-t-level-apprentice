@@ -1,18 +1,19 @@
-﻿namespace Invoice_Gen.WebApi.UnitTests.MapperTests;
+﻿using NSubstitute;
+
+namespace Invoice_Gen.WebApi.UnitTests.MapperTests;
 
 public class InvoiceViewModelMapperTests
 {
     private readonly IMapper<InvoiceViewModel, Invoice> _mapper;
-    private readonly Mock<IMapper<LineItemViewModel, LineItem>> _mockedLineItemMapper;
     private readonly Random _rng;
 
     public InvoiceViewModelMapperTests()
     {
         _rng = new Random();
-        _mockedLineItemMapper = new Mock<IMapper<LineItemViewModel, LineItem>>();
-        _mockedLineItemMapper.Setup(x =>
-            x.Convert(It.IsAny<LineItem>())).Returns(new LineItemViewModel());
-        _mapper = new InvoiceViewModelMapper(_mockedLineItemMapper.Object);
+        IMapper<LineItemViewModel, LineItem> mockedLineItemMapper =
+            Substitute.For<IMapper<LineItemViewModel, LineItem>>();
+        mockedLineItemMapper.Convert(new LineItem()).ReturnsForAnyArgs(new LineItemViewModel());
+        _mapper = new InvoiceViewModelMapper(mockedLineItemMapper);
     }
 
     [Fact]
@@ -28,13 +29,7 @@ public class InvoiceViewModelMapperTests
             VatRate = _rng.Next(10, 25),
             LineItems = new List<LineItem>
             {
-                new()
-                {
-                    InvoiceId = 1,
-                    Cost = 10,
-                    Description = Guid.NewGuid().ToString(),
-                    Quantity = 1
-                }
+                new() { InvoiceId = 1, Cost = 10, Description = Guid.NewGuid().ToString(), Quantity = 1 }
             }
         };
 
