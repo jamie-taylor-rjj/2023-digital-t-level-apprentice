@@ -22,7 +22,7 @@ public class ClientRepoTests
         await DeleteAll(context);
         await context.Clients.AddRangeAsync(clientList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
         var sut = new ClientRepository(context, mockedLogger);
@@ -41,12 +41,12 @@ public class ClientRepoTests
     {
         // arrange
         var clientList = ClientHelpers.GenerateRandomListOfClients(100);
-        
+
         await using var context = new InvoiceGenDbContext(_contextOptions);
         await DeleteAll(context);
         await context.Clients.AddRangeAsync(clientList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
         var sut = new ClientRepository(context, mockedLogger);
@@ -77,7 +77,7 @@ public class ClientRepoTests
         await DeleteAll(context);
         await context.Clients.AddRangeAsync(clientList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
         var sut = new ClientRepository(context, mockedLogger);
@@ -130,7 +130,7 @@ public class ClientRepoTests
         await DeleteAll(context);
         await context.Clients.AddRangeAsync(clientList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
         var sut = new ClientRepository(context, mockedLogger);
@@ -177,7 +177,7 @@ public class ClientRepoTests
         await DeleteAll(context);
         await context.Clients.AddRangeAsync(clientList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<ClientRepository>>();
 
         var sut = new ClientRepository(context, mockedLogger);

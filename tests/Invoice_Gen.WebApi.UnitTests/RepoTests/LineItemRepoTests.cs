@@ -11,7 +11,7 @@ public class LineItemRepoTests
             .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
             .Options;
     }
-    
+
     [Fact]
     public async Task GetAll_Returns_ListOfLineItemInstances()
     {
@@ -30,7 +30,7 @@ public class LineItemRepoTests
         await DeleteAll(context);
         await context.LineItems.AddRangeAsync(lineItemList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<LineItemRepository>>();
 
         var sut = new LineItemRepository(mockedLogger, context);
@@ -43,7 +43,7 @@ public class LineItemRepoTests
         Assert.IsAssignableFrom<List<LineItem>>(response);
         Assert.NotEmpty(response);
     }
-    
+
     private async Task DeleteAll(InvoiceGenDbContext context)
     {
         foreach (var lineItems in context.LineItems)

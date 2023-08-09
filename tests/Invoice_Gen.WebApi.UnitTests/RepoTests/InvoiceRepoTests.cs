@@ -11,7 +11,7 @@ public class InvoiceRepoTests
             .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
             .Options;
     }
-    
+
     [Fact]
     public async Task GetAll_Returns_ListOfInvoiceInstances()
     {
@@ -31,7 +31,7 @@ public class InvoiceRepoTests
         await DeleteAll(context);
         await context.Invoices.AddRangeAsync(invoiceList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
         var sut = new InvoiceRepository(mockedLogger, context);
@@ -50,12 +50,12 @@ public class InvoiceRepoTests
     {
         // arrange
         var invoiceList = InvoiceHelpers.GenerateRandomListOfInvoices(100);
-        
+
         await using var context = new InvoiceGenDbContext(_contextOptions);
         await DeleteAll(context);
         await context.Invoices.AddRangeAsync(invoiceList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
         var sut = new InvoiceRepository(mockedLogger, context);
@@ -84,7 +84,7 @@ public class InvoiceRepoTests
         await DeleteAll(context);
         await context.Invoices.AddRangeAsync(invoiceList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
         var sut = new InvoiceRepository(mockedLogger, context);
@@ -140,7 +140,7 @@ public class InvoiceRepoTests
         await DeleteAll(context);
         await context.Invoices.AddRangeAsync(invoiceList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
         var sut = new InvoiceRepository(mockedLogger, context);
@@ -190,7 +190,7 @@ public class InvoiceRepoTests
         await DeleteAll(context);
         await context.Invoices.AddRangeAsync(invoiceList);
         await context.SaveChangesAsync();
-        
+
         var mockedLogger = Substitute.For<ILogger<InvoiceRepository>>();
 
         var sut = new InvoiceRepository(mockedLogger, context);
@@ -204,7 +204,7 @@ public class InvoiceRepoTests
         Assert.IsAssignableFrom<List<Invoice>>(listAfterDelete);
         Assert.False(listAfterDelete.Count == 1);
     }
-    
+
     private async Task DeleteAll(InvoiceGenDbContext context)
     {
         foreach (var invoice in context.Invoices)
